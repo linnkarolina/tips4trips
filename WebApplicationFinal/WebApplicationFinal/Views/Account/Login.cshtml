@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Login.cshtml";
+}
+
+
+
+    <div class="login-page">
+        <div class="form">
+      
+            <form action="Verify" method="POST" class="login-form">
+                <input type="text" placeholder="username" name="Name" />
+                <input type="password" placeholder="password" name="Password" />
+                <button>login</button>
+
+            </form>
+            <p class="message">Not registered? <a href="/Account/Register">Create an account</a></p>
+        </div>
+    </div>

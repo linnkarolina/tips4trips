@@ -1,5 +1,73 @@
 ﻿@import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+    .animated.infinite {
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+    }
+
+    .animated.hinge {
+        -webkit-animation-duration: 2s;
+        animation-duration: 2s;
+    }
+
+    .animated.bounceIn,
+    .animated.bounceOut {
+        -webkit-animation-duration: .75s;
+        animation-duration: .75s;
+    }
+
+    .animated.flipOutX,
+    .animated.flipOutY {
+        -webkit-animation-duration: .75s;
+        animation-duration: .75s;
+    }
+
+@-webkit-keyframes shake {
+    from, to {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+
+    10%, 30%, 50%, 70%, 90% {
+        -webkit-transform: translate3d(-10px, 0, 0);
+        transform: translate3d(-10px, 0, 0);
+    }
+
+    20%, 40%, 60%, 80% {
+        -webkit-transform: translate3d(10px, 0, 0);
+        transform: translate3d(10px, 0, 0);
+    }
+}
+
+@keyframes shake {
+    from, to {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+
+    10%, 30%, 50%, 70%, 90% {
+        -webkit-transform: translate3d(-10px, 0, 0);
+        transform: translate3d(-10px, 0, 0);
+    }
+
+    20%, 40%, 60%, 80% {
+        -webkit-transform: translate3d(10px, 0, 0);
+        transform: translate3d(10px, 0, 0);
+    }
+}
+
+.shake {
+    -webkit-animation-name: shake;
+    animation-name: shake;
+}
+
 .login-page {
     width: 360px;
     padding: 8% 0 0;
@@ -112,4 +180,57 @@ body {
     font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+
+.hidden {
+	display: none;
+}
+
+.error {
+	color: firebrick;
+	font-weight: 700;
+}
+
+
+
+.row {
+	margin: 30px 0;
+}
+
+label {
+	display: block;
+	margin-bottom: 4px;
+	font-weight: 700;
+}
+
+.info {
+	font-size: 0.8em;
+	font-weight: 300;
+}
+
+input {
+	border: none;
+	border-bottom: 1px solid #000;
+	background: transparent;
+	width: 220px;
+	padding: 5px;
+	margin-top: 5px;
+	font-weight: 400;
+}
+
+input:focus {
+	outline: none;
+}
+
+input[type=submit] {
+	padding: 10px 0;
+	width: 100%;
+	border: 1px solid #000;
+	cursor: pointer;
+}
+
+input[type=submit]:hover {
+	background-color: #000;
+	color: #eee;
 }

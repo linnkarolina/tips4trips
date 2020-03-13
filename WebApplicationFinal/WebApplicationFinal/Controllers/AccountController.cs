@@ -41,8 +41,8 @@ namespace WebApplicationFinal.Controllers
            else
             {
                 mysql.Close();
-                Response.Write("INVALID Username and Password, Try Again!");
-                // return View("Login");
+               
+                 return View("Login");
 
             }
 
@@ -77,4 +77,3 @@ namespace WebApplicationFinal.Controllers
 
         }
     }
-}

@@ -35,6 +35,10 @@ namespace WebApplicationFinal.Controllers
             MySqlDataReader dr = comm.ExecuteReader();
            if(dr.Read())
             {
+                HttpCookie Cridentials = new HttpCookie("UserCookie");
+                Cridentials["name"] = acc.Name;
+                Cridentials.Expires = DateTime.Now.AddHours(1);
+                Response.Cookies.Add(Cridentials);
                 mysql.Close();
                 return View("Create");
             }

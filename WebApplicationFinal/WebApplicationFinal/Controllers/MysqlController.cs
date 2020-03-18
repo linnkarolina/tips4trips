@@ -7,13 +7,17 @@ using WebApplicationFinal.Models;
 using System.Data;
 using System.Configuration;
 using MySql.Data.MySqlClient;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplicationFinal.Controllers
 {
     public class MysqlController : Controller
     {
         // GET: Mysql
-        public ActionResult Index()
+
+      
+        public ActionResult ShowAdmin()
         {
             List<MysqlClass> list1 = new List<MysqlClass>();
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
@@ -36,5 +40,54 @@ namespace WebApplicationFinal.Controllers
             mysql.Close();
             return View(list1);
         }
+
+      [HttpPost]
+        public ActionResult DeleteAdmin(MysqlClass adm)
+        {
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+            string query = "DELETE FROM admin WHERE username='" + adm.Name + "';";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+            int dr = comm.ExecuteNonQuery();
+            if (dr != null)
+            {
+                mysql.Close();
+                return View("Success");
+            }
+            else
+            {
+                mysql.Close();
+                return View("Fail");
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult UpdateAdmin(MysqlClass adm)
+        {
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+            string query = "Update admin set password='"+adm.Pass+"'  WHERE username='" + adm.Name + "';";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+            int dr = comm.ExecuteNonQuery();
+            if (dr != null)
+            {
+                mysql.Close();
+                return View("Success");
+            }
+            else
+            {
+                mysql.Close();
+                return View("Fail");
+            }
+
+        }
+
+
+
     }
 }

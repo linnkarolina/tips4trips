@@ -1,7 +1,17 @@
 ﻿
+function setCookie(name, value, maxAgeSeconds) {
+    var maxAgeSegment = "; max-age=" + maxAgeSeconds;
+    document.cookie = encodeURI(name) + "=" + encodeURI(value) + maxAgeSegment;
+}
+
+function getCookie(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
+}
 
 var x = document.cookie;
-if (x === 'ok') {
+if (x === 'blaise') {
     console.log("fEIL PASSORD");
     var head = document.getElementsByTagName('HEAD')[0];
 
@@ -21,10 +31,11 @@ if (x === 'ok') {
 
 
 } else {
-    console.log("oke");
+   x= setCookie("login", "blaise", 30);
+ 
     document.cookie = "ok";
     
-    console.log(x);
+    console.log(getCookie(x));
 }
        
 

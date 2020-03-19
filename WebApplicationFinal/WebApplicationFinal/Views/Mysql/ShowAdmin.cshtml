@@ -1,0 +1,40 @@
+﻿@model IEnumerable<WebApplicationFinal.Models.MysqlClass>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<body>
+    <table>
+        <tr>
+            <th>ID_admin</th>
+            <th>username</th>
+            <th>password</th>
+        </tr>
+        @foreach (WebApplicationFinal.Models.MysqlClass details in Model)
+        {
+            <tr>
+                <td>@details.ID_admin</td>
+                <td>@details.Username</td>
+                <td>@details.Password</td>
+            </tr>
+
+        }
+    </table>
+
+    <form action="DeleteAdmin" method="POST">
+        <h3>you can delete user from here </h3>
+        <input type='text' id='username' name="Name" placeholder='johnnysmith' />
+        <button type="submit">Delete</button>
+    </form>
+
+    <form action="UpdateAdmin" method="POST">
+        <h3>you can change user's password from here </h3>
+        <input type='text' id='username' name="Name" placeholder='johnnysmith' />
+        <input type='password' id='password' name="Pass" />
+        <button type="submit">Change</button>
+    </form>
+</body>

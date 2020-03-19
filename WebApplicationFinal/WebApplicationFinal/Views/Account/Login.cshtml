@@ -12,11 +12,30 @@
         <div class="form">
       
             <form action="LoginVerify" method="POST" class="login-form">
-                <input type="text" placeholder="username" name="Name" />
- 
-                <input type="password" placeholder="password" name="Password" />
-                <button id="submit">login</button>
-
+                    <div class='row'>
+                        <label for='username'>Username</label>
+                        <div class='info'>
+                            &#8627;
+                            <span class='length'>at least 5 characters long,</span>
+                            <span class='spaces'>no spaces</span>
+                            <div class='availability hidden'>
+                                &#8627;
+                                <span class='error'>name is already taken</span>
+                            </div>
+                        </div>
+                        <input type='text' id='username' name="Name" placeholder='johnnysmith'/>
+                    </div>
+                    <div class='row'>
+                        <label for='password'>Password</label>
+                        <div class='info'>
+                            &#8627;
+                            <span class='length'>at least 5 characters long</span>
+                        </div>
+                        <input type='password' id='Password' name="Password" placeholder='&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;'/>
+                    </div>
+                    <div class='row'>
+                        <button type="submit">Login</button>
+                    </div>
             </form>
             <p class="message">Not registered? <a href="/Account/Register">Create an account</a></p>
         </div>

@@ -40,7 +40,7 @@ namespace WebApplicationFinal.Controllers
                 Cridentials.Expires = DateTime.Now.AddHours(1);
                 Response.Cookies.Add(Cridentials);
                 mysql.Close();
-                return View("Create");
+                return View("../Home/Index");
             }
            else
             {
@@ -64,12 +64,12 @@ namespace WebApplicationFinal.Controllers
             if (dr!=0)
             {
                 mysql.Close();
-                return View("Create");
+                return View("Index");
             }
             else
             {
                 mysql.Close();
-                return View("Error");
+                return View("Register");
             }
 
 

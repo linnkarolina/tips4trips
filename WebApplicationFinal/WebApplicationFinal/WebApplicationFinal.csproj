@@ -206,7 +206,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Photos\geiranger.jpg" />
+    <Content Include="Photos\city_street_maps_dribbble.jpg" />
+    <Content Include="Photos\forest-dark.jpg" />
+    <Content Include="Photos\forest.jpg" />
+    <Content Include="Photos\norway-island.jpg" />
+    <Content Include="Photos\norway-sunset.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -313,6 +317,7 @@
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Styles\Login.css" />
     <Content Include="Styles\shake.css" />
+    <Content Include="Content\Frontpage.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

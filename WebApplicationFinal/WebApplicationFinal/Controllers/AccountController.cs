@@ -7,7 +7,8 @@ using WebApplicationFinal.Models;
 using MySql.Data;
 using System.Configuration;
 using MySql.Data.MySqlClient;
-
+using System.Web.Security;
+using System.Diagnostics;
 
 namespace WebApplicationFinal.Controllers
 {
@@ -40,7 +41,8 @@ namespace WebApplicationFinal.Controllers
                 Cridentials.Expires = DateTime.Now.AddHours(5);
                 Response.Cookies.Add(Cridentials);
                 mysql.Close();
-                return View("../Home/Index");
+                Response.Redirect("../Home/Index", false);
+                return null;
             }
            else
             {
@@ -75,5 +77,15 @@ namespace WebApplicationFinal.Controllers
 
 
         }
+
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            
+            Response.Cookies["UserCookie"].Value = null;
+           
+            Response.Redirect("../Home/Index", false);
+            return null;
         }
+    }
     }

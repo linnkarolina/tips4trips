@@ -38,12 +38,10 @@
                     <a class="nav-link" href="/Account/Login">Log in</a>
                 </li>
             </ul>
-            @{ string cookievalue;
-                if (Request.Cookies["UserCookie"].Value != null)
+            @{ 
+                if (Request.Cookies["UserCookie"].Value =="name=abc123")
                 {
 
-                    cookievalue = Request.Cookies["UserCookie"].Value.ToString();
-                    @cookievalue
 
                     <div class="dropdownmenu">
 
@@ -52,20 +50,11 @@
                         </button>
 
                         <div id="Dropdown" class="dropdownmenu-content">
-                            
-                            <asp:HyperLink class="a" ID="HyperLink2"
-                                           runat="server" href="#">Log out
-                            </asp:HyperLink>
-                             
-                                <a onclick="logOut()" href="#">Sign out</a>
+                                <a href="/Account/LogOut">Sign out</a>
                                 <a href="#HTML">My Account</a>
                                 <a href="#CSS">My taggs</a>
                                 </div>
                     </div>
-                }
-                else
-                {
-
                 }
             }
 

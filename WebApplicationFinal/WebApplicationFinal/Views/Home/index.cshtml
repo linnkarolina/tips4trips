@@ -6,27 +6,6 @@
 
 
 
-
-@{ string cookievalue;
-    if (Request.Cookies["UserCookie"] != null)
-    {
-
-        cookievalue = Request.Cookies["UserCookie"].Value.ToString();
-        @cookievalue
-    }
-    else
-    {
-
-    }
-}
-
-
-
-<asp:HyperLink ID="HyperLink2"
-               runat="server">
-    abc
-</asp:HyperLink>
-
 <div class="slider" id="main-slider">
     <!-- outermost container element -->
     <div class="slider-wrapper">

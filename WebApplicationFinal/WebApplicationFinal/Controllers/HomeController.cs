@@ -19,10 +19,5 @@ namespace WebApplicationFinal.Controllers
             ViewData["Runtime"] = isMono ? "Mono" : ".NET";
             return View();
         }
-
-        
-        
-            
-        
 }
 }

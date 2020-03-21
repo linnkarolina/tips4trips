@@ -1,17 +1,31 @@
 
-﻿<h2>Welcome to ASP.net mvc @ViewData["Version"] on @ViewData["Runtime"]!</h2>
-
-
-følgende sider som fungerer til nå:
-<br />
-<a href="https://localhost:44364/Account/Login"> Du kan registrere deg her</a>
-<br />
-<a href="https://localhost:44364/Mysql/ShowAdmin"> Se admin tabell</a>
-
 
 <link rel="stylesheet" type="text/css" href="../Content/Site.css" />
 <link rel="stylesheet" type="text/css" href="../Content/Frontpage.css" />
 <script src="~/Scripts/Slideshow.js"></script>
+
+
+
+
+@{ string cookievalue;
+    if (Request.Cookies["UserCookie"] != null)
+    {
+
+        cookievalue = Request.Cookies["UserCookie"].Value.ToString();
+        @cookievalue
+    }
+    else
+    {
+
+    }
+}
+
+
+
+<asp:HyperLink ID="HyperLink2"
+               runat="server">
+    abc
+</asp:HyperLink>
 
 <div class="slider" id="main-slider">
     <!-- outermost container element -->
@@ -26,11 +40,13 @@ følgende sider som fungerer til nå:
 <div class="trips-container">
     <div class="trips">
 
-        <img src="~/Photos/city_street_maps_dribbble.jpg" width="200" height="100"/>
+        <img src="~/Photos/city_street_maps_dribbble.jpg" width="200" height="100" />
         <h3>Lorem ipseum</h3>
-        <p>Neque porro quisquam est qui dolorem
-        ipsum quia dolor sit amet,
-        consectetur, adipisci velit </p>
+        <p>
+            Neque porro quisquam est qui dolorem
+            ipsum quia dolor sit amet,
+            consectetur, adipisci velit
+        </p>
     </div>
     <div class="trips">
         <img src="~/Photos/city_street_maps_dribbble.jpg" width="200" height="100" />
@@ -43,7 +59,7 @@ følgende sider som fungerer til nå:
 
     </div>
     <div class="trips">
-        <img src="~/Photos/city_street_maps_dribbble.jpg" width="200" height="100"/>
+        <img src="~/Photos/city_street_maps_dribbble.jpg" width="200" height="100" />
         <h3>Lorem ipseum</h3>
         <p>
             Neque porro quisquam est qui dolorem

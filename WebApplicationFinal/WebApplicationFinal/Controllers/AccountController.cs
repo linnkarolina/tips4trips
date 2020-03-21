@@ -7,7 +7,7 @@ using WebApplicationFinal.Models;
 using MySql.Data;
 using System.Configuration;
 using MySql.Data.MySqlClient;
-using System.Diagnostics;
+
 
 namespace WebApplicationFinal.Controllers
 {
@@ -37,7 +37,7 @@ namespace WebApplicationFinal.Controllers
             {
                 HttpCookie Cridentials = new HttpCookie("UserCookie");
                 Cridentials["name"] = acc.Name;
-                Cridentials.Expires = DateTime.Now.AddHours(1);
+                Cridentials.Expires = DateTime.Now.AddHours(5);
                 Response.Cookies.Add(Cridentials);
                 mysql.Close();
                 return View("../Home/Index");
@@ -61,7 +61,7 @@ namespace WebApplicationFinal.Controllers
             comm.Connection = mysql;
             mysql.Open();
             int dr = comm.ExecuteNonQuery();
-            if (dr!=0)
+            if (dr != 0)
             {
                 mysql.Close();
                 return View("Index");
@@ -75,9 +75,5 @@ namespace WebApplicationFinal.Controllers
 
 
         }
-
-     
-
-
         }
     }

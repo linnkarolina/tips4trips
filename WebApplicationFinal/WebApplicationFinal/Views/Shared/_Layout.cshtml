@@ -38,26 +38,33 @@
                     <a class="nav-link" href="/Account/Login">Log in</a>
                 </li>
             </ul>
-            @{ 
-                if (Request.Cookies["UserCookie"].Value =="name=abc123")
+            @{ try
                 {
+
+
+                    if (Request.Cookies["UserCookie"].Value == "name=abc123")
+                    {
 
 
                     <div class="dropdownmenu">
 
-                        <button onclick="btnToggle()" class="dropbutton">
+                        <button onclick="btnToggle()" class="btn btn-secondary" stye="padding:10px;">
+
                             Account
                         </button>
 
                         <div id="Dropdown" class="dropdownmenu-content">
-                                <a href="/Account/LogOut">Sign out</a>
-                                <a href="#HTML">My Account</a>
-                                <a href="#CSS">My taggs</a>
-                                </div>
+                            <a href="/Account/LogOut">Sign out</a>
+                            <a href="#HTML">My Account</a>
+                            <a href="#CSS">My taggs</a>
+                        </div>
                     </div>
+                            }
+                        }
+                catch (NullReferenceException) { }
                 }
-            }
-
+           
+           
 
 
 

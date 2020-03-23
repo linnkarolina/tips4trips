@@ -65,8 +65,14 @@ namespace WebApplicationFinal.Controllers
             int dr = comm.ExecuteNonQuery();
             if (dr != 0)
             {
+                HttpCookie cridentials = new HttpCookie("UserCookie");
+                cridentials["name"] = acc.Name;
+                cridentials.Expires = DateTime.Now.AddHours(5);
+                Response.Cookies.Add(cridentials);
+                Response.Cookies["UserCookie"].Value = "name=" + acc.Name;
                 mysql.Close();
-                return View("Index");
+                Response.Redirect("../Home/Index", false);
+                return null;
             }
             else
             {

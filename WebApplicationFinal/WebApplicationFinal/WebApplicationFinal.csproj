@@ -188,12 +188,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ExploreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MysqlController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\ExploreClass.cs" />
     <Compile Include="Models\MysqlClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -207,6 +209,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Photos\account.png" />
     <Content Include="Photos\city_street_maps_dribbble.jpg" />
     <Content Include="Photos\forest-dark.jpg" />
     <Content Include="Photos\forest.jpg" />
@@ -352,6 +355,7 @@
     <Content Include="Views\mysqllayoutpage.cshtml" />
     <Content Include="Views\Mysql\Success.cshtml" />
     <Content Include="Views\Mysql\Fail.cshtml" />
+    <Content Include="Views\Explore\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

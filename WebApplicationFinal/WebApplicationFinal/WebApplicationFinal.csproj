@@ -323,6 +323,7 @@
     <Content Include="Styles\Login.css" />
     <Content Include="Styles\shake.css" />
     <Content Include="Content\Frontpage.css" />
+    <Content Include="Styles\explore.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -3,13 +3,13 @@
     ViewBag.Title = "Explore";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+    <link href="~/Styles/explore.css" rel="stylesheet" />
 <h2>Explore</h2>
 
-<div class="trips-container"></div>
+<div class="trips-container">
     @foreach (WebApplicationFinal.Models.ExploreClass details in Model)
     {
-        
+
 
         <div class="trips">
           <div class="area">  @details.area</div>
@@ -24,4 +24,5 @@
         </div>
 
     }
+    </div>
 

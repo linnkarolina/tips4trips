@@ -14,7 +14,7 @@
 .trips {
     margin: 5px;
     min-width:200px;
-    width: 32%;
+    width: 30%;
     background-color: #444;
     color: #fff;
     border-radius: 5px;
@@ -47,7 +47,7 @@
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: #78C2AD;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -76,7 +76,6 @@
 
 #main {
     transition: margin-left .5s;
-    padding: 16px;
 }
 
 @media screen and (max-height: 450px) {
@@ -87,4 +86,13 @@
         .sidenav a {
             font-size: 18px;
         }
+}
+
+.filter{
+    margin-left:20px;
+    margin-right:10px;
+}
+
+.diff{
+    margin-bottom:20px;
 }

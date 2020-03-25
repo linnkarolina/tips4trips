@@ -18,6 +18,9 @@ namespace WebApplicationFinal.Models
         public string attraction_website { get; set; }
         public string image { get; set; }
 
+        public string SomeData { get; set; }
+        public int FileId { get; set; }
+
 
     }
 }

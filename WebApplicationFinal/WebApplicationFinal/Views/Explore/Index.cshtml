@@ -3,26 +3,53 @@
     ViewBag.Title = "Explore";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-    <link href="~/Styles/explore.css" rel="stylesheet" />
-<h2>Explore</h2>
+<script src="~/Scripts/Explore.js"></script>
+<link href="~/Styles/explore.css" rel="stylesheet" />
+<div class="container-page">
+    
 
-<div class="trips-container">
-    @foreach (WebApplicationFinal.Models.ExploreClass details in Model)
-    {
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <h2>Filter</h2>
+        <h3>Area</h3>
+        <form method="POST" action¨="#">
+            <input type="text" id="area" placeholder="Oslo" />
+            <h3>Tags</h3>
+            <input type="text" id="tags" placeholder="Climbing" />
+            <h3>Difficulty</h3>
+            <input type="radio" id="easy" name="difficulty" value="easy">
+            <label for="easy">Easy</label><br>
+            <input type="radio" id="medium" name="difficulty" value="medium">
+            <label for="medium">Medium</label><br>
+            <input type="radio" id="hard" name="difficulty" value="hard">
+            <label for="hard">Hard</label><br>
+            <button type="reset" value="Reset">Reset</button>
+            <button type="submit" value="Submit">Search</button>
 
-
-        <div class="trips">
-          <div class="area">  @details.area</div>
-          <div class="areaid">  @details.area_ID_area</div>
-          <div class="type_of_trip">  @details.type_of_trip</div>
-          <div class="length_of_trip">  @details.length_of_trip</div>
-          <div class="difficulty">  @details.difficulty</div>
-          <div class="description">  @details.description</div>
-         <div class="location">@details.location</div>
-          <div class="attraction_website">  @details.attraction_website</div>
-          <div class="image">  @details.image</div>
-        </div>
-
-    }
+        </form>
     </div>
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+
+    
+    <div id="main">
+    <div class="trips-container">
+        @foreach (WebApplicationFinal.Models.ExploreClass details in Model)
+        {
+
+            <div class="trips">
+                <div class="area">  @details.area</div>
+                <div class="areaid">  @details.area_ID_area</div>
+                <div class="type_of_trip">  @details.type_of_trip</div>
+                <div class="length_of_trip">  @details.length_of_trip</div>
+                <div class="difficulty">  @details.difficulty</div>
+                <div class="description">  @details.description</div>
+                <div class="location">@details.location</div>
+                <div class="attraction_website">  @details.attraction_website</div>
+                <div class="image">  @details.image</div>
+            </div>
+
+        }
+    </div>
+     </div>
+</div>
 

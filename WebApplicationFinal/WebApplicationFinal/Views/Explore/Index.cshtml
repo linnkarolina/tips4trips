@@ -1,36 +1,60 @@
 ﻿@model IEnumerable<WebApplicationFinal.Models.ExploreClass>
 @{
     ViewBag.Title = "Explore";
-    Layout = "~/Views/_ViewStart.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src="~/Scripts/Explore.js"></script>
+<link href="~/Styles/explore.css" rel="stylesheet" />
+<div class="container-page">
+    
 
-<h2>Explore</h2>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="filter">
+        <h2>Filter</h2>
+      
+        <form method="POST" action¨="#">
 
-<table>
-    <tr>
-        <th>area</th>
-        <th>area_ID_area</th>
-        <th>type_of_trip</th>
-        <th>length_of_trip</th>
-        <th>difficulty</th>
-        <th>description</th>
-        <th>location</th>
-        <th>attraction_website</th>
-        <th>image</th>
-    </tr>
-    @foreach (WebApplicationFinal.Models.ExploreClass details in Model)
-    {
-<tr>
-    <td>@details.area</td>
-    <td>@details.area_ID_area</td>
-    <td>@details.type_of_trip</td>
-    <td>@details.length_of_trip</td>
-    <td>@details.difficulty</td>
-    <td>@details.description</td>
-    <td>@details.location</td>
-    <td>@details.attraction_website</td>
-    <td>@details.image</td>
-</tr>
+            <label class="col-form-label" for="area">Area</label>
+            <input type="text" class="form-control" placeholder="area" id="area">
+            <label class="col-form-label" for="tags">Tags</label>
+            <input type="text" class="form-control" placeholder="tags" id="tags">
+            <label class="col-form-label" for="difficulty">Difficulty</label>
+               <div class="diff">
+                   <div class="btn-group" role="group" aria-label="Basic example">
+                       <button type="button" class="btn btn-secondary">Easy</button>
+                       <button type="button" class="btn btn-secondary">Medium</button>
+                       <button type="button" class="btn btn-secondary">Hard</button>
+                   </div>
+                   </div>
+            <button type="reset" value="reset" class="btn btn-secondary">Reset</button>
+            <button type="submit" value="submit" class="btn btn-secondary">Search</button>
 
-    }
-</table>
+        </form>
+         </div>
+    </div>
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+
+    
+    <div id="main">
+    <div class="trips-container">
+        @foreach (WebApplicationFinal.Models.ExploreClass details in Model)
+        {
+
+        <div class="trips">
+
+            
+            <div class="image">  <img src="~/Photos/forest.jpg" width="300" height="300" /></div>
+            <div class="areaid">  @details.area_ID_area</div>
+            <div class="description">  @details.description</div>
+            <div class="type_of_trip">  @details.type_of_trip</div>
+            <div class="length_of_trip">  @details.length_of_trip</div>
+            <div class="difficulty">  @details.difficulty</div>
+
+        </div>
+
+        }
+    </div>
+     </div>
+</div>
+

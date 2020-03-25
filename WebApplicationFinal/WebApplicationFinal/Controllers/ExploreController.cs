@@ -33,9 +33,9 @@ namespace WebApplicationFinal.Controllers
                     description = dr["description"].ToString(),
                     location = dr["location"].ToString(),
                     attraction_website = dr["attraction_website"].ToString(),
-                    image = dr["image"].ToString(),
+                    image = Convert.ToBase64String((byte[])dr["image"])
 
-                });
+            });
             }
             mysql.Close();
             return View(list1);

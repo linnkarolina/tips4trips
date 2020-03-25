@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "Map";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<!-- template from http://getbootstrap.com/getting-started -->
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Google Maps example</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+
+    <style type="text/css">
+
+        #map_canvas {
+            height: 400px;
+        }
+    </style>
+</head>
+
+
+
+
+    <script>
+    var cities = @Html.Raw(Json.Encode(Model));
+	//console.log(cities);
+
+
+
+    $(document).ready(function() {
+        // execute
+        (function() {
+            // map options
+            var options = {
+                zoom: 5,
+                center: new google.maps.LatLng(45.1479007,7.4386887),
+                mapTypeId: google.maps.MapTypeId.TERRAIN,
+                mapTypeControl: false
+            };
+
+            // init map
+            var map = new google.maps.Map(document.getElementById('map_canvas'), options);
+
+
+            for (var i = 0; i < cities.length; i++) {
+                // init markers
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(cities[i].Lat, cities[i].Lng),
+                    map: map,
+                    title: cities[i].Title
+                });
+
+                // process multiple info windows
+                (function(marker, i) {
+                    // add click event
+                    google.maps.event.addListener(marker, 'click', function() {
+                        infowindow = new google.maps.InfoWindow({
+                            content: cities[i].Title
+                        });
+                        infowindow.open(map, marker);
+                    });
+                })(marker, i);
+            }
+        })();
+    });
+
+    </script>
+
+    <div id="map_canvas"></div>
+
+

@@ -16,10 +16,9 @@ namespace WebApplicationFinal.Models
         public string description { get; set; }
         public string location { get; set; }
         public string attraction_website { get; set; }
-        public string image { get; set; }
+        public byte [] image { get; set; }
 
-        public string SomeData { get; set; }
-        public int FileId { get; set; }
+     
 
 
     }

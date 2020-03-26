@@ -4,6 +4,9 @@ using System.Web.Mvc;
 using WebApplicationFinal.Models;
 using System.Configuration;
 using MySql.Data.MySqlClient;
+using System.Drawing;
+using System.IO;
+
 
 namespace WebApplicationFinal.Controllers
 {
@@ -33,7 +36,7 @@ namespace WebApplicationFinal.Controllers
                     description = dr["description"].ToString(),
                     location = dr["location"].ToString(),
                     attraction_website = dr["attraction_website"].ToString(),
-                    image = Convert.ToBase64String((byte[])dr["image"])
+                    image = (byte[])dr["image"],
 
             });
             }

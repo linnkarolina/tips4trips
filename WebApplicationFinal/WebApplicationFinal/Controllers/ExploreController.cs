@@ -4,11 +4,6 @@ using System.Web.Mvc;
 using WebApplicationFinal.Models;
 using System.Configuration;
 using MySql.Data.MySqlClient;
-using System.Drawing;
-using System.IO;
-using System.Data;
-
-using System.Data.SqlClient;
 
 
 namespace WebApplicationFinal.Controllers
@@ -49,25 +44,25 @@ namespace WebApplicationFinal.Controllers
             MySqlCommand comm = new MySqlCommand(query);
             comm.Connection = mysql;
             mysql.Open();
-            MySqlDataReader sdr = comm.ExecuteReader();
+
+            MySqlDataReader dr = comm.ExecuteReader();
+            while (dr.Read())
+            {
+                list1.Add(new ExploreClass
+                {
+                    area = dr["area"].ToString(),
+                    area_ID_area = dr["area_ID_area"].ToString(),
+                    type_of_trip = dr["type_of_trip"].ToString(),
+                    length_of_trip = dr["length_of_trip"].ToString(),
+                    difficulty = dr["difficulty"].ToString(),
+                    description = dr["description"].ToString(),
+                    location = dr["location"].ToString(),
+                    attraction_website = dr["attraction_website"].ToString(),
 
 
-                     while (sdr.Read())
-                     {
-                    images.Add(new ExploreClass
-                         {
-                        Id = Convert.ToInt32(sdr["area"]),
-                        Name = sdr["area_ID_area"].ToString(),
-                        ContentType = sdr["type_of_trip"].ToString(),
-
-                        Data = (byte[])sdr["image"]
                 });
-                    }
-        
-                    mysql.Close();
-            return images;
-            }
 
-                
             }
         }
+    }
+}

@@ -16,11 +16,7 @@ namespace WebApplicationFinal.Models
         public string description { get; set; }
         public string location { get; set; }
         public string attraction_website { get; set; }
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string ContentType { get; set; }
-        public byte[] Data { get; set; }
-        public bool IsSelected { get; set; }
+
 
 
 

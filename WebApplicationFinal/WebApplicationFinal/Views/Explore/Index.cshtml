@@ -1,6 +1,5 @@
-﻿@using WebApplicationFinal.Models
-@model IEnumerable<WebApplicationFinal.Models.ExploreClass>
-@{
+﻿@model IEnumerable<WebApplicationFinal.Models.ExploreClass>
+    @{ 
     ViewBag.Title = "Explore";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -47,17 +46,12 @@
 
                 <div class="trips">
 
-
-
-                    <div class="image">  <img src="~/Photos/forest.jpg" width="300" height="300" /></div>
-
-            
-            <div class="image">  <img src="~/Photos/forest.jpg" width="300" height="300" /></div>
-            <div class="areaid">  @details.area_ID_area</div>
-            <div class="description">  @details.description</div>
-            <div class="type_of_trip">  @details.type_of_trip</div>
-            <div class="length_of_trip">  @details.length_of_trip</div>
-            <div class="difficulty">  @details.difficulty</div>
+                    <img src="data:image;base64,@System.Convert.ToBase64String(details.image)" />
+                    <div class="areaid">  @details.area_ID_area</div>
+                    <div class="description">  @details.description</div>
+                    <div class="type_of_trip">  @details.type_of_trip</div>
+                    <div class="length_of_trip">  @details.length_of_trip</div>
+                    <div class="difficulty">  @details.difficulty</div>
 
                 </div>
 
@@ -65,27 +59,3 @@
         </div>
     </div>
 </div>
-
-@using (Html.BeginForm( "Explore","Explore", FormMethod.Post))
-{
-    <span>Select Image:</span>
-    <select name="ImageId" onchange="document.forms[0].submit();">
-        <option value="0">Please select</option>
-        @foreach (ExploreClass image in Model)
-        {
-            if (image.IsSelected)
-            {
-                <option value="@image.Id" selected="selected">@image.Name</option>
-            }
-            else
-            {
-                <option value="@image.Id">@image.Name</option>
-            }
-        }
-    </select>
-}
-@if (ViewBag.Base64String != null)
-{
-    <hr />
-    <img alt="" src="@ViewBag.Base64String" style="height:100px;width:100px;" />
-}

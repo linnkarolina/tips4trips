@@ -4,15 +4,22 @@ using System.Web.Mvc;
 using WebApplicationFinal.Models;
 using System.Configuration;
 using MySql.Data.MySqlClient;
+using System.Drawing;
+using System.IO;
+
 
 namespace WebApplicationFinal.Controllers
 {
     public class ExploreController : Controller
-    {  
+    {
+
 
         public ActionResult Index()
         {
-            List<ExploreClass> list1 = new List<ExploreClass>();
+
+
+            List<ExploreClass> images = new List<ExploreClass>();
+
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
 
@@ -20,11 +27,14 @@ namespace WebApplicationFinal.Controllers
             MySqlCommand comm = new MySqlCommand(query);
             comm.Connection = mysql;
             mysql.Open();
+
             MySqlDataReader dr = comm.ExecuteReader();
             while (dr.Read())
             {
-                list1.Add(new ExploreClass
+                images.Add(new ExploreClass
                 {
+
+
                     area = dr["area"].ToString(),
                     area_ID_area = dr["area_ID_area"].ToString(),
                     type_of_trip = dr["type_of_trip"].ToString(),
@@ -33,12 +43,24 @@ namespace WebApplicationFinal.Controllers
                     description = dr["description"].ToString(),
                     location = dr["location"].ToString(),
                     attraction_website = dr["attraction_website"].ToString(),
-                    image = Convert.ToBase64String((byte[])dr["image"])
+                    image = (byte[])dr["Image"],
+
+                  
+                
 
             });
+              
             }
-            mysql.Close();
-            return View(list1);
+            return View(images);
         }
+
+
+       
+
+
     }
-}
+
+
+
+            
+   }

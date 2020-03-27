@@ -2,15 +2,21 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/navbar.css" rel="stylesheet" />
+    <script src="~/Scripts/navaccount.js"></script>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <meta charset="UTF-8">
+   
 </head>
 
 <body>
+
+   
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand" href="#">TipsForTrips</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,18 +26,48 @@
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto justify-content-end">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="Home/Index">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Map</a>
+                    <a class="nav-link" href="/Map">Map</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Explore</a>
+                    <a class="nav-link" href="/Explore">Explore</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Log in</a>
+                    <a class="nav-link" href="/Account/Login">Log in</a>
                 </li>
             </ul>
+            @{ try
+                {
+
+
+                    if (Request.Cookies["UserCookie"].Value == "name=abc123")
+                    {
+
+
+                    <div class="dropdownmenu">
+
+                        <div class="account">
+                        <button onclick="btnToggle()" class="btn btn-secondary" >
+                            Account
+                        </button>
+                         </div>
+                        <div id="Dropdown" class="dropdownmenu-content">
+                            <a href="/Account/LogOut">Sign out</a>
+                            <a href="#HTML">My Account</a>
+                            <a href="#CSS">My taggs</a>
+                        </div>
+                    </div>
+                            }
+                        }
+                catch (NullReferenceException) { }
+                }
+           
+           
+
+
+
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search">
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>

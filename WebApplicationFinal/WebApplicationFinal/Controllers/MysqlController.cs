@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using WebApplicationFinal.Models;
-using System.Data;
 using System.Configuration;
 using MySql.Data.MySqlClient;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplicationFinal.Controllers
 {

@@ -188,12 +188,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ExploreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\MysqlController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\ExploreClass.cs" />
+    <Compile Include="Models\MapClass.cs" />
     <Compile Include="Models\MysqlClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -202,11 +206,17 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\navbar.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Photos\geiranger.jpg" />
+    <Content Include="Photos\account.png" />
+    <Content Include="Photos\city_street_maps_dribbble.jpg" />
+    <Content Include="Photos\forest-dark.jpg" />
+    <Content Include="Photos\forest.jpg" />
+    <Content Include="Photos\norway-island.jpg" />
+    <Content Include="Photos\norway-sunset.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -221,12 +231,14 @@
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
     <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\Explore.js" />
     <Content Include="Scripts\index.js.flow" />
     <Content Include="Scripts\esm\popper.min.js.map" />
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\navaccount.js" />
     <Content Include="Scripts\jquery.shake.js" />
     <Content Include="Scripts\login.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -313,6 +325,8 @@
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Styles\Login.css" />
     <Content Include="Styles\shake.css" />
+    <Content Include="Content\Frontpage.css" />
+    <Content Include="Styles\explore.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -345,6 +359,8 @@
     <Content Include="Views\mysqllayoutpage.cshtml" />
     <Content Include="Views\Mysql\Success.cshtml" />
     <Content Include="Views\Mysql\Fail.cshtml" />
+    <Content Include="Views\Explore\Index.cshtml" />
+    <Content Include="Views\Map\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

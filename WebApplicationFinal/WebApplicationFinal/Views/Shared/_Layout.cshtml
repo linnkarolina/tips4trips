@@ -42,7 +42,7 @@
                 {
 
 
-                    if (Request.Cookies["UserCookie"].Value == "name=abc123")
+                    if (Request.Cookies["UserCookie"].Expires < DateTime.Now)
                     {
 
 
@@ -55,7 +55,7 @@
                          </div>
                         <div id="Dropdown" class="dropdownmenu-content">
                             <a href="/Account/LogOut">Sign out</a>
-                            <a href="#HTML">My Account</a>
+                            <a href="/Account/MyAccount">My Account</a>
                             <a href="#CSS">My taggs</a>
                         </div>
                     </div>

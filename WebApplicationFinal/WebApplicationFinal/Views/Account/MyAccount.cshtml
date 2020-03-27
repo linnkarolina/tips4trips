@@ -1,0 +1,23 @@
+﻿@model IEnumerable<WebApplicationFinal.Models.Account>
+@{
+    ViewBag.Title = "MyAccount";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Account Settings</h2>
+
+
+
+
+@foreach (WebApplicationFinal.Models.Account details in Model)
+{
+
+    
+    @details.Name
+    @details.location
+    @details.email
+    @details.full_name
+    @details.phone_NR
+
+
+}

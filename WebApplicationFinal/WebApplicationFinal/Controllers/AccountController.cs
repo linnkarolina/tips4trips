@@ -24,6 +24,8 @@ namespace WebApplicationFinal.Controllers
             return View();
         }
 
+       
+
         [HttpPost]
         public ActionResult LoginVerify(Account acc)
         {
@@ -36,10 +38,10 @@ namespace WebApplicationFinal.Controllers
             MySqlDataReader dr = comm.ExecuteReader();
            if(dr.Read())
             {
-                HttpCookie Cridentials = new HttpCookie("UserCookie");
-                Cridentials["name"] = acc.Name;
+                HttpCookie Cridentials = new HttpCookie("UserCookie");  
                 Cridentials.Expires = DateTime.Now.AddHours(5);
                 Response.Cookies.Add(Cridentials);
+                Response.Cookies["UserCookie"].Value = acc.Name;
                 mysql.Close();
                 Response.Redirect("../Home/Index", false);
                 return null;
@@ -66,10 +68,9 @@ namespace WebApplicationFinal.Controllers
             if (dr != 0)
             {
                 HttpCookie cridentials = new HttpCookie("UserCookie");
-                cridentials["name"] = acc.Name;
                 cridentials.Expires = DateTime.Now.AddHours(5);
                 Response.Cookies.Add(cridentials);
-                Response.Cookies["UserCookie"].Value = "name=" + acc.Name;
+                Response.Cookies["UserCookie"].Value = acc.Name;
                 mysql.Close();
                 Response.Redirect("../Home/Index", false);
                 return null;
@@ -87,11 +88,44 @@ namespace WebApplicationFinal.Controllers
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
-            
+            Response.Cookies["UserCookie"].Expires = DateTime.Now.AddDays(-1);
+
             Response.Cookies["UserCookie"].Value = null;
            
             Response.Redirect("../Home/Index", false);
             return null;
         }
+
+
+        public ActionResult MyAccount()
+        {
+            List<Account> list1 = new List<Account>();
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+            String name = Request.Cookies["UserCookie"].Value;
+            string query = "SELECT * FROM user where username='"+ name + "'";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+            MySqlDataReader dr = comm.ExecuteReader();
+            while (dr.Read())
+            {
+                list1.Add(new Account
+                {
+                    Name = dr["username"].ToString(),
+                    Password = dr["password"].ToString(),
+                    location = dr["location"].ToString(),
+                    email = dr["email"].ToString(),
+                    full_name = dr["full_name"].ToString(),
+                    phone_NR = dr.GetInt32(dr.GetOrdinal("phone_NR")),
+                    
+
+                });
+            }
+            mysql.Close();
+            return View(list1);
+        }
+
+
     }
-    }
+}

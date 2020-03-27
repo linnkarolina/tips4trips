@@ -361,6 +361,7 @@
     <Content Include="Views\Mysql\Fail.cshtml" />
     <Content Include="Views\Explore\Index.cshtml" />
     <Content Include="Views\Map\Index.cshtml" />
+    <Content Include="Views\Account\MyAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

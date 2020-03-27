@@ -10,6 +10,11 @@
     color: #444;
     
 }
+.trips-container img {
+    width: 100%;
+    height: 50%;
+}
+
 
 .trips {
     margin: 5px;
@@ -18,7 +23,7 @@
     background-color: #444;
     color: #fff;
     border-radius: 5px;
-    padding: 20px;
+    
     align-self: auto;
 }
 

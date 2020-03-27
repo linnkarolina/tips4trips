@@ -4,7 +4,9 @@
     margin: 0px ;
     padding: 0px;
 } 
-
+h1{
+    padding: 0.8em 0em 0.2em 0em;
+}
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -64,13 +66,16 @@ html, body {
     grid-row-gap: 2em;
 }
 
-.grid-container > div {
-        background-color: #f0f5f5;
-        border: 1px solid #D3D8DC;
+    .grid-container > div {
+        background-color: #F8F8F8;
+        border: 1px solid #F5F5F5;
         text-align: left;
-         
-}
-.grid-container h3, p {
+        transition: box-shadow .3s;
+    }
+    .grid-container > div:hover {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .grid-container h3, p {
     margin-left: 0,2em !important;
 }
 .grid-container img {

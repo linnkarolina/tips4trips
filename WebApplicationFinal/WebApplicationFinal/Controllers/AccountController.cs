@@ -123,8 +123,32 @@ namespace WebApplicationFinal.Controllers
                 });
             }
             mysql.Close();
-            return View(list1);
+            List<Account> list2 = new List<Account>();
+            string query1 = "Select * from stored_tag_has_user inner join stored_tag on stored_tag.ID_tag = stored_tag_has_user.Stored_tag_ID_tag where user_username ='" + name + "';";
+            MySqlCommand comm1 = new MySqlCommand(query1);
+            comm1.Connection = mysql;
+            mysql.Open();
+            MySqlDataReader mr = comm1.ExecuteReader();
+            while (mr.Read())
+            {
+                list2.Add(new Account
+                {
+                    tagname = mr["name"].ToString(),
+                    idtag = mr.GetInt32(mr.GetOrdinal("ID_tag")),
+
+
+                });
+            }
+
+            ViewData["List1"] = list1;
+            ViewData["List2"] = list2;
+            return View();
+
+
         }
+
+       
+        
 
 
     }

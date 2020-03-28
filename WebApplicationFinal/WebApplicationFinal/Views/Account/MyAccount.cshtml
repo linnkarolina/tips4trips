@@ -4,20 +4,37 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+<link href="~/Styles/MyAccount.css" rel="stylesheet" />
 <h2>Account Settings</h2>
 
 
-
-
-@foreach (WebApplicationFinal.Models.Account details in Model)
-{
-
+<div class="myaccount-container">
     
-    @details.Name
-    @details.location
-    @details.email
-    @details.full_name
-    @details.phone_NR
+    @foreach (var details in ViewBag.list1)
+    {
 
 
-}
+    <div class="account-element">
+        <h2>Account details</h2>
+
+        <div class=""> Username: @details.Name </div>
+        <div class="">Location:  @details.location</div>
+        <div class="">E-mail:  @details.email</div>
+        <div class="">Full Name:  @details.full_name</div>
+        <div class="">Phone number: @details.phone_NR</div>
+        <button type="button" class="btn btn-primary btn-lg">Edit profile</button>
+    </div>
+    }
+
+    <div class="tags">
+        <h2>Your tags</h2>
+        @foreach (var details in ViewBag.list2)
+        {
+
+            <div>@details.tagname</div>
+
+        }
+    <button type="button" class="btn btn-primary btn-lg">Edit tags</button>
+    </div>
+</div>

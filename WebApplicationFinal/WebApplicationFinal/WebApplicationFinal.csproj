@@ -327,6 +327,7 @@
     <Content Include="Styles\shake.css" />
     <Content Include="Content\Frontpage.css" />
     <Content Include="Styles\explore.css" />
+    <Content Include="Styles\MyAccount.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -361,6 +362,7 @@
     <Content Include="Views\Mysql\Fail.cshtml" />
     <Content Include="Views\Explore\Index.cshtml" />
     <Content Include="Views\Map\Index.cshtml" />
+    <Content Include="Views\Account\MyAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -17,5 +17,10 @@ namespace WebApplicationFinal.Models
         public string full_name { get; set; }
 
         public int phone_NR { get; set; }
+
+        public string tagname { get; set; }
+        public int idtag { get; set; }
+
+     
     }
 }

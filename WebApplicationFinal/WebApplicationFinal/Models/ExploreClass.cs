@@ -16,7 +16,12 @@ namespace WebApplicationFinal.Models
         public string location { get; set; }
         public string attraction_website { get; set; }
         public byte[] image { get; set; }
+        public string tags { get; set; }
+        public string trip_area { get; set; }
+        public string diff { get; set; }
 
-
+       public string ams { get; set; }
+    
     }
+
 }

@@ -363,6 +363,8 @@
     <Content Include="Views\Explore\Index.cshtml" />
     <Content Include="Views\Map\Index.cshtml" />
     <Content Include="Views\Account\MyAccount.cshtml" />
+    <Content Include="Views\Explore\TripSearch.cshtml" />
+    <Content Include="Views\Explore\Trip.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

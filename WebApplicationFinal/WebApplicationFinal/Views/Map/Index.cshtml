@@ -1,78 +1,106 @@
-﻿
-@{
-    ViewBag.Title = "Map";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
+    ViewBag.Title = "Satyaprakash Metro City Google Map";
 }
 
-<!DOCTYPE html>
-<!-- template from http://getbootstrap.com/getting-started -->
+<title>@ViewBag.Title</title> //The Title will show Here.
 
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Google Maps example</title>
+<h2 style="background-color: Yellow;color: Blue; text-align: center; font-style: oblique">Satyaprakash Google Map Using Asp.net MVC</h2>
+<fieldset>
+    <legend style="font-family: Arial Black; color: blue; font-size: large;">Check Metro City Using Google Map</legend>
+    <div id="SatyaMap" style="width: 1240px; height: 400px;">
+        @*set google map size .*@
+    </div>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXIYBi8WK7uE93JnEIXiXfHQjCXdBUx8U&"
+            type="text/javascript"></script> @*api key after sign in your google account.*@
+            <script type="text/javascript">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js"></script>
+        var markers = @Html.Raw(ViewBag.Markers); //all string value of column properties to viewbag.
+        window.onload = function () {
+            var mapOptions = {
 
-    <style type="text/css">
-
-        #map_canvas {
-            height: 400px;
-        }
-    </style>
-</head>
-
-
-
-
-    <script>
-    var cities = @Html.Raw(Json.Encode(Model));
-	//console.log(cities);
-
-
-
-    $(document).ready(function() {
-        // execute
-        (function() {
-            // map options
-            var options = {
-                zoom: 5,
-                center: new google.maps.LatLng(45.1479007,7.4386887),
-                mapTypeId: google.maps.MapTypeId.TERRAIN,
-                mapTypeControl: false
+                center: new google.maps.LatLng(parseInt(markers[0].lat), parseInt(markers[0].lng)), //which city will be shown.
+                zoom: 9, //google map page zoom
+                mapTypeId: google.maps.MapTypeId.ROADMAP //type of view.
             };
-
-            // init map
-            var map = new google.maps.Map(document.getElementById('map_canvas'), options);
-
-
-            for (var i = 0; i < cities.length; i++) {
-                // init markers
+            var infoWindow = new google.maps.InfoWindow();
+            var map = new google.maps.Map(document.getElementById("SatyaMap"), mapOptions);//pass div id and google map load values.
+            for (i = 0; i < markers.length; i++) { //here load all city map name
+                var data = markers[i]
+                var myLatlng = new google.maps.LatLng(data.lat, data.lng); //here i assigned lat and long.
                 var marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(cities[i].Lat, cities[i].Lng),
-                    map: map,
-                    title: cities[i].Title
+                    position: myLatlng, //lat and long value
+                    map: map, //div id
+                    title: data.title //city name
                 });
-
-                // process multiple info windows
-                (function(marker, i) {
-                    // add click event
-                    google.maps.event.addListener(marker, 'click', function() {
-                        infowindow = new google.maps.InfoWindow({
-                            content: cities[i].Title
-                        });
-                        infowindow.open(map, marker);
+                (function (marker, data) { //here city map description after click on it.
+                    google.maps.event.addListener(marker, "click", function (e) {
+                        infoWindow.setContent(data.description); //city description value
+                        infoWindow.open(map, marker); //then pop will show  the description
                     });
-                })(marker, i);
+                })(marker, data);
             }
-        })();
-    });
+            var lat = markers[0].lat;
+            var res = lat.replace(",", ".");
+            var let = markers[0].lng;
+            var ras = let.replace(",",".");
 
-    </script>
+            console.log(res);
 
-    <div id="map_canvas"></div>
 
+            var myLatLng = {lat:Number(res) , lng: Number(ras)};
+
+        var map = new google.maps.Map(document.getElementById('SatyaMap'), {
+          zoom: 4,
+          center: myLatLng
+        });
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: 'Hello World!'
+        });
+
+            
+
+            var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">'+ markers[0].title +'</h1>'+
+                '<div id="bodyContent">' +
+                "<img src= data:image;base64, />"+
+            '<p>'+ markers[0].description +'</p>'+
+            "<p><a href='"+markers[0].website +"'> link to homepage<a/>"+
+            '.</p>'+
+            '</div>'+
+            '</div>';
+
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+
+
+
+
+
+
+            marker.addListener('click', function() {
+          infowindow.open(map, marker);
+            });
+
+
+
+
+
+           
+        }
+
+
+
+
+
+
+
+                
+            </script>
+        </fieldset>
 

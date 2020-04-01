@@ -149,7 +149,7 @@ namespace WebApplicationFinal.Controllers
                     description = dr["description"].ToString(),
                     location = dr["location"].ToString(),
                     attraction_website = dr["attraction_website"].ToString(),
-                    image = (byte[])dr["Image"],
+                    image = (byte[])dr["picture"],
                 }
                 );
             }

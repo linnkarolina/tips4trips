@@ -5,20 +5,30 @@
 }
 
 <h2>Trip</h2>
-
 @foreach (var details in ViewBag.list1)
 {
-
-    <div class="trips" value=" @details.area_ID_area" name="valg" onclick="location.href='/Explore/Trip';" style="cursor: pointer;">
-      
-
-        <img src="data:image;base64,@System.Convert.ToBase64String(details.image)" />
-        <div class="areaid">  @details.area_ID_area</div>
-        <div class="description">  @details.description</div>
-        <div class="type_of_trip">  @details.type_of_trip</div>
-        <div class="length_of_trip">  @details.length_of_trip</div>
-        <div class="difficulty">  @details.difficulty</div>
-
-    </div>
+    <img src="data:image;base64,@System.Convert.ToBase64String(details.image)" />
 
 }
+    @{ int i = 0; }
+
+    @foreach (var details in ViewBag.list1)
+    {
+
+
+        if (i != 0)
+        {
+
+
+
+            <div class="areaid">  @details.area_ID_area</div>
+            <div class="description">  @details.description</div>
+            <div class="type_of_trip">  @details.type_of_trip</div>
+            <div class="length_of_trip">  @details.length_of_trip</div>
+            <div class="difficulty">  @details.difficulty</div>
+
+
+        }
+        else { i = 1; }
+
+    }

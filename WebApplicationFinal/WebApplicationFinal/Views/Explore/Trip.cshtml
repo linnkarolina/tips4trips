@@ -1,0 +1,65 @@
+﻿@model IEnumerable<WebApplicationFinal.Models.ExploreClass>
+@{
+    ViewBag.Title = "Trip";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <html>
+    <script src="~/Scripts/Slideshow.js"></script>
+    <link rel="stylesheet" type="text/css" href="../Content/Site.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/Frontpage.css" />
+    <script src="~/Scripts/Slideshow.js"></script>
+    <link href="~/Styles/Trip.css" rel="stylesheet" />
+
+    <head />
+    <h2>Trip</h2>
+
+
+    <div class="slider" id="main-slider">
+        <!-- outermost container element -->
+        <div class="slider-wrapper">
+            <!-- innermost wrapper element -->
+         
+
+            @foreach (var details in ViewBag.list1)
+            {
+               
+
+                    <img src="data:image;base64,@System.Convert.ToBase64String(details.image)" alt="First" class="slide" />
+                
+                
+
+            }
+        </div>
+    </div>
+    @{ int i = 0; }
+
+<div class="content">
+<div class="info">
+    @foreach (var details in ViewBag.list1)
+    {
+
+
+        if (i != 0)
+        {
+
+
+
+            <div class="areaid">  @details.area_ID_area</div>
+            <div class="description">  @details.description</div>
+            <div class="type_of_trip">  @details.type_of_trip</div>
+            <div class="length_of_trip">  @details.length_of_trip</div>
+            <div class="difficulty">  @details.difficulty</div>
+
+
+        }
+        else { i = 1; }
+
+    }
+   </div>
+
+<div class="map">
+    kart
+
+</div>
+    </div>
+    </html>

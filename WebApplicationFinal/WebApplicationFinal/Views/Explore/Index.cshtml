@@ -7,6 +7,7 @@
 
 
 <script src="~/Scripts/Explore.js"></script>
+
 <link href="~/Styles/explore.css" rel="stylesheet" />
 <div class="container-page">
 
@@ -52,22 +53,24 @@
 
                 @foreach (var details in ViewBag.list1)
                 {
-            <a href='@Url.Action("Trip", "Explore", new { ams= @details.area_ID_area})'>
-                <div type="submit" class="trips" name="valg" style="cursor: pointer;">
+            <a class="trips" href='@Url.Action("Trip", "Explore", new { ams= @details.area_ID_area})'>
+                <div type="submit" name="valg" style="cursor: pointer;">
 
                     <img src="data:image;base64,@System.Convert.ToBase64String(details.image)" />
                     <div class="areaid">  @details.area_ID_area</div>
-                    <div class="description">  @details.description</div>
+                    <p class="description module">  @details.description</p>
+                   <div class="at">
                     <div class="type_of_trip">  @details.type_of_trip</div>
                     <div class="length_of_trip">  @details.length_of_trip</div>
                     <div class="difficulty">  @details.difficulty</div>
+                       </div>
                 </div>
                 </a>
 
                 }
 
 
-                </form>
+         
 </div>
     </div>
 </div>

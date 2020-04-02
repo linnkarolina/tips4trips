@@ -2,12 +2,34 @@
     ViewBag.Title = "Satyaprakash Metro City Google Map";
 }
 
-<title>@ViewBag.Title</title> //The Title will show Here.
+<head>
+    <style>
+        .body-content {
+        margin:0;
+        padding:0;
+        }
+        .map_content {
+           
+        }
+        .map-container {
+          
+           
+            
+            height: 0;
 
-<h2 style="background-color: Yellow;color: Blue; text-align: center; font-style: oblique">Satyaprakash Google Map Using Asp.net MVC</h2>
+            
+        }
+    </style>
+</head>
+
+<title>@ViewBag.Title</title> 
+
+<div class="map-container">
+  
+
 <fieldset>
-    <legend style="font-family: Arial Black; color: blue; font-size: large;">Check Metro City Using Google Map</legend>
-    <div id="SatyaMap" style="width: 1240px; height: 400px;">
+   
+    <div id="SatyaMap" style="width: 100%; height: 600px; position: absolute;">
         @*set google map size .*@
     </div>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXIYBi8WK7uE93JnEIXiXfHQjCXdBUx8U&"
@@ -104,3 +126,4 @@
             </script>
         </fieldset>
 
+    </div>

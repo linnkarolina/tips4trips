@@ -328,6 +328,7 @@
     <Content Include="Content\Frontpage.css" />
     <Content Include="Styles\explore.css" />
     <Content Include="Styles\MyAccount.css" />
+    <Content Include="Styles\Trip.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -3,15 +3,38 @@
     ViewBag.Title = "Trip";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+    <html>
+    <script src="~/Scripts/Slideshow.js"></script>
+    <link rel="stylesheet" type="text/css" href="../Content/Site.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/Frontpage.css" />
+    <script src="~/Scripts/Slideshow.js"></script>
+    <link href="~/Styles/Trip.css" rel="stylesheet" />
 
-<h2>Trip</h2>
-@foreach (var details in ViewBag.list1)
-{
-    <img src="data:image;base64,@System.Convert.ToBase64String(details.image)" />
+    <head />
+    <h2>Trip</h2>
 
-}
+
+    <div class="slider" id="main-slider">
+        <!-- outermost container element -->
+        <div class="slider-wrapper">
+            <!-- innermost wrapper element -->
+         
+
+            @foreach (var details in ViewBag.list1)
+            {
+               
+
+                    <img src="data:image;base64,@System.Convert.ToBase64String(details.image)" alt="First" class="slide" />
+                
+                
+
+            }
+        </div>
+    </div>
     @{ int i = 0; }
 
+<div class="content">
+<div class="info">
     @foreach (var details in ViewBag.list1)
     {
 
@@ -32,3 +55,11 @@
         else { i = 1; }
 
     }
+   </div>
+
+<div class="map">
+    kart
+
+</div>
+    </div>
+    </html>

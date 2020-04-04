@@ -30,7 +30,7 @@
             <script type="text/javascript">
 
         var markers = @Html.Raw(ViewBag.Markers); //all string value of column properties to viewbag.
-        window.onload = function () {
+                window.onload = function () { 
             var mapOptions = {
 
                 center: new google.maps.LatLng(parseInt(markers[0].lat), parseInt(markers[0].lng)), //which city will be shown.

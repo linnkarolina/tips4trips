@@ -114,7 +114,7 @@ namespace WebApplicationFinal.Controllers
                 {
                     Name = dr["username"].ToString(),
                     Password = dr["password"].ToString(),
-                    location = dr["location"].ToString(),
+                    location = dr["city"].ToString(),
                     email = dr["email"].ToString(),
                     full_name = dr["full_name"].ToString(),
                     phone_NR = dr.GetInt32(dr.GetOrdinal("phone_NR")),

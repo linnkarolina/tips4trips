@@ -13,11 +13,10 @@ namespace WebApplicationFinal.Models
         public string length { get; set; }
         public string difficulty { get; set; }
         public string description { get; set; }
-        public string location { get; set; }
+        public string city { get; set; }
         public string website { get; set; }
         public byte[] image { get; set; }
         public string tags { get; set; }
-        public string city { get; set; }
         public string trip_area { get; set; }
         public string diff { get; set; }
 

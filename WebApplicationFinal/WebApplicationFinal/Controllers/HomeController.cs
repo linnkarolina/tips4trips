@@ -33,14 +33,13 @@ namespace WebApplicationFinal.Controllers
                 {
 
 
-                    area = dr["area"].ToString(),
-                    area_ID_area = dr["area_ID_area"].ToString(),
-                    type_of_trip = dr["type_of_trip"].ToString(),
-                    length_of_trip = dr["length_of_trip"].ToString(),
+                    trip_id = dr["trip_id"].ToString(),
+                    trip_name = dr["trip_name"].ToString(),
+                    length = dr["length"].ToString(),
                     difficulty = dr["difficulty"].ToString(),
                     description = dr["description"].ToString(),
-                    location = dr["location"].ToString(),
-                    attraction_website = dr["attraction_website"].ToString(),
+                    city = dr["city"].ToString(),
+                    website = dr["website"].ToString(),
                     image = (byte[])dr["Image"],
 
 

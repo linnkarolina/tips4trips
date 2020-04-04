@@ -27,14 +27,13 @@ namespace WebApplicationFinal.Controllers
             {
                 images.Add(new ExploreClass
                 {
-                    area = dr["area"].ToString(),
-                    area_ID_area = dr["area_ID_area"].ToString(),
-                    type_of_trip = dr["type_of_trip"].ToString(),
-                    length_of_trip = dr["length_of_trip"].ToString(),
+                    trip_id = dr["trip_id"].ToString(),
+                    trip_name = dr["trip_name"].ToString(),
+                    length = dr["length"].ToString(),
                     difficulty = dr["difficulty"].ToString(),
                     description = dr["description"].ToString(),
-                    location = dr["location"].ToString(),
-                    attraction_website = dr["attraction_website"].ToString(),
+                    city = dr["city"].ToString(),
+                    website = dr["website"].ToString(),
                     image = (byte[])dr["Image"],
                 }
                 );
@@ -50,7 +49,7 @@ namespace WebApplicationFinal.Controllers
             MySqlConnection mysql = new MySqlConnection(mainconn);
             int i = 0;
             string query = "SELECT * FROM trip left join trip_has_stored_tag on trip.area = trip_has_stored_tag.Trip_area inner join stored_tag on stored_tag.ID_tag= trip_has_stored_tag.Stored_tag_ID_tag where ";
-            string trip = search.area;
+            string trip = search.trip_id;
             string tags = search.tags;
             string diff = search.diff;
 
@@ -105,14 +104,13 @@ namespace WebApplicationFinal.Controllers
             {
                 images.Add(new ExploreClass
                 {
-                    area = dr["area"].ToString(),
-                    area_ID_area = dr["area_ID_area"].ToString(),
-                    type_of_trip = dr["type_of_trip"].ToString(),
-                    length_of_trip = dr["length_of_trip"].ToString(),
+                    trip_id = dr["trip_id"].ToString(),
+                    trip_name = dr["trip_name"].ToString(),
+                    length = dr["length"].ToString(),
                     difficulty = dr["difficulty"].ToString(),
                     description = dr["description"].ToString(),
-                    location = dr["location"].ToString(),
-                    attraction_website = dr["attraction_website"].ToString(),
+                    city = dr["location"].ToString(),
+                    website = dr["website"].ToString(),
                     image = (byte[])dr["Image"],
                 }
                 );
@@ -131,7 +129,7 @@ namespace WebApplicationFinal.Controllers
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
 
-            string query = "SELECT * FROM image LEFT JOIN trip ON trip.area = image.trip_area LEFT JOIN map_route on trip.area = map_route.trip_ID_area WHERE area_id_area='" + off.ams+"'" ;
+            string query = "SELECT * FROM image LEFT JOIN trip ON trip.trip_id = image.trip_id LEFT JOIN map_coordinates on trip.trip_id = map_coordinates.trip_id WHERE image.trip_id='" + off.ams+"'" ;
             MySqlCommand comm = new MySqlCommand(query);
             comm.Connection = mysql;
             mysql.Open();
@@ -141,20 +139,49 @@ namespace WebApplicationFinal.Controllers
             {
                 images.Add(new ExploreClass
                 {
-                    area = dr["area"].ToString(),
-                    area_ID_area = dr["area_ID_area"].ToString(),
-                    type_of_trip = dr["type_of_trip"].ToString(),
-                    length_of_trip = dr["length_of_trip"].ToString(),
+                    trip_id = dr["trip_id"].ToString(),
+                    trip_name = dr["trip_name"].ToString(),
+                    length = dr["length"].ToString(),
                     difficulty = dr["difficulty"].ToString(),
                     description = dr["description"].ToString(),
-                    location = dr["location"].ToString(),
-                    attraction_website = dr["attraction_website"].ToString(),
-                    image = (byte[])dr["picture"],
+                    city = dr["city"].ToString(),
+                    website = dr["website"].ToString(),
+                    image = (byte[])dr["Image"],
                 }
                 );
             }
+            string markers = "[";
+            string conString = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlCommand cmd = new MySqlCommand("Select * from map_coordinates inner join trip on trip.trip_id=map_coordinates.trip_id");
+            using (MySqlConnection con = new MySqlConnection(conString))
+            {
+                cmd.Connection = con;
+                con.Open();
+                using (MySqlDataReader sdr = cmd.ExecuteReader())
+                {
+                    while (sdr.Read())
+                    {
+                        markers += "{";
+                        markers += string.Format("'title': '{0}',", sdr["area_ID_area"]);
+                        markers += string.Format("'lat': '{0}',", sdr["Latitude"]);
+                        markers += string.Format("'lng': '{0}',", sdr["Longitude"]);
+                        markers += string.Format("'description': '{0}',", sdr["description"]);
+                        markers += string.Format("'image': '{0}',", (byte[])sdr["Image"]);
+                        markers += string.Format("'website': '{0}'", sdr["attraction_website"]);
+                        markers += "},";
+                    }
+                }
+                con.Close();
+            }
+
+            markers += "];";
+            ViewBag.Markers = markers;
+
             ViewData["List1"] = images;
             return View("Trip");
         }
+
+        
+
     }
    }

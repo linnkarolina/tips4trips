@@ -22,7 +22,7 @@
             @foreach (WebApplicationFinal.Models.ExploreClass details in Model)
             {
 
-                <div class="item">   <img src="data:image;base64,@System.Convert.ToBase64String(details.image)" /><h3>@details.description</h3> <p>@details.area_ID_area</p></div>
+                <div class="item">   <img src="data:image;base64,@System.Convert.ToBase64String(details.image)" /><h3>@details.description</h3> <p>@details.trip_name</p></div>
 
             }
         </div>

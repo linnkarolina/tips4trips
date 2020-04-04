@@ -18,48 +18,65 @@
         <!-- outermost container element -->
         <div class="slider-wrapper">
             <!-- innermost wrapper element -->
-         
+
 
             @foreach (var details in ViewBag.list1)
             {
-               
 
-                    <img src="data:image;base64,@System.Convert.ToBase64String(details.image)" alt="First" class="slide" />
-                
-                
+
+                <img src="data:image;base64,@System.Convert.ToBase64String(details.image)" alt="First" class="slide" />
+
+
 
             }
         </div>
     </div>
     @{ int i = 0; }
 
-<div class="content">
-<div class="info">
-    @foreach (var details in ViewBag.list1)
-    {
+    <div class="content">
+        <div class="info">
+            @foreach (var details in ViewBag.list1)
+            {
 
 
-        if (i != 0)
-        {
+                if (i != 0)
+                {
 
 
 
-            <div class="areaid">  @details.area_ID_area</div>
-            <div class="description">  @details.description</div>
-            <div class="type_of_trip">  @details.type_of_trip</div>
-            <div class="length_of_trip">  @details.length_of_trip</div>
-            <div class="difficulty">  @details.difficulty</div>
+                    <div class="areaid">  @details.trip_id</div>
+                    <div class="description">  @details.description</div>
+                   
+                    <div class="length_of_trip">  @details.length</div>
+                    <div class="difficulty">  @details.difficulty</div>
 
 
-        }
-        else { i = 1; }
+                }
+                else { i = 1; }
 
-    }
-   </div>
+            }
+        </div>
 
-<div class="map">
-    kart
+        <div class="map">
 
-</div>
-    </div>
-    </html>
+
+           
+
+            <div class="map-container">
+
+
+                
+
+                <iframe src="https://www.google.com/maps/d/embed?mid=11qFw9bTPP65esSOWweYirw1KXaSAbNFI" width="640" height="480"></iframe>
+
+
+
+
+
+
+                    </div>
+
+                </div>
+            </div>
+            <script src="~/Scripts/Trip.js"></script>
+        </html>

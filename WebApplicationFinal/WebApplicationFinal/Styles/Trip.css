@@ -7,13 +7,41 @@
 }
 
 .map {
-margin: 200px;
+
 }
 .content {
 display: flex;
 flex-direction:row;
 
-justify-content:space-between
+  flex-wrap:wrap;
+  
    
 }
 
+.body-content {
+    margin: 0;
+    padding: 0;
+}
+
+.map_content {
+}
+
+.map-container {
+    height: 0;
+}
+
+.info {
+  width:50%;
+  padding-right:10px;
+}
+.body-content {
+    margin: 0;
+    padding: 0;
+}
+
+.map_content {
+}
+
+.map-container {
+    height: 0;
+}

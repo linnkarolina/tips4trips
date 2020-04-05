@@ -6,9 +6,7 @@
     
 }
 
-.map {
 
-}
 .content {
 display: flex;
 flex-direction:row;
@@ -18,30 +16,25 @@ flex-direction:row;
    
 }
 
-.body-content {
-    margin: 0;
-    padding: 0;
-}
-
-.map_content {
-}
-
-.map-container {
-    height: 0;
-}
-
 .info {
   width:50%;
   padding-right:10px;
 }
-.body-content {
-    margin: 0;
-    padding: 0;
+
+
+
+
+.google-maps {
+    position: relative;
+    padding-bottom: 75%;
+    // This is the aspect ratio height: 0;
+    overflow: hidden;
 }
 
-.map_content {
-}
-
-.map-container {
-    height: 0;
-}
+    .google-maps iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        height: 100% !important;
+    }

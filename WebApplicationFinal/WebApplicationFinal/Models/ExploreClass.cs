@@ -21,6 +21,7 @@ namespace WebApplicationFinal.Models
         public string diff { get; set; }
 
        public string ams { get; set; }
+        public string route { get; set; }
     
     }
 

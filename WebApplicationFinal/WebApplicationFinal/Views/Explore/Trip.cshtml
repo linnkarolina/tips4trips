@@ -31,7 +31,9 @@
             }
         </div>
     </div>
-    @{ int i = 0; }
+    @{ int i = 0;
+         int  h = 0;
+        }
 
     <div class="content">
         <div class="info">
@@ -57,26 +59,34 @@
             }
         </div>
 
-        <div class="map">
+        
 
 
            
 
-            <div class="map-container">
+            <div class="google-maps">
 
+
+                @foreach (var details in ViewBag.list1)
+                {
+
+                    if (h == 0)
+                    {
+
+                        @Html.Raw(details.route)
+                        h++;
+                    }
+                    else
+                    {
+                    }
+
+
+                }
+
+
+            </div>
 
                 
-
-                <iframe src="https://www.google.com/maps/d/embed?mid=11qFw9bTPP65esSOWweYirw1KXaSAbNFI" width="640" height="480"></iframe>
-
-
-
-
-
-
-                    </div>
-
-                </div>
             </div>
             <script src="~/Scripts/Trip.js"></script>
         </html>

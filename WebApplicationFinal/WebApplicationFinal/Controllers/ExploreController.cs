@@ -48,21 +48,21 @@ namespace WebApplicationFinal.Controllers
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
             int i = 0;
-            string query = "SELECT * FROM trip left join trip_has_stored_tag on trip.area = trip_has_stored_tag.Trip_area inner join stored_tag on stored_tag.ID_tag= trip_has_stored_tag.Stored_tag_ID_tag where ";
-            string trip = search.trip_id;
+            string query = "SELECT * FROM trip left join trip_tag on trip.trip_id = trip_tag.Trip_id inner join tag on tag.tag= trip_tag.tag where ";
+            string city = search.city;
             string tags = search.tags;
             string diff = search.diff;
 
-            if (!string.IsNullOrEmpty(trip))
+            if (!string.IsNullOrEmpty(city))
             {
                 if (i == 0)
                 {
-                    query += "area_ID_area ='" + trip + "'";
+                    query += " city = '" + city + "'";
                     i = 1;
                 }
                 else
                 {
-                    query += "AND area_ID_area ='" + trip + "'";
+                    query += " AND city = '" + city + "'";
                     i = 1;
                 }
             }
@@ -71,12 +71,12 @@ namespace WebApplicationFinal.Controllers
             {
                 if (i == 0)
                 {
-                    query += "name LIKE'" + tags + "'";
+                    query += " tag.tag LIKE '" + tags + "'";
                     i = 1;
                 }
                 else
                 {
-                    query += "AND name LIKE'" + tags + "'";
+                    query += " AND tag.tag LIKE '" + tags + "'";
                     i = 1;
                 }
             }
@@ -84,12 +84,12 @@ namespace WebApplicationFinal.Controllers
             {
                 if (i == 0)
                 {
-                    query += "difficulty ='" + diff + "'";
+                    query += " difficulty = '" + diff + "'";
                     i = 1;
                 }
                 else
                 {
-                    query += "AND difficulty ='" + diff + "'";
+                    query += " AND difficulty = '" + diff + "'";
                     i = 1;
                 }
 
@@ -109,7 +109,7 @@ namespace WebApplicationFinal.Controllers
                     length = dr["length"].ToString(),
                     difficulty = dr["difficulty"].ToString(),
                     description = dr["description"].ToString(),
-                    city = dr["location"].ToString(),
+                    city = dr["city"].ToString(),
                     website = dr["website"].ToString(),
                     image = (byte[])dr["Image"],
                 }
@@ -147,8 +147,10 @@ namespace WebApplicationFinal.Controllers
                     city = dr["city"].ToString(),
                     website = dr["website"].ToString(),
                     image = (byte[])dr["Image"],
+                    route = dr["route"].ToString(),
+
                 }
-                );
+                ); 
             }
             string markers = "[";
             string conString = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
@@ -162,12 +164,12 @@ namespace WebApplicationFinal.Controllers
                     while (sdr.Read())
                     {
                         markers += "{";
-                        markers += string.Format("'title': '{0}',", sdr["area_ID_area"]);
+                        markers += string.Format("'title': '{0}',", sdr["trip_id"]);
                         markers += string.Format("'lat': '{0}',", sdr["Latitude"]);
                         markers += string.Format("'lng': '{0}',", sdr["Longitude"]);
                         markers += string.Format("'description': '{0}',", sdr["description"]);
                         markers += string.Format("'image': '{0}',", (byte[])sdr["Image"]);
-                        markers += string.Format("'website': '{0}'", sdr["attraction_website"]);
+                        markers += string.Format("'website': '{0}'", sdr["website"]);
                         markers += "},";
                     }
                 }
@@ -181,7 +183,6 @@ namespace WebApplicationFinal.Controllers
             return View("Trip");
         }
 
-        
 
     }
    }

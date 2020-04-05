@@ -29,31 +29,34 @@
             type="text/javascript"></script> @*api key after sign in your google account.*@
             <script type="text/javascript">
 
-        var markers = @Html.Raw(ViewBag.Markers); //all string value of column properties to viewbag.
+                var markers = @Html.Raw(ViewBag.Markers); //all string value of column properties to viewbag.
+                
                 window.onload = function () { 
-            var mapOptions = {
+                   // for (var i = 0; i < markers.arrayLength; i++) {
+                    var mapOptions = {
 
-                center: new google.maps.LatLng(parseInt(markers[0].lat), parseInt(markers[0].lng)), //which city will be shown.
+                center: new google.maps.LatLng(parseInt(markers[1].lat), parseInt(markers[1].lng)), //which city will be shown.
                 zoom: 9, //google map page zoom
                 mapTypeId: google.maps.MapTypeId.ROADMAP //type of view.
             };
             var infoWindow = new google.maps.InfoWindow();
             var map = new google.maps.Map(document.getElementById("SatyaMap"), mapOptions);//pass div id and google map load values.
-            for (i = 0; i < markers.length; i++) { //here load all city map name
-                var data = markers[i]
-                var myLatlng = new google.maps.LatLng(data.lat, data.lng); //here i assigned lat and long.
-                var marker = new google.maps.Marker({
-                    position: myLatlng, //lat and long value
-                    map: map, //div id
-                    title: data.title //city name
-                });
+                        for (i = 0; i < markers.length; i++) { //here load all city map name
+                            var data = markers[i]
+                            var myLatlng = new google.maps.LatLng(data.lat, data.lng); //here i assigned lat and long.
+                            var marker = new google.maps.Marker({
+                                position: myLatlng, //lat and long value
+                                map: map, //div id
+                                title: data.title //city name
+                            });
+                        }
                 (function (marker, data) { //here city map description after click on it.
                     google.maps.event.addListener(marker, "click", function (e) {
                         infoWindow.setContent(data.description); //city description value
                         infoWindow.open(map, marker); //then pop will show  the description
                     });
                 })(marker, data);
-            }
+            //}
             var lat = markers[0].lat;
             var res = lat.replace(",", ".");
             var let = markers[0].lng;
@@ -107,7 +110,8 @@
 
 
            
-        }
+                    }
+                    
             </script>
         </fieldset>
 

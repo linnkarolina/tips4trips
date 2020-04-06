@@ -84,12 +84,12 @@ namespace WebApplicationFinal.Controllers
             {
                 if (i == 0)
                 {
-                    query += " difficulty = '" + diff + "'";
+                    query += " difficulty LIKE '" + diff + "'";
                     i = 1;
                 }
                 else
                 {
-                    query += " AND difficulty = '" + diff + "'";
+                    query += " AND difficulty LIKE '" + diff + "'";
                     i = 1;
                 }
 

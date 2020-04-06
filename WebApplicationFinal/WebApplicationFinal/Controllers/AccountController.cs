@@ -114,7 +114,7 @@ namespace WebApplicationFinal.Controllers
                 {
                     Name = dr["username"].ToString(),
                     Password = dr["password"].ToString(),
-                    location = dr["location"].ToString(),
+                    location = dr["city"].ToString(),
                     email = dr["email"].ToString(),
                     full_name = dr["full_name"].ToString(),
                     phone_NR = dr.GetInt32(dr.GetOrdinal("phone_NR")),
@@ -124,7 +124,7 @@ namespace WebApplicationFinal.Controllers
             }
             mysql.Close();
             List<Account> list2 = new List<Account>();
-            string query1 = "Select * from stored_tag_has_user inner join stored_tag on stored_tag.ID_tag = stored_tag_has_user.Stored_tag_ID_tag where user_username ='" + name + "';";
+            string query1 = "SELECT * FROM user_tag INNER JOIN tag ON user_tag.tag = tag.tag WHERE user_tag.username ='" + name + "';";
             MySqlCommand comm1 = new MySqlCommand(query1);
             comm1.Connection = mysql;
             mysql.Open();
@@ -147,9 +147,9 @@ namespace WebApplicationFinal.Controllers
 
         }
 
-       
-        
 
+
+     
 
     }
 }

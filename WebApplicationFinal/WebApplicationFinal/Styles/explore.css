@@ -10,9 +10,16 @@
     color: #444;
     
 }
-.trips-container img {
+img {
     width: 100%;
-    height: 50%;
+    height: 200px;
+}
+
+.at {
+display:flex;
+flex-direction:row;
+padding: 10px;
+float:left;
 }
 
 
@@ -28,10 +35,7 @@
 }
 
 
-.container-page {
-   
-    
-    
+.container-page {    
     background-color: #fff;
     color: #444;
 }
@@ -100,4 +104,48 @@
 
 .diff{
     margin-bottom:20px;
+}
+
+a .trips {
+    text-decoration: none;
+    padding: 0px;
+  
+}
+
+
+
+
+a:hover {
+     color: #4aa48a; 
+    text-decoration: none; 
+}
+
+.description {
+    overflow: hidden;
+}
+
+
+
+.description {
+    display: block;
+    display: -webkit-box;  
+    line-height: 1;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin:5px;
+}
+
+.areaid {
+    font-size: 30px;
+    margin-left:10px;
+}
+
+.type_of_trip {
+margin-right: 10px;
+}
+
+.length_of_trip {
+margin-right:10px;
 }

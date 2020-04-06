@@ -1,14 +1,11 @@
 @model IEnumerable<WebApplicationFinal.Models.ExploreClass>
-
-
-<html>
 <head>
     <script src="~/Scripts/Slideshow.js"></script>
     <link rel="stylesheet" type="text/css" href="../Content/Site.css" />
     <link rel="stylesheet" type="text/css" href="../Content/Frontpage.css" />
     <script src="~/Scripts/Slideshow.js"></script>
+   <head/>
 
-    <head />
     <body>
         <div class="slider" id="main-slider">
             <!-- outermost container element -->
@@ -21,13 +18,34 @@
         </div>
 
         <h1>Trips</h1>
-        <div class="grid-container">
-            @foreach (WebApplicationFinal.Models.ExploreClass details in Model)
-            {
+      
 
-                <div class="item">   <img src="data:image;base64,@System.Convert.ToBase64String(details.image)" /><h3>@details.description</h3> <p>@details.area_ID_area</p></div>
 
-            }
-        </div>
+          
+
+
+                <div id="main">
+                    <div class="trips-container">
+
+
+
+
+                        @foreach (WebApplicationFinal.Models.ExploreClass details in Model)
+                        {
+                            <a class="trips" href='@Url.Action("Trip", "Explore", new { ams= @details. trip_id})'>
+                                <div type="submit" name="valg" style="cursor: pointer;">
+
+                                    <img src="data:image;base64,@System.Convert.ToBase64String(details.image)" />
+                                    <div class="areaid">  @details.trip_name</div>
+                                    <p class="description module">  @details.description</p>
+                                    <div class="at">
+                                        <div class="length_of_trip">  @details.length</div>
+                                        <div class="difficulty">  @details.difficulty</div>
+                                    </div>
+                                </div>
+                           </a>
+
+                        }
+                    </div>
+                </div>
     </body>
-</html>

@@ -7,6 +7,7 @@
 
 
 <script src="~/Scripts/Explore.js"></script>
+
 <link href="~/Styles/explore.css" rel="stylesheet" />
 <div class="container-page">
 
@@ -15,47 +16,60 @@
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <div class="filter">
             <h2>Filter</h2>
+            @using (Html.BeginForm("TripSearch", "Explore", FormMethod.Post))
+            {
+                
 
-            <form method="POST" action¨="#">
+                    <label class="col-form-label" for="city">City</label>
+                    <input type="text" class="form-control" placeholder="city" id="city" name="city">
+                    <label class="col-form-label" for="tags">Tags</label>
+                    <input type="text" class="form-control" placeholder="tags" id="tags" name="tags">
+                    <label class="col-form-label" for="difficulty">Difficulty</label>
+                    <div class="diff">
+                        <div class="btn-group" role="group" aria-label="Basic example">
 
-                <label class="col-form-label" for="area">Area</label>
-                <input type="text" class="form-control" placeholder="area" id="area">
-                <label class="col-form-label" for="tags">Tags</label>
-                <input type="text" class="form-control" placeholder="tags" id="tags">
-                <label class="col-form-label" for="difficulty">Difficulty</label>
-                <div class="diff">
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-secondary">Easy</button>
-                        <button type="button" class="btn btn-secondary">Medium</button>
-                        <button type="button" class="btn btn-secondary">Hard</button>
+
+                            @Html.RadioButton("diff", "Easy", false, new { @class = "btn btn-secondary"})
+                            @Html.RadioButton("diff", "Medium", false, new { @class = "btn btn-secondary"})
+                            @Html.RadioButton("diff", "Hard", false, new{ @class = "btn btn-secondary"})
+                        </div>
                     </div>
-                </div>
-                <button type="reset" value="reset" class="btn btn-secondary">Reset</button>
-                <button type="submit" value="submit" class="btn btn-secondary">Search</button>
+                    <button type="reset" value="reset" class="btn btn-secondary">Reset</button>
+                    <button type="submit" value="submit" class="btn btn-secondary">Search</button>
 
-            </form>
-        </div>
+
+               
+            }
+            </div>
     </div>
     <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
 
 
     <div id="main">
         <div class="trips-container">
-            @foreach (WebApplicationFinal.Models.ExploreClass details in Model)
-            {
+            
 
-                <div class="trips">
+
+
+                @foreach (var details in ViewBag.list1)
+                {
+            <a class="trips" href='@Url.Action("Trip", "Explore", new { ams= @details. trip_id})'>
+                <div type="submit" name="valg" style="cursor: pointer;">
 
                     <img src="data:image;base64,@System.Convert.ToBase64String(details.image)" />
-                    <div class="areaid">  @details.area_ID_area</div>
-                    <div class="description">  @details.description</div>
-                    <div class="type_of_trip">  @details.type_of_trip</div>
-                    <div class="length_of_trip">  @details.length_of_trip</div>
+                    <div class="areaid">  @details.trip_name</div>
+                    <p class="description module">  @details.description</p>
+                   <div class="at">
+                    <div class="length_of_trip">  @details.length</div>
                     <div class="difficulty">  @details.difficulty</div>
-
+                       </div>
                 </div>
+                </a>
 
-            }
-        </div>
+                }
+
+
+         
+</div>
     </div>
 </div>

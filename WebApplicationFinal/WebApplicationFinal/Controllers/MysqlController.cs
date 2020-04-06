@@ -82,7 +82,56 @@ namespace WebApplicationFinal.Controllers
 
         }
 
+        public ActionResult ShowAccount()
+        {
+            List<MysqlClass> list1 = new List<MysqlClass>();
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+
+            string query = "SELECT * FROM user";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+            MySqlDataReader dr = comm.ExecuteReader();
+            while (dr.Read())
+            {
+                list1.Add(new MysqlClass
+                {
+                    Username = dr["Username"].ToString(),
+                    Password = dr["password"].ToString(),
+                    Location = dr["Location"].ToString(),
+                    Email = dr["Email"].ToString(),
+                    Full_Name = dr["Full_Name"].ToString(),
+                    Phone_NR = dr["Phone_NR"].ToString(),
 
 
+                });
+            }
+            mysql.Close();
+            return View(list1);
+        }
+
+        [HttpPost]
+        public ActionResult EditAccount(MysqlClass user)
+        {
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+            string query = "UPDATE FROM user WHERE username='" + username + "';";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+            int dr = comm.ExecuteNonQuery();
+            if (dr != null)
+            {
+                mysql.Close();
+                return View("Success");
+            }
+            else
+            {
+                mysql.Close();
+                return View("Fail");
+            }
+
+        }
     }
 }

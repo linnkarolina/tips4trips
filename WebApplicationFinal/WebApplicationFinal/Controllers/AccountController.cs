@@ -38,7 +38,7 @@ namespace WebApplicationFinal.Controllers
             MySqlDataReader dr = comm.ExecuteReader();
            if(dr.Read())
             {
-                HttpCookie Cridentials = new HttpCookie("UserCookie");  
+                HttpCookie Cridentials = new HttpCookie("UserCookie");
                 Cridentials.Expires = DateTime.Now.AddHours(5);
                 Response.Cookies.Add(Cridentials);
                 Response.Cookies["UserCookie"].Value = acc.Name;
@@ -60,7 +60,7 @@ namespace WebApplicationFinal.Controllers
         {
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
-            string query = "INSERT IGNORE INTO user (username, password, location, email, full_name, phone_NR) VALUES ('" + acc.Name + "', '" + acc.Password + "', '" + acc.location + "', '" + acc.email + "', '" + acc.full_name + "', '" + acc.phone_NR + "');";
+            string query = "INSERT IGNORE INTO user (username, password, city, email, full_name, phone_NR) VALUES ('" + acc.Name + "', '" + acc.Password + "', '" + acc.location + "', '" + acc.email + "', '" + acc.full_name + "', '" + acc.phone_NR + "');";
             MySqlCommand comm = new MySqlCommand(query);
             comm.Connection = mysql;
             mysql.Open();

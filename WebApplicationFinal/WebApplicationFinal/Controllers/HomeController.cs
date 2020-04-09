@@ -48,6 +48,7 @@ namespace WebApplicationFinal.Controllers
                 });
 
             }
+            getTag();
             var thisMenu = RecommendTrips();
             return View(images);
         }
@@ -91,6 +92,33 @@ namespace WebApplicationFinal.Controllers
             catch { }
             return null;
         }
+
+        public void getTag()
+        {
+            List<Account> listTag = new List<Account>();
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+            string query1 = "SELECT * FROM trip_tag RIGHT JOIN trip ON trip_tag.trip_id = trip.trip_id;";
+            MySqlCommand comm1 = new MySqlCommand(query1);
+            comm1.Connection = mysql;
+            mysql.Open();
+            MySqlDataReader mr = comm1.ExecuteReader();
+            while (mr.Read())
+            {
+                listTag.Add(new Account
+                {
+                    tagname = mr["tag"].ToString(),
+                    idtag = mr.GetInt32(mr.GetOrdinal("trip_ID")),
+
+
+                });
+            }
+
+            ViewData["listTag"] = listTag;
+
+
+        }
+
 
     }
 }

@@ -102,7 +102,7 @@ namespace WebApplicationFinal.Controllers
             List<Account> list1 = new List<Account>();
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
-            String name = Request.Cookies["UserCookie"].Value;
+            string name = Request.Cookies["UserCookie"].Value;
             string query = "SELECT * FROM user where username='"+ name + "'";
             MySqlCommand comm = new MySqlCommand(query);
             comm.Connection = mysql;

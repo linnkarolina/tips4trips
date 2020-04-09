@@ -44,6 +44,13 @@
                                              <div class="at">
                                                  <div class="length_of_trip">  @details.length</div>
                                                  <div class="difficulty">  @details.difficulty</div>
+                                                 @foreach (var detail in ViewBag.listTag)
+                                                 {
+                                                     if (details.trip_id == detail.idtag.ToString())
+                                                     {
+                                                         <div class="tag">  @detail.tagname</div>
+                                                     }
+                                                 }
                                              </div>
                                          </div>
                                      </a>
@@ -77,6 +84,13 @@
                            <div class="at">
                                <div class="length_of_trip">  @details.length</div>
                                <div class="difficulty">  @details.difficulty</div>
+                               @foreach (var detail in ViewBag.listTag)
+                               {
+                                   if (details.trip_id == detail.idtag.ToString())
+                                   {
+                                       <div class="tag">  @detail.tagname</div>
+                                   }
+                               }
                            </div>
                        </div>
                    </a>

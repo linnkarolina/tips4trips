@@ -4,9 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
-
 <script src="~/Scripts/Explore.js"></script>
 <link href="~/Styles/explore.css" rel="stylesheet" />
 <div class="container-page">
@@ -60,6 +57,13 @@
                         <div class="at">
                             <div class="length_of_trip">  @details.length</div>
                             <div class="difficulty">  @details.difficulty</div>
+                            @foreach (var detail in ViewBag.listTag)
+                            {
+                                if (details.trip_id == detail.idtag.ToString())
+                                {
+                                    <div class="tag">  @detail.tagname</div>
+                                }
+                            }
                         </div>
                     </div>
                 </a>

@@ -111,3 +111,7 @@ html, body {
         max-width: 100%;
     }
 }
+
+.tag {
+padding-left:10px;
+}

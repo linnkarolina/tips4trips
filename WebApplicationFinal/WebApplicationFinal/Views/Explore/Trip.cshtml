@@ -2,91 +2,101 @@
 @{
     ViewBag.Title = "Trip";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+
 }
-    <html>
-    <script src="~/Scripts/Slideshow.js"></script>
-    <link rel="stylesheet" type="text/css" href="../Content/Site.css" />
-    <link rel="stylesheet" type="text/css" href="../Content/Frontpage.css" />
-    <script src="~/Scripts/Slideshow.js"></script>
-    <link href="~/Styles/Trip.css" rel="stylesheet" />
 
-    <head />
-    <h2>Trip</h2>
+<html>
+<script src="~/Scripts/Slideshow.js"></script>
+<link rel="stylesheet" type="text/css" href="../Content/Frontpage.css" />
+<script src="~/Scripts/Slideshow.js"></script>
+<link href="~/Styles/Trip.css" rel="stylesheet" />
 
+<head />
 
-    <div class="slider" id="main-slider">
-        <!-- outermost container element -->
-        <div class="slider-wrapper">
-            <!-- innermost wrapper element -->
+<div class="slider" id="main-slider">
+    <!-- outermost container element -->
+    <div class="slider-wrapper">
+        <!-- innermost wrapper element -->
 
 
-            @foreach (var details in ViewBag.list1)
-            {
+        @foreach (var details in ViewBag.list1)
+        {
 
 
-                <img src="data:image;base64,@System.Convert.ToBase64String(details.image)" alt="First" class="slide" />
+            <img src="data:image;base64,@System.Convert.ToBase64String(details.image)" alt="First" class="slide" />
 
-
-
-            }
-        </div>
+        }
     </div>
-    @{ int i = 0;
-         int  h = 0;
+</div>
+
+
+<div class="content">
+    <div class="info">
+        @foreach (var details in ViewBag.list1)
+        {
+            <div class="trip_name">  @details.trip_name</div>
+            <div class="description">  @details.description</div>
+            <div class="lendif">
+                <div class="length_of_trip">  @details.length</div>
+                <div class="difficulty">  @details.difficulty</div>
+            </div>
+            break;
+
+        }
+    </div>
+
+
+
+
+
+
+    <div class="map-responsive">
+
+
+        @foreach (var details in ViewBag.list1)
+        {
+
+
+            @Html.Raw(details.route)
+
+            break;
+
+
         }
 
-    <div class="content">
-        <div class="info">
-            @foreach (var details in ViewBag.list1)
-            {
+
+    </div>
 
 
-                if (i != 0)
-                {
+</div>
+
+<div class="review">
+    <h3>Been here? Why not leave a review</h3>
+    @foreach (var details in ViewBag.list1)
+    {
+        using (Html.BeginForm("LeaveReview", "Explore", FormMethod.Post, new { ams = @details.trip_id }))
+        {
 
 
 
-                    <div class="areaid">  @details.trip_id</div>
-                    <div class="description">  @details.description</div>
-                   
-                    <div class="length_of_trip">  @details.length</div>
-                    <div class="difficulty">  @details.difficulty</div>
+            @Html.RadioButton("rating", "1", false)
+            @Html.RadioButton("rating", "2", false)
+            @Html.RadioButton("rating", "3", false)
+            @Html.RadioButton("rating", "4", false)
+            @Html.RadioButton("rating", "5", false)
+            @Html.RadioButton("rating", "6", false)
 
 
-                }
-                else { i = 1; }
 
-            }
-        </div>
+            <input type="hidden" value=" @details.trip_id" name="ams" />
 
-        
+            <input type="submit" value="submit" />
+        }
 
+        break;
+    }
 
-           
-
-            <div class="google-maps">
-
-
-                @foreach (var details in ViewBag.list1)
-                {
-
-                    if (h == 0)
-                    {
-
-                        @Html.Raw(details.route)
-                        h++;
-                    }
-                    else
-                    {
-                    }
-
-
-                }
-
-
-            </div>
-
-                
-            </div>
-            <script src="~/Scripts/Trip.js"></script>
-        </html>
+</div>
+<script src="~/Scripts/Trip.js"></script>
+</html>

@@ -196,7 +196,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account.cs" />
-    <Compile Include="Models\EditAccountController.cs" />
     <Compile Include="Models\ExploreClass.cs" />
     <Compile Include="Models\MapClass.cs" />
     <Compile Include="Models\MysqlClass.cs" />
@@ -366,8 +365,7 @@
     <Content Include="Views\Explore\Index.cshtml" />
     <Content Include="Views\Map\Index.cshtml" />
     <Content Include="Views\Account\MyAccount.cshtml" />
-< HEAD
-    Content Include="Views\Account\EditAccount.cshtml" />
+    <Content Include="Views\Account\EditAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

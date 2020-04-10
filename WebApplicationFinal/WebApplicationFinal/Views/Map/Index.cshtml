@@ -22,7 +22,7 @@
 
     <fieldset>
 
-        <div id="dvMap" style="width: 500px; height: 500px">
+        <div id="dvMap" style="width: 1000px; height: 500px">
         </div>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXIYBi8WK7uE93JnEIXiXfHQjCXdBUx8U&" type="text/javascript"></script> @*api key after sign in your google account.*@
         <script type="text/javascript">
@@ -53,9 +53,34 @@
                     map: map,
                     title: data.title
                 });
+
+
+                var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">'+ markers[0].title +'</h1>'+
+                '<div id="bodyContent">' +
+                "<img src= data:image;base64, />"+
+            '<p>'+ markers[0].description +'</p>'+
+            "<p><a href='"+markers[0].website +"'> link to homepage<a/>"+
+            '.</p>'+
+            '</div>'+
+            '</div>';
+
+
                 (function (marker, data) {
                     google.maps.event.addListener(marker, "click", function (e) {
-                        infoWindow.setContent(data.description);
+                        infoWindow.setContent('<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">'+data.title +'</h1>'+
+                '<div id="bodyContent">' +
+                "<img src= data:image;base64, />"+
+            '<p>'+data.description+'</p>'+
+            "<p><a href='"+data.website+"'> link to homepage<a/>"+
+            '.</p>'+
+            '</div>'+
+            '</div>');
                         infoWindow.open(map, marker);
                     });
                 })(marker, data);

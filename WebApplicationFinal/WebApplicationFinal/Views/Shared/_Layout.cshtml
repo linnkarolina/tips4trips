@@ -28,12 +28,22 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="../Home/Index">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Map">Map</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Explore">Explore</a>
-                </li>
+                @{ try
+                    {
+
+
+                        if (Request.Cookies["UserCookie"].Expires < DateTime.Now)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Map">Map</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Explore">Explore</a>
+                            </li>
+                        }
+                    }
+                    catch (NullReferenceException) { }
+                }
                 @{ try
                     {
                         if (Request.Cookies["UserCookie"] == null)

@@ -20,43 +20,50 @@
 <div class="map-container">
   
 
-<fieldset>
-   
-    <div id="SatyaMap" style="width: 100%; height: 600px; position: absolute;">
-        @*set google map size .*@
-    </div>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXIYBi8WK7uE93JnEIXiXfHQjCXdBUx8U&"
-            type="text/javascript"></script> @*api key after sign in your google account.*@
-            <script type="text/javascript">
+    <fieldset>
 
-                var markers = @Html.Raw(ViewBag.Markers); //all string value of column properties to viewbag.
-                
-                window.onload = function () { 
-                   // for (var i = 0; i < markers.arrayLength; i++) {
-                    var mapOptions = {
+        <div id="dvMap" style="width: 500px; height: 500px">
+        </div>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXIYBi8WK7uE93JnEIXiXfHQjCXdBUx8U&" type="text/javascript"></script> @*api key after sign in your google account.*@
+        <script type="text/javascript">
 
-                center: new google.maps.LatLng(parseInt(markers[1].lat), parseInt(markers[1].lng)), //which city will be shown.
-                zoom: 9, //google map page zoom
-                mapTypeId: google.maps.MapTypeId.ROADMAP //type of view.
+                  var markers = @Html.Raw(ViewBag.Markers);
+                window.onload = function () {
+             var lat = markers[0].lat;
+            var res = lat.replace(",", ".");
+            var let = markers[0].lng;
+            var ras = let.replace(",",".");
+            var mapOptions = {
+                center: new google.maps.LatLng(res, ras),
+                zoom: 8,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
             };
             var infoWindow = new google.maps.InfoWindow();
-            var map = new google.maps.Map(document.getElementById("SatyaMap"), mapOptions);//pass div id and google map load values.
-                        for (i = 0; i < markers.length; i++) { //here load all city map name
-                            var data = markers[i]
-                            var myLatlng = new google.maps.LatLng(data.lat, data.lng); //here i assigned lat and long.
-                            var marker = new google.maps.Marker({
-                                position: myLatlng, //lat and long value
-                                map: map, //div id
-                                title: data.title //city name
-                            });
-                        }
-                (function (marker, data) { //here city map description after click on it.
+            var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+            for (i = 0; i < markers.length; i++) {
+                var data = markers[i]
+                  var lat = markers[i].lat;
+            var res = lat.replace(",", ".");
+            var let = markers[i].lng;
+                var ras = let.replace(",", ".");
+
+                var myLatlng = new google.maps.LatLng(res, ras);
+                var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    title: data.title
+                });
+                (function (marker, data) {
                     google.maps.event.addListener(marker, "click", function (e) {
-                        infoWindow.setContent(data.description); //city description value
-                        infoWindow.open(map, marker); //then pop will show  the description
+                        infoWindow.setContent(data.description);
+                        infoWindow.open(map, marker);
                     });
                 })(marker, data);
-            //}
+
+
+            }
+        }
+           /*
             var lat = markers[0].lat;
             var res = lat.replace(",", ".");
             var let = markers[0].lng;
@@ -78,7 +85,7 @@
           title: 'Hello World!'
         });
 
-            
+
 
             var contentString = '<div id="content">'+
             '<div id="siteNotice">'+
@@ -109,10 +116,10 @@
 
 
 
-           
-                    }
-                    
-            </script>
-        </fieldset>
+
+                    }*/
+
+        </script>
+    </fieldset>
 
     </div>

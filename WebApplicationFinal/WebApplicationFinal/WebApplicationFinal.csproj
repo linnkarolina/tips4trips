@@ -330,6 +330,9 @@
     <Content Include="Styles\explore.css" />
     <Content Include="Styles\MyAccount.css" />
     <Content Include="Styles\Trip.css" />
+    <Content Include="Views\Explore\LeaveReview.cshtml">
+      <DependentUpon>Trip.cshtml</DependentUpon>
+    </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

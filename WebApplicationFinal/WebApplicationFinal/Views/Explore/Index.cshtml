@@ -59,10 +59,18 @@
                     <img src="data:image;base64,@System.Convert.ToBase64String(details.image)" />
                     <div class="areaid">  @details.trip_name</div>
                     <p class="description module">  @details.description</p>
-                   <div class="at">
-                    <div class="length_of_trip">  @details.length</div>
-                    <div class="difficulty">  @details.difficulty</div>
-                       </div>
+                    <div class="at">
+                        <div class="length_of_trip">  @details.length</div>
+                        <div class="difficulty">  @details.difficulty</div>
+                       
+                        @foreach (var detail in ViewBag.listTag)
+                        {
+                            if (details.trip_id == detail.idtag.ToString())
+                            {
+                        <div class="tag">  @detail.tagname</div>
+                            }
+                        }
+                    </div>
                 </div>
                 </a>
 

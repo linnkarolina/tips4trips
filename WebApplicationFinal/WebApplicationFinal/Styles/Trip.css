@@ -1,19 +1,23 @@
 ﻿body {
 }
 
-.areaid {
+.trip_name {
     font-size: 50px;
     
 }
 
+.lendif {
+display:flex;
+flex-direction:row;
+}
+
 
 .content {
-display: flex;
-flex-direction:row;
-
-  flex-wrap:wrap;
-  
-   
+    display: flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    justify-content:space-around;
+    margin:20px;
 }
 
 .info {
@@ -22,19 +26,16 @@ flex-direction:row;
 }
 
 
-
-
-.google-maps {
-    position: relative;
-    padding-bottom: 75%;
-    // This is the aspect ratio height: 0;
+.map-responsive {
     overflow: hidden;
+    position: relative;
 }
 
-    .google-maps iframe {
-        position: absolute;
-        top: 0;
+    .map-responsive iframe {
         left: 0;
-        width: 100% !important;
-        height: 100% !important;
+        top: 0;
+        height: 300px;
+        width: 100%;
+        position: relative;
+        max-width: 100%;
     }

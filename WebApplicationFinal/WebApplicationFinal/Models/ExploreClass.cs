@@ -22,6 +22,8 @@ namespace WebApplicationFinal.Models
 
        public string ams { get; set; }
         public string route { get; set; }
+
+        public int rating { get; set; }
     
     }
 

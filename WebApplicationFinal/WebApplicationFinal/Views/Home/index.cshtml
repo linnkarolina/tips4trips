@@ -23,9 +23,11 @@
            {
 
                if (Request.Cookies["UserCookie"].Expires < DateTime.Now)
-               {
-                   if (Enumerable.Any(ViewBag.ExploreClass)) 
-                   {
+               {    
+
+                       if (Enumerable.Any(ViewBag.ExploreClass))
+                       {
+
                     <h1>Recommended trips for you</h1>
                      <div id="main">
                          <div class="trips-container">
@@ -58,7 +60,7 @@
                              }
                              </div>
    </div>
-                       }
+                           }
                    }
                }
                catch (NullReferenceException) { }

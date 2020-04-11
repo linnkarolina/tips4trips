@@ -132,7 +132,11 @@ namespace WebApplicationFinal.Controllers
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
 
-            string query = "SELECT * FROM image LEFT JOIN trip ON trip.trip_id = image.trip_id LEFT JOIN map_coordinates on trip.trip_id = map_coordinates.trip_id WHERE image.trip_id='" + off.ams + "'";
+            string query = "SELECT * FROM image as i " +
+                "LEFT JOIN trip as t ON t.trip_id = i.trip_id " +
+                "LEFT JOIN map_coordinates AS m ON t.trip_id = m.trip_id " +
+                "LEFT JOIN trip_with_type AS tw ON tw.trip_ID=t.trip_ID " +
+                "WHERE i.trip_id='" + off.ams + "'";
             MySqlCommand comm = new MySqlCommand(query);
             comm.Connection = mysql;
             mysql.Open();
@@ -149,16 +153,86 @@ namespace WebApplicationFinal.Controllers
                     description = dr["description"].ToString(),
                     city = dr["city"].ToString(),
                     website = dr["website"].ToString(),
+                    type_of_trip = dr["type_of_trip"].ToString(),
                     image = (byte[])dr["Image"],
                     route = dr["route"].ToString(),
 
                 }
-                );
+                ) ;
+                GetIcon(dr["type_of_trip"].ToString());
+                GetDiff(dr["difficulty"].ToString());
             }
-
+           
   
             ViewData["List1"] = images;
             return View("Trip");
+        }
+
+        public ActionResult GetDiff(string diff)
+        {
+            string str = diff.ToLower();
+            if (str.Contains("easy")  == true)
+            {
+                ViewBag.diffIcon = "<div class='dot green  dot--full'></div>";
+            }
+            if (str.Contains("medium") == true)
+            {
+                ViewBag.diffIcon = "<div class='dot yellow  dot--full'></div>";
+            }
+            if (str.Contains("hard") == true)
+            {
+                ViewBag.diffIcon = "<div class='dot red  dot--full'></div>";
+            }
+            return null;
+        }
+          
+
+            public ActionResult GetIcon(string type_of_trip) {
+            string str = type_of_trip.ToLower();
+            if (str.Contains("cyc") || str.Contains("bik") == true) {
+
+
+                ViewBag.icon = "<i class='fas fa-bicycle' style='font-size:24px'></i>";
+            }
+
+            if (str.Contains("swim") == true)
+            {
+
+
+                ViewBag.icon = "<i class='fas fa-swimmer' style='font-size:24px'></i>";
+            }
+
+            if (str.Contains("tram") == true)
+            {
+
+
+                ViewBag.icon = "<i class='fas fa-tram' style='font-size:24px'></i>";
+            }
+
+            if (str.Contains("skat") == true)
+            {
+
+
+                ViewBag.icon = "<i class='fas fa-skating' style='font-size:24px'></i>";
+            }
+
+            if (str.Contains("ski") == true)
+            {
+
+
+                ViewBag.icon = "<i class='fas fa-skiing-nordic' style='font-size:24px'></i>";
+            }
+
+            if (str.Contains("run") == true)
+            {
+
+
+                ViewBag.icon = "<i class='fas fa-walking' style='font-size:24px'></i>";
+            }
+
+
+
+            return null;
         }
 
         [HttpPost]

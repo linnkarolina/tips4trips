@@ -133,8 +133,8 @@ namespace WebApplicationFinal.Controllers
             {
                 list2.Add(new Account
                 {
-                    tagname = mr["name"].ToString(),
-                    idtag = mr.GetInt32(mr.GetOrdinal("ID_tag")),
+                    tagname = mr["username"].ToString(),
+                   
 
 
                 });
@@ -147,9 +147,64 @@ namespace WebApplicationFinal.Controllers
 
         }
 
+        public ActionResult writeFeedback() {
+
+            return View("writeFeedback");
+        }
 
 
-     
+        [HttpPost]
+        public ActionResult storeFeedback(Account adm)
+        {
+
+            List<Account> list1 = new List<Account>();
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+
+            string query = "SELECT * FROM admin ORDER BY RAND() LIMIT 1";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+            MySqlDataReader dr = comm.ExecuteReader();
+            while (dr.Read())
+            {
+                list1.Add(new Account
+                {
+                    Name = dr["Username"].ToString(),
+
+                });
+            }
+            string username = "";
+            foreach (var names in list1)
+            { int i = 0;
+                if (i== 0) {
+                        username = names.Name;
+                    }
+            }
+
+                string mainconni = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysqli = new MySqlConnection(mainconni);
+            string bruker = Request.Cookies["UserCookie"].Value;
+            var Timestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+            string queryi = "INSERT INTO user_inbox VALUES(null, '"+ bruker +"','" + username + "', '"+adm.subject + "','"+ adm.feedback_text +"','"+Timestamp+"' );";
+            MySqlCommand commi = new MySqlCommand(queryi);
+            commi.Connection = mysqli;
+            mysqli.Open();
+            int dri = commi.ExecuteNonQuery();
+             
+               
+                mysqli.Close();
+            return RedirectToAction("Index", "Home");
+
+
+        }
+
+
+        public ActionResult MyMessages() {
+            
+            
+            return View("MyMessages");
+        }
 
     }
 }

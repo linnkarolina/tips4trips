@@ -1,4 +1,5 @@
-﻿body {
+﻿
+body {
 }
 
 .trip_name {
@@ -7,9 +8,9 @@
 }
 
 .lendif {
-display:flex;
-flex-direction:row;
+
 }
+
 
 
 .content {
@@ -21,8 +22,9 @@ flex-direction:row;
 }
 
 .info {
-  width:50%;
-  padding-right:10px;
+    width: 40%;
+    
+    max-width: 400px;
 }
 
 
@@ -38,4 +40,64 @@ flex-direction:row;
         width: 100%;
         position: relative;
         max-width: 100%;
+    }
+
+.line {
+display:flex;
+flex-direction:row;
+justify-content:space-between;
+
+}
+
+
+.dot {
+    box-sizing: border-box;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    border: .125rem solid;
+    display: inline-block;
+}
+
+.red {
+    color: orangered;
+}
+
+.yellow {
+    color: gold;
+}
+
+.green {
+    color: limegreen;
+}
+
+.dot--full {
+    background-color: currentColor;
+}
+
+
+iframe {
+    margin-top: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+    .body-content {
+        all: initial;
+        *
+
+{
+    all: unset;
+}
+
+}
+    .body-content{
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+font-size: 1rem;
+font-weight: 400;
+line-height: 1.5;
+color: #888;
+text-align: left;
+background-color: #fff;
+}
+
     }

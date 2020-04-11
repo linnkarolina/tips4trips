@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="../Content/Frontpage.css" />
 <script src="~/Scripts/Slideshow.js"></script>
 <link href="~/Styles/Trip.css" rel="stylesheet" />
-
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <head />
 
 <div class="slider" id="main-slider">
@@ -36,10 +36,16 @@
         @foreach (var details in ViewBag.list1)
         {
             <div class="trip_name">  @details.trip_name</div>
-            <div class="descriptionn">  @details.description</div>
             <div class="lendif">
-                <div class="length_of_trip">  @details.length</div>
-                <div class="difficulty">  @details.difficulty</div>
+                <hr>
+                <div class="line"><div class="label">Area</div> <div class="areaIcon"><i class='fas fa-map-marker-alt' style='font-size:24px'></i> @details.city</div></div>
+                <hr>
+                <div class="line"><div class="label"> Type of trip </div> <div class="type">@Html.Raw(@ViewBag.icon)  @details.type_of_trip</div></div>
+                <hr>
+                <div class="line"><div class="label"> Length of trip </div> <div class="length_icon"><i class='fas fa-route' style='font-size:24px'></i> @details.length</div></div>
+                <hr>
+                <div class="line"><div class="label">Difficulty </div> <div class="difIcon">@Html.Raw(ViewBag.diffIcon) @details.difficulty</div></div>
+                <hr>
             </div>
             break;
 
@@ -67,9 +73,16 @@
 
 
     </div>
-
-
-</div>
+    <div class="rest">
+        @foreach (var details in ViewBag.list1)
+        {
+            <div class="descriptionn">  @details.description</div>
+            break;
+            <h3>tags</h3>
+            <div class="tags">  @details.tags</div>
+        }
+    </div>
+    </div>
 
 <div class="review">
     <h3>Been here? Why not leave a review</h3>

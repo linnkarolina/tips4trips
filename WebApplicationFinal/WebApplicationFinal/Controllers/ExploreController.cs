@@ -243,7 +243,11 @@ namespace WebApplicationFinal.Controllers
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
 
-            string query = "SELECT * FROM image LEFT JOIN trip ON trip.trip_id = image.trip_id LEFT JOIN map_coordinates on trip.trip_id = map_coordinates.trip_id WHERE image.trip_id='" + amv.ams + "'";
+            string query = "SELECT * FROM image as i " +
+                "LEFT JOIN trip as t ON t.trip_id = i.trip_id " +
+                "LEFT JOIN map_coordinates AS m ON t.trip_id = m.trip_id " +
+                "LEFT JOIN trip_with_type AS tw ON tw.trip_ID=t.trip_ID " +
+                "WHERE i.trip_id='" + amv.ams + "'";
             MySqlCommand comm = new MySqlCommand(query);
             comm.Connection = mysql;
             mysql.Open();
@@ -260,52 +264,31 @@ namespace WebApplicationFinal.Controllers
                     description = dr["description"].ToString(),
                     city = dr["city"].ToString(),
                     website = dr["website"].ToString(),
+                    type_of_trip = dr["type_of_trip"].ToString(),
                     image = (byte[])dr["Image"],
                     route = dr["route"].ToString(),
 
                 }
                 );
-            }
-            mysql.Close();
-            string markers = "[";
-            string conString = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
-            MySqlCommand cmd = new MySqlCommand("Select * from map_coordinates inner join trip on trip.trip_id=map_coordinates.trip_id");
-            using (MySqlConnection con = new MySqlConnection(conString))
-            {
-                cmd.Connection = con;
-                con.Open();
-                using (MySqlDataReader sdr = cmd.ExecuteReader())
-                {
-                    while (sdr.Read())
-                    {
-                        markers += "{";
-                        markers += string.Format("'title': '{0}',", sdr["trip_id"]);
-                        markers += string.Format("'lat': '{0}',", sdr["Latitude"]);
-                        markers += string.Format("'lng': '{0}',", sdr["Longitude"]);
-                        markers += string.Format("'description': '{0}',", sdr["description"]);
-                        markers += string.Format("'image': '{0}',", (byte[])sdr["Image"]);
-                        markers += string.Format("'website': '{0}'", sdr["website"]);
-                        markers += "},";
-                    }
-                }
-                con.Close();
+                GetIcon(dr["type_of_trip"].ToString());
+                GetDiff(dr["difficulty"].ToString());
             }
 
-            markers += "];";
-            ViewBag.Markers = markers;
 
             ViewData["List1"] = images;
+            
 
 
             string mainconni = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
-            MySqlConnection mysqli = new MySqlConnection(mainconn);
-            string user = Request.Cookies["UserCookie"].Value;
-            string queryi = "INSERT INTO review VALUES(" + amv.ams + ", '" + user + "', " + amv.rating + " );";
-            MySqlCommand commi = new MySqlCommand(queryi);
-            commi.Connection = mysqli;
-            mysqli.Open();
-            int dri = commi.ExecuteNonQuery();
-            return View();
+              MySqlConnection mysqli = new MySqlConnection(mainconn);
+              string user = Request.Cookies["UserCookie"].Value;
+              string queryi = "INSERT INTO review VALUES(" + amv.ams + ", '" + user + "', " + amv.rating + " );";
+              MySqlCommand commi = new MySqlCommand(queryi);
+              commi.Connection = mysqli;
+              mysqli.Open();
+              int dri = commi.ExecuteNonQuery();
+              return View();
+          
         }
 
         public void getTag()

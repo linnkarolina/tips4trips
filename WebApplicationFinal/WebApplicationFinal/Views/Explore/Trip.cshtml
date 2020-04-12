@@ -6,110 +6,122 @@
 
 }
 
-<html>
-<script src="~/Scripts/Slideshow.js"></script>
-<link rel="stylesheet" type="text/css" href="../Content/Frontpage.css" />
-<script src="~/Scripts/Slideshow.js"></script>
-<link href="~/Styles/Trip.css" rel="stylesheet" />
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<head />
+    <html>
+    <script src="~/Scripts/Slideshow.js"></script>
+    <link rel="stylesheet" type="text/css" href="../Content/Frontpage.css" />
+    <script src="~/Scripts/Slideshow.js"></script>
+    <link href="~/Styles/Trip.css" rel="stylesheet" />
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <head />
 
-<div class="slider" id="main-slider">
-    <!-- outermost container element -->
-    <div class="slider-wrapper">
-        <!-- innermost wrapper element -->
-
-
-        @foreach (var details in ViewBag.list1)
-        {
+    <div class="slider" id="main-slider">
+        <!-- outermost container element -->
+        <div class="slider-wrapper">
+            <!-- innermost wrapper element -->
 
 
-            <img src="data:image;base64,@System.Convert.ToBase64String(details.image)" alt="First" class="slide" />
-
-        }
-    </div>
-</div>
+            @foreach (var details in ViewBag.list1)
+            {
 
 
-<div class="content">
-    <div class="info">
-        @foreach (var details in ViewBag.list1)
-        {
-            <div class="trip_name">  @details.trip_name</div>
-            <div class="lendif">
-                <hr>
-                <div class="line"><div class="label">Area</div> <div class="areaIcon"><i class='fas fa-map-marker-alt' style='font-size:24px'></i> @details.city</div></div>
-                <hr>
-                <div class="line"><div class="label"> Type of trip </div> <div class="type">@Html.Raw(@ViewBag.icon)  @details.type_of_trip</div></div>
-                <hr>
-                <div class="line"><div class="label"> Length of trip </div> <div class="length_icon"><i class='fas fa-route' style='font-size:24px'></i> @details.length</div></div>
-                <hr>
-                <div class="line"><div class="label">Difficulty </div> <div class="difIcon">@Html.Raw(ViewBag.diffIcon) @details.difficulty</div></div>
-                <hr>
-            </div>
-            break;
+                <img src="data:image;base64,@System.Convert.ToBase64String(details.image)" alt="First" class="slide" />
 
-        }
+            }
+        </div>
     </div>
 
 
+    <div class="content">
+        <div class="info">
+            @foreach (var details in ViewBag.list1)
+            {
+                <div class="trip_name">  @details.trip_name</div>
+                <div class="lendif">
+                    <hr>
+                    <div class="line"><div class="label">Area</div> <div class="areaIcon"><i class='fas fa-map-marker-alt' style='font-size:24px'></i> @details.city</div></div>
+                    <hr>
+                    <div class="line"><div class="label"> Type of trip </div> <div class="type">@Html.Raw(@ViewBag.icon)  @details.type_of_trip</div></div>
+                    <hr>
+                    <div class="line"><div class="label"> Length of trip </div> <div class="length_icon"><i class='fas fa-route' style='font-size:24px'></i> @details.length</div></div>
+                    <hr>
+                    <div class="line"><div class="label">Difficulty </div> <div class="difIcon">@Html.Raw(ViewBag.diffIcon) @details.difficulty</div></div>
+                    <hr>
+                </div>
+                break;
+
+            }
+        </div>
 
 
 
 
-    <div class="map-responsive">
 
 
-        @foreach (var details in ViewBag.list1)
+        <div class="map-responsive">
+
+
+            @foreach (var details in ViewBag.list1)
+            {
+
+
+                @Html.Raw(details.route)
+
+                break;
+
+
+            }
+
+
+        </div>
+        <div class="rest">
+            @foreach (var details in ViewBag.list1)
+            {
+                <div class="descriptionn">  @details.description</div>
+                break;
+                <h3>tags</h3>
+                <div class="tags">  @details.tags</div>
+            }
+        </div>
+    </div>
+    
+@{ try
         {
 
 
-            @Html.Raw(details.route)
+            if (Request.Cookies["UserCookie"].Expires < DateTime.Now)
+            {
+                <div class="review">
+                    <h3>Been here? Why not leave a review</h3>
+                    @foreach (var details in ViewBag.list1)
+                    {
+                        using (Html.BeginForm("LeaveReview", "Explore", FormMethod.Post, new { ams = @details.trip_id }))
+                        {
 
-            break;
+                            <span class="star-rating star-5">
+
+                                @Html.RadioButton("rating", "1", false)<i></i>
+                                @Html.RadioButton("rating", "2", false)<i></i>
+                                @Html.RadioButton("rating", "3", false)<i></i>
+                                @Html.RadioButton("rating", "4", false)<i></i>
+                                @Html.RadioButton("rating", "5", false)<i></i>
+                                @Html.RadioButton("rating", "6", false)<i></i>
 
 
+
+                                <input type="hidden" value=" @details.trip_id" name="ams" />
+
+
+                            </span>
+                            <input type="submit" value="submit" />
+                        }
+
+                        break;
+                    }
+
+                </div>
+            }
         }
-
-
-    </div>
-    <div class="rest">
-        @foreach (var details in ViewBag.list1)
-        {
-            <div class="descriptionn">  @details.description</div>
-            break;
-            <h3>tags</h3>
-            <div class="tags">  @details.tags</div>
-        }
-    </div>
-    </div>
-
-<div class="review">
-    <h3>Been here? Why not leave a review</h3>
-    @foreach (var details in ViewBag.list1)
-    {
-        using (Html.BeginForm("LeaveReview", "Explore", FormMethod.Post, new { ams = @details.trip_id }))
-        {
-
-
-
-            @Html.RadioButton("rating", "1", false)
-            @Html.RadioButton("rating", "2", false)
-            @Html.RadioButton("rating", "3", false)
-            @Html.RadioButton("rating", "4", false)
-            @Html.RadioButton("rating", "5", false)
-            @Html.RadioButton("rating", "6", false)
-
-
-
-            <input type="hidden" value=" @details.trip_id" name="ams" />
-
-            <input type="submit" value="submit" />
-        }
-
-        break;
+        catch (NullReferenceException) { }
     }
-
-</div>
-<script src="~/Scripts/Trip.js"></script>
-</html>
+                <script src="~/Scripts/Trip.js"></script>
+            </html>

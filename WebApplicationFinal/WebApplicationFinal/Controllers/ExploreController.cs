@@ -185,53 +185,37 @@ namespace WebApplicationFinal.Controllers
             }
             return null;
         }
-          
-
-            public ActionResult GetIcon(string type_of_trip) {
+ 
+        public ActionResult GetIcon(string type_of_trip) {
             string str = type_of_trip.ToLower();
             if (str.Contains("cyc") || str.Contains("bik") == true) {
-
-
                 ViewBag.icon = "<i class='fas fa-bicycle' style='font-size:24px'></i>";
             }
 
             if (str.Contains("swim") == true)
             {
-
-
                 ViewBag.icon = "<i class='fas fa-swimmer' style='font-size:24px'></i>";
             }
 
             if (str.Contains("tram") == true)
             {
-
-
                 ViewBag.icon = "<i class='fas fa-tram' style='font-size:24px'></i>";
             }
 
             if (str.Contains("skat") == true)
             {
-
-
                 ViewBag.icon = "<i class='fas fa-skating' style='font-size:24px'></i>";
             }
 
             if (str.Contains("ski") == true)
             {
-
-
                 ViewBag.icon = "<i class='fas fa-skiing-nordic' style='font-size:24px'></i>";
             }
 
             if (str.Contains("run") == true)
             {
-
-
                 ViewBag.icon = "<i class='fas fa-walking' style='font-size:24px'></i>";
             }
-
-
-
             return null;
         }
 
@@ -273,51 +257,40 @@ namespace WebApplicationFinal.Controllers
                 GetIcon(dr["type_of_trip"].ToString());
                 GetDiff(dr["difficulty"].ToString());
             }
-
-
             ViewData["List1"] = images;
-            
-
 
             string mainconni = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
-              MySqlConnection mysqli = new MySqlConnection(mainconn);
-              string user = Request.Cookies["UserCookie"].Value;
-              string queryi = "INSERT INTO review VALUES(" + amv.ams + ", '" + user + "', " + amv.rating + " );";
-              MySqlCommand commi = new MySqlCommand(queryi);
-              commi.Connection = mysqli;
-              mysqli.Open();
-              int dri = commi.ExecuteNonQuery();
-              return View();
-          
+            MySqlConnection mysqli = new MySqlConnection(mainconn);
+            string user = Request.Cookies["UserCookie"].Value;
+            string queryi = "INSERT INTO review VALUES(" + amv.ams + ", '" + user + "', " + amv.rating + " );";
+            MySqlCommand commi = new MySqlCommand(queryi);
+            commi.Connection = mysqli;
+            mysqli.Open();
+            int dri = commi.ExecuteNonQuery();
+            return View();
+
         }
 
         public void getTag()
         {
-                List<Account> listTag = new List<Account>();
-            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
-            MySqlConnection mysql = new MySqlConnection(mainconn);
-            string query1 = "SELECT * FROM trip_tag RIGHT JOIN trip ON trip_tag.trip_id = trip.trip_id;";
-                MySqlCommand comm1 = new MySqlCommand(query1);
-                comm1.Connection = mysql;
-                mysql.Open();
-                MySqlDataReader mr = comm1.ExecuteReader();
-                while (mr.Read())
+        List<Account> listTag = new List<Account>();
+        string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+        MySqlConnection mysql = new MySqlConnection(mainconn);
+        string query1 = "SELECT * FROM trip_tag RIGHT JOIN trip ON trip_tag.trip_id = trip.trip_id;";
+        MySqlCommand comm1 = new MySqlCommand(query1);
+        comm1.Connection = mysql;
+        mysql.Open();
+        MySqlDataReader mr = comm1.ExecuteReader();
+        while (mr.Read())
                 {
                     listTag.Add(new Account
                     {
                         tagname = mr["tag"].ToString(),
                         idtag = mr.GetInt32(mr.GetOrdinal("trip_ID")),
-
-
                     });
                 }
 
-                ViewData["listTag"] = listTag;
-
-                
+        ViewData["listTag"] = listTag;
             }
-
-
-        
     }
 }

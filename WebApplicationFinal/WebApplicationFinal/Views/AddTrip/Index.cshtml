@@ -1,0 +1,72 @@
+﻿@model IEnumerable<WebApplicationFinal.Models.AddTripClass>
+@{
+    ViewBag.Title = "AddTrip";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AddTrip</h2>
+
+@using (Html.BeginForm("AddTrip",
+                        "UserAddedTrip",
+                        FormMethod.Post,
+                        new { enctype = "multipart/form-data" }))
+{
+    <label for="trip_name"> Trip name:</label>
+
+    <input type="text" name="trip_name" />
+    <br />
+    <label for="trip_length">  Trip length:</label>
+
+    <input type="text" name="trip_length" />
+    <br />
+    <label for="difficulty">  Difficulty:</label>
+
+    <input type="text" name="difficulty" />
+    <br />
+    <label for="city">  City:</label>
+    <select id="city" name="city">
+        @foreach (var details in ViewBag.ListCity)
+        {
+            <option value="@details.city">@details.city</option>
+        }
+    </select>
+    <br />
+
+    <label for="description">  Description:</label>
+    <input type = "text" name = "description"/><br/>
+
+    <label for="website">  Website:</label>
+    <input type = "text" name = "website" /><br />
+
+    <label for="latitude">  Latitude:</label>
+    <input type = "text" name = "latitude" /><br />
+
+    <label for="longitude">  Longitude:</label>
+    <input type = "text" name = "longitude" /><br />
+
+    <label for="map_route">  map_route:</label>
+    <input type = "text" name = "map_route" /><br />
+
+    <label for="image">  Image:</label>
+    <input type = "file" name = "image" id = "image" /><br /><br /> 
+     
+    <label for="type_of_trip">  Type of trip(activities):</label>
+<select id="type_of_trip" name="type_of_trip">
+    @foreach (var details in ViewBag.ListType)
+    {
+        <option value="@details.type_of_trip">@details.type_of_trip</option>
+    }
+</select>
+<br />
+
+<label for="tag">  Tag:</label>
+<select id="tag" name="tag">
+    @foreach (var details in ViewBag.ListTag)
+    {
+        <option value="@details.tag">@details.tag</option>
+    }
+</select>
+<br />
+<input type="submit" value="submit" />
+}
+

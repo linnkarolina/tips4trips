@@ -3,7 +3,9 @@ using System.Web.Mvc;
 using WebApplicationFinal.Models;
 using System.Configuration;
 using MySql.Data.MySqlClient;
-
+using System;
+using System.Web;
+using System.IO;
 
 namespace WebApplicationFinal.Controllers
 {
@@ -15,7 +17,7 @@ namespace WebApplicationFinal.Controllers
             getTripType();
             getCity();
             getTag();
-
+           
 
             return View();
 
@@ -102,29 +104,87 @@ namespace WebApplicationFinal.Controllers
 
         }
 
-        public ActionResult UserAddedTrip(AddTripClass trp)
+        public ActionResult UserAddedTrip(AddTripClass file)
         {
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
-            string query = "INSERT INTO trip VALUES (null, '" + trp.trip_name + "', '" + trp.trip_length + "', '" + trp.difficulty + "','" + trp.description + "','" + trp.city + "', '" + trp.website + "');";
+            string query = "INSERT INTO trip VALUES (null, '" + file.trip_name + "', '" + file.trip_length + "', '" + file.difficulty + "','" + file.description + "','" + file.city + "', '" + file.website + "');";
             MySqlCommand comm = new MySqlCommand(query);
             comm.Connection = mysql;
             mysql.Open();
             int dr = comm.ExecuteNonQuery();
             long id = comm.LastInsertedId;
-            insertImage(id, trp.image);
-            return View("Index");
+           
+
+
+
+            try
+
+            {
+
+                Byte[] bytes = null;
+
+                if (file.Filepic.FileName != null)
+
+                {
+
+                    Stream fs = file.Filepic.InputStream;
+
+                    BinaryReader br = new BinaryReader(fs);
+
+                    bytes = br.ReadBytes((Int32)fs.Length);
+
+                    string connectionstring = Convert.ToString(ConfigurationManager.ConnectionStrings["ConString"]);
+
+                    MySqlConnection con = new MySqlConnection(connectionstring);
+
+                    MySqlCommand cmd = new MySqlCommand("Insert into INSERT INTO image VALUES (null, '" + id + "', '" + file.Filepic + "')", con);
+
+                    
+
+
+
+                    con.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                    con.Close();
+
+                    ViewBag.Image = ViewImage(bytes);
+
+                }
+
+            }
+
+            catch (Exception)
+
+            {
+
+                throw;
+
+            }
+
+            return View();
+
+
+
+
         }
 
-        public ActionResult insertImage(long trip_id, string image) {
-            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
-            MySqlConnection mysql = new MySqlConnection(mainconn);
-            string query = "INSERT INTO image VALUES (null, '"+trip_id+"');";
-            MySqlCommand comm = new MySqlCommand(query);
-            comm.Connection = mysql;
-            mysql.Open();
-            int dr = comm.ExecuteNonQuery();
-            return null;
+
+
+  
+
+    
+
+        private string ViewImage(byte[] arrayImage)
+
+        {
+
+            string base64String = Convert.ToBase64String(arrayImage, 0, arrayImage.Length);
+
+            return "data:image/png;base64," + base64String;
+
         }
     }
-}
+        }

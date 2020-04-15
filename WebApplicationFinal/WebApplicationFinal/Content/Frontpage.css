@@ -90,3 +90,12 @@ img {
 .length_of_trip {
     margin-right: 10px;
 }
+
+.body-content {
+    all: initial;
+    *
+
+{
+    all: unset;
+}
+}

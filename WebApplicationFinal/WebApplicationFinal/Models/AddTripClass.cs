@@ -16,7 +16,7 @@ namespace WebApplicationFinal.Models
         public int latitude { get; set; }
         public string longitude { get; set; }
         public string map_route { get; set; }
-        public string image { get; set; }
+        public HttpPostedFileBase Filepic { get; set; }
         public string type_of_trip { get; set; }
         public string tag { get; set; }
     }

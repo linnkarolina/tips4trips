@@ -21,6 +21,16 @@ namespace WebApplicationFinal.Models
         public string tagname { get; set; }
         public int idtag { get; set; }
 
-     
+        public string subject { get; set; }
+        public string feedback_text { get; set; }
+
+        public string TimeSent { get; set; }
+        public int message_ID { get; set; }
+        public string admin { get; set; }
+
+        public string user { get; set; }
+       
+
+
     }
 }

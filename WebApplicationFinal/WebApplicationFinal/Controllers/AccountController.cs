@@ -133,8 +133,8 @@ namespace WebApplicationFinal.Controllers
             {
                 list2.Add(new Account
                 {
-                    tagname = mr["name"].ToString(),
-                    idtag = mr.GetInt32(mr.GetOrdinal("ID_tag")),
+                    tagname = mr["username"].ToString(),
+                   
 
 
                 });
@@ -147,9 +147,95 @@ namespace WebApplicationFinal.Controllers
 
         }
 
+        public ActionResult writeFeedback() {
+
+            return View("writeFeedback");
+        }
 
 
-     
+        [HttpPost]
+        public ActionResult storeFeedback(Account adm)
+        {
+
+           
+            
+
+                string mainconni = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysqli = new MySqlConnection(mainconni);
+            string bruker = Request.Cookies["UserCookie"].Value;
+            var Timestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+            string queryi = "INSERT INTO admin_inbox VALUES(null, '"+ bruker +"', '"+adm.subject + "','"+ adm.feedback_text +"','"+Timestamp+"',false );";
+            MySqlCommand commi = new MySqlCommand(queryi);
+            commi.Connection = mysqli;
+            mysqli.Open();
+            int dri = commi.ExecuteNonQuery();
+             
+               
+                mysqli.Close();
+            return RedirectToAction("Index", "Home");
+
+
+        }
+
+
+        public ActionResult MyMessages() {
+            List<Account> sent = new List<Account>();
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+            string name = Request.Cookies["UserCookie"].Value;
+            string query = "SELECT * FROM admin_inbox where user_username='" + name + "'";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+            MySqlDataReader dr = comm.ExecuteReader();
+            while (dr.Read())
+            {
+                sent.Add(new Account
+                {
+                    message_ID = dr.GetInt32(dr.GetOrdinal("message_ID")),
+                    subject = dr["subject"].ToString(),
+                    feedback_text = dr["message"].ToString(),
+                    
+
+
+                });
+            }
+            mysql.Close();
+
+            ViewData["sent"] = sent;
+            answaredMessage();
+            return View("MyMessages");
+        }
+
+        public void answaredMessage() {
+            List<Account> answared = new List<Account>();
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+            string name = Request.Cookies["UserCookie"].Value;
+            string query = "SELECT * FROM user_inbox where user_username='" + name + "'";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+            MySqlDataReader dr = comm.ExecuteReader();
+            while (dr.Read())
+            {
+                answared.Add(new Account
+                {
+                    message_ID = dr.GetInt32(dr.GetOrdinal("message_ID")),
+                    admin = dr["admin_username"].ToString(),
+                    user= dr["user_username"].ToString(),
+                    subject = dr["subject"].ToString(),
+                    feedback_text = dr["message"].ToString(),
+
+
+
+                });
+            }
+            mysql.Close();
+
+            ViewData["answared"] = answared;
+            
+        }
 
     }
 }

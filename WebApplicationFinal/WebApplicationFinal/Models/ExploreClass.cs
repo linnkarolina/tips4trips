@@ -25,7 +25,9 @@ namespace WebApplicationFinal.Models
         public string type_of_trip { get; set; }
 
         public int rating { get; set; }
-    
+        public string img_ID { get; set; }
+
+
     }
 
 }

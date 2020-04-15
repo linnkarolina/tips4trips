@@ -34,11 +34,13 @@ namespace WebApplicationFinal.Controllers
                     description = dr["description"].ToString(),
                     city = dr["city"].ToString(),
                     website = dr["website"].ToString(),
-                    image = (byte[])dr["Image"],
                 }
                 );
                 getTag();
-            }    
+            }
+            ViewBag.ExploreClass = images;
+            getImage();
+
             ViewData["List1"] = images;
             return View("Index");
         }
@@ -113,12 +115,13 @@ namespace WebApplicationFinal.Controllers
                     description = dr["description"].ToString(),
                     city = dr["city"].ToString(),
                     website = dr["website"].ToString(),
-                    image = (byte[])dr["Image"],
                 }
                 );
             }
             getTag();
-            ViewData["List1"] = images;
+            getImage();
+            ViewBag.ExploreClass = images;
+            ViewData["list1"] = images;
             return View();
 
         }
@@ -276,7 +279,7 @@ namespace WebApplicationFinal.Controllers
         List<Account> listTag = new List<Account>();
         string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
         MySqlConnection mysql = new MySqlConnection(mainconn);
-        string query1 = "SELECT * FROM trip_tag RIGHT JOIN trip ON trip_tag.trip_id = trip.trip_id;";
+        string query1 = "SELECT * FROM trip_tag INNER JOIN trip ON trip_tag.trip_id = trip.trip_id;";
         MySqlCommand comm1 = new MySqlCommand(query1);
         comm1.Connection = mysql;
         mysql.Open();
@@ -292,5 +295,31 @@ namespace WebApplicationFinal.Controllers
 
         ViewData["listTag"] = listTag;
             }
+
+        public void getImage()
+        {
+            List<ExploreClass> listImage = new List<ExploreClass>();
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+            string query1 = "SELECT * FROM image";
+            MySqlCommand comm1 = new MySqlCommand(query1);
+            comm1.Connection = mysql;
+            mysql.Open();
+            MySqlDataReader mr = comm1.ExecuteReader();
+            while (mr.Read())
+            {
+                listImage.Add(new ExploreClass
+                {
+                    image = (byte[])mr["Image"],
+
+                    img_ID = mr["trip_ID"].ToString(),
+
+
+                });
+            }
+
+            ViewData["listImage"] = listImage;
+
+        }
     }
 }

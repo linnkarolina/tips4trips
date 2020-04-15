@@ -51,7 +51,14 @@
                 <a class="trips" href='@Url.Action("Trip", "Explore", new { ams= @details. trip_id})'>
                     <div type="submit" name="valg" style="cursor: pointer;">
 
-                        <img src="data:image;base64,@System.Convert.ToBase64String(details.image)" />
+                        @foreach (var detail in ViewBag.listImage)
+                        {
+                            if (@detail.img_ID == @details.trip_id)
+                            {
+                                <img src="data:image;base64,@System.Convert.ToBase64String(detail.image)" />
+                                break;
+                            }
+                        }
                         <div class="areaid">  @details.trip_name</div>
                         <p class="description module">  @details.description</p>
                         <div class="at">

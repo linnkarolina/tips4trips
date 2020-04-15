@@ -164,7 +164,7 @@ namespace WebApplicationFinal.Controllers
             MySqlConnection mysqli = new MySqlConnection(mainconni);
             string bruker = Request.Cookies["UserCookie"].Value;
             var Timestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
-            string queryi = "INSERT INTO admin_inbox VALUES(null, '"+ bruker +"', '"+adm.subject + "','"+ adm.feedback_text +"','"+Timestamp+"' );";
+            string queryi = "INSERT INTO admin_inbox VALUES(null, '"+ bruker +"', '"+adm.subject + "','"+ adm.feedback_text +"','"+Timestamp+"',false );";
             MySqlCommand commi = new MySqlCommand(queryi);
             commi.Connection = mysqli;
             mysqli.Open();

@@ -24,7 +24,7 @@
 
                if (Request.Cookies["UserCookie"].Expires < DateTime.Now)
                {
-                   
+
                    if (Enumerable.Any(ViewBag.ExploreClass))
                    {
 
@@ -40,28 +40,77 @@
 
                                    <a class="trips" href='@Url.Action("Trip", "Explore", new { ams = @details.trip_id })'>
                                        <div type="submit" name="valg" style="cursor: pointer;">
-
-                                           <img src="data:image;base64,@System.Convert.ToBase64String(details.image)" />
-                                           <div class="areaid">  @details.trip_name</div>
-                                           <p class="description module">  @details.description</p>
-                                           <div class="at">
-                                               <div class="length_of_trip">  @details.length</div>
-                                               <div class="difficulty">  @details.difficulty</div>
-                                               @foreach (var detail in ViewBag.listTag)
+                                           @foreach (var detail in ViewBag.listImage)
+                                           {
+                                               if (@detail.img_ID == @details.trip_id)
                                                {
-                                                   if (details.trip_id == detail.idtag.ToString())
-                                                   {
-                                                       <div class="tag">  @detail.tagname</div>
-                                                   }
+                                               <img src="data:image;base64,@System.Convert.ToBase64String(detail.image)" />
+                                                   break;
                                                }
+                                           }
+                                               <div class="areaid">  @details.trip_name</div>
+                                               <p class="description module">  @details.description</p>
+                                               <div class="at">
+                                                   <div class="length_of_trip">  @details.length</div>
+                                                   <div class="difficulty">  @details.difficulty</div>
+                                                   @foreach (var detail in ViewBag.listTag)
+                                                   {
+                                                       if (details.trip_id == detail.idtag.ToString())
+                                                       {
+                                                           <div class="tag">  @detail.tagname</div>
+                                                       }
+                                                   }
+                                               </div>
                                            </div>
-                                       </div>
                                    </a>
 
                                }
                            </div>
                        </div>
-                   }
+
+                        }
+                       <h1>Trips near you!</h1>
+                       <div id="main">
+
+                           <div class="trips-container">
+
+
+                               @foreach (var details in ViewBag.recommendCity)
+                               {
+                                   
+
+
+                                       <a class="trips" href='@Url.Action("Trip", "Explore", new { ams = @details.trip_id })'>
+                                           <div type="submit" name="valg" style="cursor: pointer;">
+
+                                               @foreach (var detail in ViewBag.listImage)
+                                               {
+                                                   if (@detail.img_ID == @details.trip_id)
+                                                   {
+                                                       <img src="data:image;base64,@System.Convert.ToBase64String(detail.image)" />
+                                                       break;
+                                                   }
+                                               }
+                                               <div class="areaid">  @details.trip_name</div>
+                                               <p class="description module">  @details.description</p>
+                                               <div class="at">
+                                                   <div class="length_of_trip">  @details.length</div>
+                                                   <div class="difficulty">  @details.difficulty</div>
+                                                   @foreach (var detail in ViewBag.listTag)
+                                                   {
+                                                       if (details.trip_id == detail.idtag.ToString())
+                                                       {
+                                                           <div class="tag">  @detail.tagname</div>
+                                                       }
+                                                   }
+                                               </div>
+                                           </div>
+                                       </a>
+
+                                   }
+                               </div>
+                       </div>
+                  
                }
            }
            catch (NullReferenceException) { }
@@ -81,7 +130,14 @@
                    <a class="trips" href='@Url.Action("Trip", "Explore", new { ams= @details. trip_id})'>
                        <div type="submit" name="valg" style="cursor: pointer;">
 
-                           <img src="data:image;base64,@System.Convert.ToBase64String(details.image)" />
+                          @foreach (var detail in ViewBag.listImage)
+                                           {
+                                               if (@detail.img_ID == @details.trip_id)
+                                               {
+                                               <img src="data:image;base64,@System.Convert.ToBase64String(detail.image)" />
+                                                   break;
+                                               }
+                                           }
                            <div class="areaid">  @details.trip_name</div>
                            <p class="description module">  @details.description</p>
                            <div class="at">

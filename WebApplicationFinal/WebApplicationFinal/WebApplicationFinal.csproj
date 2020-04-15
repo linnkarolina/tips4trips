@@ -188,7 +188,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AddTripController.cs" />
     <Compile Include="Controllers\ExploreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MapController.cs" />
@@ -197,7 +196,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account.cs" />
-    <Compile Include="Models\AddTripClass.cs" />
     <Compile Include="Models\ExploreClass.cs" />
     <Compile Include="Models\MapClass.cs" />
     <Compile Include="Models\MysqlClass.cs" />
@@ -374,7 +372,6 @@
     <Content Include="Views\Explore\Trip.cshtml" />
     <Content Include="Views\Account\writeFeedback.cshtml" />
     <Content Include="Views\Account\MyMessages.cshtml" />
-    <Content Include="Views\AddTrip\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

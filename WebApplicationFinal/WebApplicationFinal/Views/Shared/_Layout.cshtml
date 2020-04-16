@@ -28,12 +28,22 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="../Home/Index">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Map">Map</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Explore">Explore</a>
-                </li>
+                @{ try
+                    {
+
+
+                        if (Request.Cookies["UserCookie"].Expires < DateTime.Now)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Map">Map</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Explore">Explore</a>
+                            </li>
+                        }
+                    }
+                    catch (NullReferenceException) { }
+                }
                 @{ try
                     {
                         if (Request.Cookies["UserCookie"] == null)
@@ -62,9 +72,10 @@
                         </button>
                          </div>
                         <div id="Dropdown" class="dropdownmenu-content">
-                            <a href="/Account/LogOut">Sign out</a>
+                            <a href="/Account/LogOut">Sign Out</a>
                             <a href="/Account/MyAccount">My Account</a>
                             <a href="#CSS">My taggs</a>
+                            <a href="/Account/MyMessages">My Messages</a>
                         </div>
                     </div>
                             }
@@ -76,7 +87,7 @@
 
 
 
-            <form class="form-inline my-2 my-lg-0">
+            <form class="form-inline my-2 my-lg-0"action="../Explore/Index">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search">
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
             </form>
@@ -86,8 +97,19 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year</p>
-        </footer>
+             @try
+                {
+
+
+                    if (Request.Cookies["UserCookie"].Expires < DateTime.Now)
+                    {
+                        <a href="../Account/writeFeedback">Write us feedback</a>
+                           }
+                    }
+                    catch (NullReferenceException) { }
+                        <p>&copy; @DateTime.Now.Year</p>
+                    </footer>
+
     </div>
 
     @Scripts.Render("~/bundles/jquery")

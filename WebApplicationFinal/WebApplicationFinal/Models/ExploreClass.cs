@@ -22,9 +22,12 @@ namespace WebApplicationFinal.Models
 
        public string ams { get; set; }
         public string route { get; set; }
+        public string type_of_trip { get; set; }
 
         public int rating { get; set; }
-    
+        public string img_ID { get; set; }
+
+
     }
 
 }

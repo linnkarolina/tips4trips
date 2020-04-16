@@ -7,8 +7,7 @@
     flex-wrap: wrap;
     justify-content: space-around;
     background-color: #fff;
-    color: #444;
-    
+    color: #888888;
 }
 img {
     width: 100%;
@@ -25,12 +24,11 @@ float:left;
 
 .trips {
     margin: 5px;
-    min-width:200px;
+    min-width: 200px;
     width: 30%;
-    background-color: #444;
+    background-color: #888888;
     color: #fff;
     border-radius: 5px;
-    
     align-self: auto;
 }
 

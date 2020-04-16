@@ -8,7 +8,7 @@
 
     <html>
     <script src="~/Scripts/Slideshow.js"></script>
-    <link rel="stylesheet" type="text/css" href="../Content/Frontpage.css" />
+
     <script src="~/Scripts/Slideshow.js"></script>
     <link href="~/Styles/Trip.css" rel="stylesheet" />
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
@@ -83,45 +83,58 @@
             }
         </div>
     </div>
-    
-@{ try
-        {
 
+    @{ try
+                    {
 
-            if (Request.Cookies["UserCookie"].Expires < DateTime.Now)
-            {
+                        Boolean allReadyReviwed = false;
+                        if (Request.Cookies["UserCookie"].Expires < DateTime.Now)
+                        {
+                            foreach (var det in ViewBag.userReviews)
+                            {
+                                if (det.username == Request.Cookies["UserCookie"].Value)
+                                {
+                                     allReadyReviwed = true;
+                                    break;
+                                }
+                            }
+                            if (allReadyReviwed != true)
+                            {
                 <div class="review">
                     <h3>Been here? Why not leave a review</h3>
                     @foreach (var details in ViewBag.list1)
+                {
+                    using (Html.BeginForm("LeaveReview", "Explore", FormMethod.Post, new { ams = @details.trip_id }))
                     {
-                        using (Html.BeginForm("LeaveReview", "Explore", FormMethod.Post, new { ams = @details.trip_id }))
-                        {
 
-                            <span class="star-rating star-5">
+                        <span class="star-rating star-5">
 
-                                @Html.RadioButton("rating", "1", false)<i></i>
-                                @Html.RadioButton("rating", "2", false)<i></i>
-                                @Html.RadioButton("rating", "3", false)<i></i>
-                                @Html.RadioButton("rating", "4", false)<i></i>
-                                @Html.RadioButton("rating", "5", false)<i></i>
-                                @Html.RadioButton("rating", "6", false)<i></i>
+                            @Html.RadioButton("rating", "1", false)<i></i>
+                            @Html.RadioButton("rating", "2", false)<i></i>
+                            @Html.RadioButton("rating", "3", false)<i></i>
+                            @Html.RadioButton("rating", "4", false)<i></i>
+                            @Html.RadioButton("rating", "5", false)<i></i>
+                            @Html.RadioButton("rating", "6", false)<i></i>
 
 
 
-                                <input type="hidden" value=" @details.trip_id" name="ams" />
+                            <input type="hidden" value=" @details.trip_id" name="ams" />
 
 
-                            </span>
-                            <input type="submit" value="submit" />
+                        </span>
+                        <input type="submit" value="submit" />
                         }
 
                         break;
                     }
 
                 </div>
+                    }
+                }
+
+
             }
+            catch (NullReferenceException) { }
         }
-        catch (NullReferenceException) { }
-    }
-                <script src="~/Scripts/Trip.js"></script>
-            </html>
+    <script src="~/Scripts/Trip.js"></script>
+    </html>

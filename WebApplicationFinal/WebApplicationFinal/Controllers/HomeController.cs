@@ -48,7 +48,7 @@ namespace WebApplicationFinal.Controllers
             ViewBag.ExploreClass = images;
             getImage();
             getTag();
-            var thisMenu = RecommendTrips();
+           /* var thisMenu = RecommendTrips();*/
             var ok = RecommendNearby();
             return View(images);
         }

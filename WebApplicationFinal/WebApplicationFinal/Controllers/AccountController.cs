@@ -24,19 +24,19 @@ namespace WebApplicationFinal.Controllers
             return View();
         }
 
-       
+
 
         [HttpPost]
         public ActionResult LoginVerify(Account acc)
         {
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
-            string query = "SELECT * FROM user where username='"+acc.Name+"' and password='"+acc.Password+"'";
+            string query = "SELECT * FROM user where username='" + acc.Name + "' and password='" + acc.Password + "'";
             MySqlCommand comm = new MySqlCommand(query);
             comm.Connection = mysql;
             mysql.Open();
             MySqlDataReader dr = comm.ExecuteReader();
-           if(dr.Read())
+            if (dr.Read())
             {
                 HttpCookie Cridentials = new HttpCookie("UserCookie");
                 Cridentials.Expires = DateTime.Now.AddHours(5);
@@ -46,11 +46,11 @@ namespace WebApplicationFinal.Controllers
                 Response.Redirect("../Home/Index", false);
                 return null;
             }
-           else
+            else
             {
                 mysql.Close();
-               
-                 return View("Login");
+
+                return View("Login");
 
             }
 
@@ -91,7 +91,7 @@ namespace WebApplicationFinal.Controllers
             Response.Cookies["UserCookie"].Expires = DateTime.Now.AddDays(-1);
 
             Response.Cookies["UserCookie"].Value = null;
-           
+
             Response.Redirect("../Home/Index", false);
             return null;
         }
@@ -103,7 +103,7 @@ namespace WebApplicationFinal.Controllers
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
             string name = Request.Cookies["UserCookie"].Value;
-            string query = "SELECT * FROM user where username='"+ name + "'";
+            string query = "SELECT * FROM user where username='" + name + "'";
             MySqlCommand comm = new MySqlCommand(query);
             comm.Connection = mysql;
             mysql.Open();
@@ -118,7 +118,7 @@ namespace WebApplicationFinal.Controllers
                     email = dr["email"].ToString(),
                     full_name = dr["full_name"].ToString(),
                     phone_NR = dr.GetInt32(dr.GetOrdinal("phone_NR")),
-                    
+
 
                 });
             }
@@ -134,7 +134,7 @@ namespace WebApplicationFinal.Controllers
                 list2.Add(new Account
                 {
                     tagname = mr["username"].ToString(),
-                   
+
 
 
                 });
@@ -157,21 +157,21 @@ namespace WebApplicationFinal.Controllers
         public ActionResult storeFeedback(Account adm)
         {
 
-           
-            
 
-                string mainconni = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+
+
+            string mainconni = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysqli = new MySqlConnection(mainconni);
             string bruker = Request.Cookies["UserCookie"].Value;
             var Timestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
-            string queryi = "INSERT INTO admin_inbox VALUES(null, '"+ bruker +"', '"+adm.subject + "','"+ adm.feedback_text +"','"+Timestamp+"',false );";
+            string queryi = "INSERT INTO admin_inbox VALUES(null, '" + bruker + "', '" + adm.subject + "','" + adm.feedback_text + "','" + Timestamp + "',false );";
             MySqlCommand commi = new MySqlCommand(queryi);
             commi.Connection = mysqli;
             mysqli.Open();
             int dri = commi.ExecuteNonQuery();
-             
-               
-                mysqli.Close();
+
+
+            mysqli.Close();
             return RedirectToAction("Index", "Home");
 
 
@@ -195,7 +195,7 @@ namespace WebApplicationFinal.Controllers
                     message_ID = dr.GetInt32(dr.GetOrdinal("message_ID")),
                     subject = dr["subject"].ToString(),
                     feedback_text = dr["message"].ToString(),
-                    
+
 
 
                 });
@@ -223,7 +223,7 @@ namespace WebApplicationFinal.Controllers
                 {
                     message_ID = dr.GetInt32(dr.GetOrdinal("message_ID")),
                     admin = dr["admin_username"].ToString(),
-                    user= dr["user_username"].ToString(),
+                    user = dr["user_username"].ToString(),
                     subject = dr["subject"].ToString(),
                     feedback_text = dr["message"].ToString(),
 
@@ -234,8 +234,63 @@ namespace WebApplicationFinal.Controllers
             mysql.Close();
 
             ViewData["answared"] = answared;
+
+        }
+       
+        public ActionResult ShowAccount(){
+            List<Account> list1 = new List<Account>();
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+            string name = Request.Cookies["UserCookie"].Value;
+            string query = "SELECT * FROM user where username='" + name + "';";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+            MySqlDataReader dr = comm.ExecuteReader();
+            while (dr.Read())
+            {
+                list1.Add(new Account
+                {
+                    Name = dr["Username"].ToString(),
+                    Password = dr["password"].ToString(),
+                    location = dr["city"].ToString(),
+                    email = dr["email"].ToString(),
+                    full_name = dr["full_name"].ToString(),
+                    phone_NR = dr.GetInt32(dr.GetOrdinal("phone_NR")),
+                });
+            }
+            mysql.Close();
+            ViewData["list1"] = list1;
+            return View("ShowAccount");
             
         }
 
+        [HttpPost]
+        public ActionResult EditAccount(Account user)
+        {
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+            string query = "UPDATE user set city='"+user.location+"', email='"+user.email+"', full_name='"+user.full_name+"', phone_nr='"+user.phone_NR+"'  WHERE username='" + user.Name + "';";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+            int dr = comm.ExecuteNonQuery();
+            if (dr != null)
+            {
+
+                mysql.Close();
+                MyAccount();
+                return null;
+            }
+            else
+            {
+                mysql.Close();
+                MyAccount();
+                return null;
+            }
+        }
     }
+
+
+
 }

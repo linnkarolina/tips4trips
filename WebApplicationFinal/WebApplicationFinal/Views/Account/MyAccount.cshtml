@@ -10,31 +10,33 @@
 
 
 <div class="myaccount-container">
-    
-    @foreach (var details in ViewBag.list1)
-    {
+   
+        <a class="trips" href='@Url.Action("ShowAccount", "Account")'>
+
+            @foreach (var details in ViewBag.list1)
+            {
 
 
-    <div class="account-element">
-        <h2>Account details</h2>
+                <div class="account-element">
+                    <h2>Account details</h2>
 
-        <div class=""> Username: @details.Name </div>
-        <div class="">Location:  @details.location</div>
-        <div class="">E-mail:  @details.email</div>
-        <div class="">Full Name:  @details.full_name</div>
-        <div class="">Phone number: @details.phone_NR</div>
-        <button type="button" class="btn btn-primary btn-lg">Edit profile</button>
-    </div>
-    }
+                    <div class=""> Username: @details.Name </div>
+                    <div class="">Location:  @details.location</div>
+                    <div class="">E-mail:  @details.email</div>
+                    <div class="">Full Name:  @details.full_name</div>
+                    <div class="">Phone number: @details.phone_NR</div>
+                    <button type="button" class="btn btn-primary btn-lg">Edit profile</button>
+                </div>
+            }
+        </a>
+        <div class="tags">
+            <h2>Your tags</h2>
+            @foreach (var details in ViewBag.list2)
+            {
 
-    <div class="tags">
-        <h2>Your tags</h2>
-        @foreach (var details in ViewBag.list2)
-        {
+                <div>@details.tagname</div>
 
-            <div>@details.tagname</div>
-
-        }
-    <button type="button" class="btn btn-primary btn-lg">Edit tags</button>
-    </div>
+            }
+            <button type="button" class="btn btn-primary btn-lg">Edit tags</button>
+        </div>
 </div>

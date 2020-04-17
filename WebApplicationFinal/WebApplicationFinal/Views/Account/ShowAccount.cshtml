@@ -1,0 +1,21 @@
+﻿@model IEnumerable<WebApplicationFinal.Models.Account>
+@{
+    ViewBag.Title = "ShowAccount";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>ShowAccount</h2>
+
+<form action="EditAccount" method="POST">
+    @foreach (var details in ViewBag.list1)
+    {
+        <input type="text"  name="Name" value="@details.Name" />
+        <input type="text" name="Password" value="@details.Password" />
+        <input type="text" name="location" value="@details.location" />
+        <input type="text" name="email" value="@details.email" />
+        <input type="text" name="full_name" value="@details.full_name" />
+        <input type="text" name="phone_NR"value="@details.phone_NR" />
+        <input type="submit" value="change" />
+    }
+</form>

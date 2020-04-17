@@ -330,6 +330,9 @@
     <Content Include="Styles\explore.css" />
     <Content Include="Styles\MyAccount.css" />
     <Content Include="Styles\Trip.css" />
+    <Content Include="Views\Account\ShowAccount.cshtml">
+      <DependentUpon>MyAccount.cshtml</DependentUpon>
+    </Content>
     <Content Include="Views\Explore\LeaveReview.cshtml">
       <DependentUpon>Trip.cshtml</DependentUpon>
     </Content>

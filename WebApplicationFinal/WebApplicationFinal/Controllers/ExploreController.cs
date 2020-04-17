@@ -165,10 +165,37 @@ namespace WebApplicationFinal.Controllers
                 GetIcon(dr["type_of_trip"].ToString());
                 GetDiff(dr["difficulty"].ToString());
             }
-           
-  
+
+             isRegistered(off.ams);
             ViewData["List1"] = images;
             return View("Trip");
+        }
+
+        public ActionResult isRegistered(string tripid) {
+            List<ExploreClass> userReviews = new List<ExploreClass>();
+
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+
+            string query = "SELECT * FROM review WHERE trip_ID='" + tripid + "'";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+
+            MySqlDataReader dr = comm.ExecuteReader();
+            while (dr.Read())
+            {
+                userReviews.Add(new ExploreClass
+                {
+                    trip_id = dr["trip_id"].ToString(),
+                    username = dr["username"].ToString(),
+
+                }
+                );
+                
+            }
+            ViewData["userReviews"] = userReviews;
+            return null;
         }
 
         public ActionResult GetDiff(string diff)

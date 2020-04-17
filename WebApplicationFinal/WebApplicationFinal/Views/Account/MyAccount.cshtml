@@ -11,24 +11,27 @@
 
 <div class="myaccount-container">
    
-        <a class="trips" href='@Url.Action("ShowAccount", "Account")'>
+        
 
             @foreach (var details in ViewBag.list1)
             {
 
 
-                <div class="account-element">
-                    <h2>Account details</h2>
+            <div class="account-element">
+                <h2>Account details</h2>
 
-                    <div class=""> Username: @details.Name </div>
-                    <div class="">Location:  @details.location</div>
-                    <div class="">E-mail:  @details.email</div>
-                    <div class="">Full Name:  @details.full_name</div>
-                    <div class="">Phone number: @details.phone_NR</div>
+                <div class=""> Username: @details.Name </div>
+                <div class="">Location:  @details.location</div>
+                <div class="">E-mail:  @details.email</div>
+                <div class="">Full Name:  @details.full_name</div>
+                <div class="">Phone number: @details.phone_NR</div>
+
+                <a class="trips" href='@Url.Action("ShowAccount", "Account")'>
                     <button type="button" class="btn btn-primary btn-lg">Edit profile</button>
-                </div>
+                </a>
+            </div>
             }
-        </a>
+      
         <div class="tags">
             <h2>Your tags</h2>
             @foreach (var details in ViewBag.list2)

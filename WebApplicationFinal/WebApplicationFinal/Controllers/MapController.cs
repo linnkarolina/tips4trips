@@ -28,7 +28,7 @@ namespace WebApplicationFinal.Controllers
                         markers += string.Format("'lat': '{0}',", sdr["Latitude"]);
                         markers += string.Format("'lng': '{0}',", sdr["Longitude"]);
                         markers += string.Format("'description': '{0}',", sdr["description"]);
-                        markers += string.Format("'image': '{0}',", (byte[])sdr["Image"]);
+                       /* markers += string.Format("'image': '{0}',", (byte[])sdr["Image"]);*/
                         markers += string.Format("'website': '{0}'", sdr["website"]);
                         markers += "},";
                     }

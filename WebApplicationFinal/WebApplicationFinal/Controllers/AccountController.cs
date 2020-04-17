@@ -275,19 +275,11 @@ namespace WebApplicationFinal.Controllers
             comm.Connection = mysql;
             mysql.Open();
             int dr = comm.ExecuteNonQuery();
-            if (dr != null)
-            {
-
                 mysql.Close();
                 MyAccount();
-                return null;
-            }
-            else
-            {
-                mysql.Close();
-                MyAccount();
-                return null;
-            }
+                return View("MyAccount");
+            
+          
         }
     }
 

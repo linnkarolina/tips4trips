@@ -278,8 +278,47 @@ namespace WebApplicationFinal.Controllers
                 mysql.Close();
                 MyAccount();
                 return View("MyAccount");
-            
-          
+        }
+        public ActionResult ShowTags()
+        {
+            List<Account> list1 = new List<Account>();
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+            string name = Request.Cookies["UserCookie"].Value;
+            string query = "SELECT * FROM user_tag where username='" + name + "';";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+            MySqlDataReader dr = comm.ExecuteReader();
+            while (dr.Read())
+            {
+                list1.Add(new Account
+                {
+                    Name = dr["Username"].ToString(),
+                    tagname = dr["tag"].ToString(),
+                });
+            }
+            mysql.Close();
+            ViewData["list1"] = list1;
+            return View("ShowTags");
+
+        }
+
+        [HttpPost]
+        public ActionResult EditTags(Account user)
+        {
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+            string query = "UPDATE user_tag set tag='" + user.tagname + "' WHERE username='" + user.Name + "';";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+            int dr = comm.ExecuteNonQuery();
+            mysql.Close();
+            MyAccount();
+            return View("MyTags");
+
+
         }
     }
 

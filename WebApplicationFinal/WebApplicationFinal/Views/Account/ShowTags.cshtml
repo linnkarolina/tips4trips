@@ -7,20 +7,22 @@
 <h2>Tags</h2>
 
 <form action="EditAccount" method="POST">
-    @foreach (var details in ViewBag.list1)
-    {
+   
 
     <fieldset>
         <legend>Add tags</legend>
         <div class="form-group row">
             <label for="staticusername" class="col-sm-2 col-form-label">username</label>
-
-        @Html.DropDownListFor(m => m.tagname,
-                new SelectList(Enum.GetValues(typeof(_Page_Views_Account_ShowTags_cshtml))),
-                "Select tags")
-
-    </fieldset>
+          
+            <select id="tags">
+                @foreach (var details in ViewBag.list1)
+                {
+                    <option value="@details.tagname">@details.tagname</option>
+                }
+            </select>
+            
+</fieldset>
         <button type="submit" class="btn btn-primary">Submit</button>
 
-    }
+  
 </form>

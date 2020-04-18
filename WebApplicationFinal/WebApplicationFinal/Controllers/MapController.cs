@@ -25,8 +25,8 @@ namespace WebApplicationFinal.Controllers
                     {
                         markers += "{";
                         markers += string.Format("'title': '{0}',", sdr["trip_name"]);
-                        markers += string.Format("'lat': '{0}',", sdr["Latitude"]);
-                        markers += string.Format("'lng': '{0}',", sdr["Longitude"]);
+                        markers += string.Format("'lat': '{0}',", sdr["startLatitude"]);
+                        markers += string.Format("'lng': '{0}',", sdr["startLongitude"]);
                         markers += string.Format("'description': '{0}',", sdr["description"]);
                         int trip_id = sdr.GetInt32(sdr.GetOrdinal("trip_id"));
                         GetImage(trip_id);

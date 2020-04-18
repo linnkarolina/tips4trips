@@ -333,6 +333,9 @@
     <Content Include="Views\Account\ShowAccount.cshtml">
       <DependentUpon>MyAccount.cshtml</DependentUpon>
     </Content>
+    <Content Include="Views\Account\writeFeedback.cshtml">
+      <DependentUpon>MyAccount.cshtml</DependentUpon>
+    </Content>
     <Content Include="Views\Explore\LeaveReview.cshtml">
       <DependentUpon>Trip.cshtml</DependentUpon>
     </Content>
@@ -373,7 +376,6 @@
     <Content Include="Views\Account\MyAccount.cshtml" />
     <Content Include="Views\Explore\TripSearch.cshtml" />
     <Content Include="Views\Explore\Trip.cshtml" />
-    <Content Include="Views\Account\writeFeedback.cshtml" />
     <Content Include="Views\Account\MyMessages.cshtml" />
   </ItemGroup>
   <ItemGroup>

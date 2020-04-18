@@ -39,8 +39,7 @@ namespace WebApplicationFinal.Controllers
                 getTag();
             }
             ViewBag.ExploreClass = images;
-            getImage();
-
+            getImage();  
             ViewData["List1"] = images;
             return View("Index");
         }
@@ -158,17 +157,46 @@ namespace WebApplicationFinal.Controllers
                     website = dr["website"].ToString(),
                     type_of_trip = dr["type_of_trip"].ToString(),
                     image = (byte[])dr["Image"],
-                    route = dr["route"].ToString(),
 
                 }
                 ) ;
                 GetIcon(dr["type_of_trip"].ToString());
                 GetDiff(dr["difficulty"].ToString());
             }
-
-             isRegistered(off.ams);
+            getMapCoordinates(off.ams);
+            isRegistered(off.ams);
             ViewData["List1"] = images;
             return View("Trip");
+        }
+
+        public ActionResult getMapCoordinates(string tripid)
+        {
+            List<ExploreClass> coordinates = new List<ExploreClass>();
+
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+
+            string query = "SELECT * FROM map_coordinates WHERE trip_ID='" + tripid + "'";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+
+            MySqlDataReader dr = comm.ExecuteReader();
+            while (dr.Read())
+            {
+                coordinates.Add(new ExploreClass
+                {
+                    startLatitude = dr["startLatitude"].ToString(),
+                    startLongitude = dr["startLongitude"].ToString(),
+                    endLatitude = dr["endLatitude"].ToString(),
+                    endLongitude = dr["endLongitude"].ToString(),
+
+                }
+                );
+
+            }
+            ViewData["coordinates"] = coordinates;
+            return null;
         }
 
         public ActionResult isRegistered(string tripid) {

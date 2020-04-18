@@ -12,6 +12,7 @@
     <script src="~/Scripts/Slideshow.js"></script>
     <link href="~/Styles/Trip.css" rel="stylesheet" />
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
     <head />
 
     <div class="slider" id="main-slider">
@@ -60,81 +61,166 @@
         <div class="map-responsive">
 
 
-            @foreach (var details in ViewBag.list1)
-            {
-
-
-                @Html.Raw(details.route)
-
-                break;
-
-
-            }
 
 
         </div>
         <div class="rest">
-            @foreach (var details in ViewBag.list1)
-            {
-                <div class="descriptionn">  @details.description</div>
-                break;
-                <h3>tags</h3>
-                <div class="tags">  @details.tags</div>
-            }
+
+            <div class="row">
+                <div class="col-md-12">
+                  
+
+                    <div>
+                        
+                       
+                        <div>
+                            <div id="dvDistance">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="dvMap" style="min-height:500px"></div>
+
+                </div>
+            </div>
+
+
+
         </div>
     </div>
 
     @{ try
-                    {
+        {
 
-                        Boolean allReadyReviwed = false;
-                        if (Request.Cookies["UserCookie"].Expires < DateTime.Now)
-                        {
-                            foreach (var det in ViewBag.userReviews)
-                            {
-                                if (det.username == Request.Cookies["UserCookie"].Value)
-                                {
-                                     allReadyReviwed = true;
-                                    break;
-                                }
-                            }
-                            if (allReadyReviwed != true)
-                            {
-                <div class="review">
-                    <h3>Been here? Why not leave a review</h3>
-                    @foreach (var details in ViewBag.list1)
+            Boolean allReadyReviwed = false;
+            if (Request.Cookies["UserCookie"].Expires < DateTime.Now)
+            {
+                foreach (var det in ViewBag.userReviews)
                 {
-                    using (Html.BeginForm("LeaveReview", "Explore", FormMethod.Post, new { ams = @details.trip_id }))
+                    if (det.username == Request.Cookies["UserCookie"].Value)
                     {
-
-                        <span class="star-rating star-5">
-
-                            @Html.RadioButton("rating", "1", false)<i></i>
-                            @Html.RadioButton("rating", "2", false)<i></i>
-                            @Html.RadioButton("rating", "3", false)<i></i>
-                            @Html.RadioButton("rating", "4", false)<i></i>
-                            @Html.RadioButton("rating", "5", false)<i></i>
-                            @Html.RadioButton("rating", "6", false)<i></i>
-
-
-
-                            <input type="hidden" value=" @details.trip_id" name="ams" />
-
-
-                        </span>
-                        <input type="submit" value="submit" />
-                        }
-
+                        allReadyReviwed = true;
                         break;
                     }
-
-                </div>
-                    }
                 }
+                if (allReadyReviwed != true)
+                {
+                    <div class="review">
+                        <h3>Been here? Why not leave a review</h3>
+                        @foreach (var details in ViewBag.list1)
+                        {
+                            using (Html.BeginForm("LeaveReview", "Explore", FormMethod.Post, new { ams = @details.trip_id }))
+                            {
+
+                                <span class="star-rating star-5">
+
+                                    @Html.RadioButton("rating", "1", false)<i></i>
+                                    @Html.RadioButton("rating", "2", false)<i></i>
+                                    @Html.RadioButton("rating", "3", false)<i></i>
+                                    @Html.RadioButton("rating", "4", false)<i></i>
+                                    @Html.RadioButton("rating", "5", false)<i></i>
+                                    @Html.RadioButton("rating", "6", false)<i></i>
 
 
+
+                                    <input type="hidden" value=" @details.trip_id" name="ams" />
+
+
+                                </span>
+                                <input type="submit" value="submit" />
+                            }
+
+                            break;
+                        }
+
+                    </div>
+                }
             }
-            catch (NullReferenceException) { }
+
+
         }
-    <script src="~/Scripts/Trip.js"></script>
+        catch (NullReferenceException) { }
+    }
+    @section scripts{
+
+        <!--ENSURE YOU CHANGE TO YOUR OWN API KEY HERE !!! -->
+        <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCXIYBi8WK7uE93JnEIXiXfHQjCXdBUx8U&" type="text/javascript"></script>
+
+        <script>
+
+            var source, destination;
+            var directionsDisplay;
+            var res, ras;
+            var directionsService = new google.maps.DirectionsService();
+
+            // initialise the location of the map on Chichester in England (ref lat and lng)
+            var map = new google.maps.Map(document.getElementById('dvMap'), {
+                center: { lat: 50.834697, lng: -0.773792 },
+                zoom: 13,
+                mapTypeId: 'roadmap'
+            });
+
+            google.maps.event.addDomListener(window, 'load', function () {
+                new google.maps.places.SearchBox(document.getElementById('travelfrom'));
+                new google.maps.places.SearchBox(document.getElementById('travelto'));
+                directionsDisplay = new google.maps.DirectionsRenderer({ 'draggable': true });
+            });
+
+           window.onload = function() {
+
+                directionsDisplay.setMap(map);
+
+                var jsonObj = @Html.Raw(Json.Encode(ViewBag.coordinates));
+                for (i = 0; i < jsonObj .length; i++) { 
+                    var startLat = jsonObj[i].startLatitude.replace(",", ".");
+                    var startLong = jsonObj[i].startLongitude.replace(",", ".");
+                    var endLat = jsonObj[i].endLatitude.replace(",", ".");
+                    var endLong = jsonObj[i].endLongitude.replace(",", ".");
+                    var source = startLat + "," + startLong;
+                    var destination = endLat +","+endLong;
+                }
+             
+                
+
+                var request = {
+                    origin: source,
+                    destination: destination,
+                    travelMode: google.maps.TravelMode.WALKING
+                };
+
+                   directionsService.route(request, function (response, status) {
+                       if (status == google.maps.DirectionsStatus.OK) {
+                           directionsDisplay.setDirections(response);
+                       }
+                   });
+
+                   //*********DISTANCE AND DURATION**********************//
+                   var service = new google.maps.DistanceMatrixService();
+                   service.getDistanceMatrix({
+                   origins: [source],
+                    destinations: [destination],
+                    travelMode: google.maps.TravelMode.DRIVING,
+                    unitSystem: google.maps.UnitSystem.METRIC,
+                    avoidHighways: false,
+                    avoidTolls: false
+                   }, function (response, status) {
+
+                       if (status == google.maps.DistanceMatrixStatus.OK && response.rows[0].elements[0].status != "ZERO_RESULTS") {
+                           var distance = response.rows[0].elements[0].distance.text;
+                           var duration = response.rows[0].elements[0].duration.value;
+                           var dvDistance = document.getElementById("dvDistance");
+                           duration = parseFloat(duration / 60).toFixed(2);
+                           dvDistance.innerHTML = "";
+                           dvDistance.innerHTML += "Distance: " + distance + "<br />";
+                           dvDistance.innerHTML += "Time:" + duration + " min";
+
+                       } else {
+                           alert("Unable to find the distance via road.");
+                       }
+                   });
+               }
+
+        </script>
+        }
     </html>

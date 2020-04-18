@@ -58,27 +58,33 @@
 
 
 
-        <div class="map-responsive">
 
 
 
-            <div id="dvMap" style="min-height:300px; width:100%; "></div>
 
+        <div id="dvMap" style="min-height:300px; width:100%; max-width: 400px; "></div>
+
+
+
+
+
+
+
+
+
+
+
+
+        @foreach (var details in ViewBag.list1)
+        {
+
+            <div class="descriptionn"><p>@details.description</p></div>
+            break;
+        }
         </div>
-        
-
-            
-                  
-
-                    
-
-
-                
 
 
 
-       
-    </div>
 
     @{ try
         {

@@ -35,8 +35,6 @@ namespace WebApplicationFinal.Controllers
                             markers += string.Format("'image': '{0}',", System.Convert.ToBase64String(detail.image));
                             break;
                         }
-
-                        
                         markers += string.Format("'website': '{0}'", sdr["website"]);
                         markers += "},";
 

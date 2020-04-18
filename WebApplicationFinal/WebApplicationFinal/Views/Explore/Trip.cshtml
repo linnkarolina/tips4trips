@@ -61,16 +61,6 @@
         <div class="map-responsive">
 
 
-            @foreach (var details in ViewBag.list1)
-            {
-
-
-                @Html.Raw(details.route)
-
-                break;
-
-
-            }
 
 
         </div>
@@ -169,6 +159,7 @@
 
             var source, destination;
             var directionsDisplay;
+            var res, ras;
             var directionsService = new google.maps.DirectionsService();
 
             // initialise the location of the map on Chichester in England (ref lat and lng)
@@ -188,46 +179,59 @@
 
                 directionsDisplay.setMap(map);
 
-                source = document.getElementById("travelfrom").value;
-                destination = document.getElementById("travelto").value;
+                var jsonObj = @Html.Raw(Json.Encode(ViewBag.coordinates));
+                for (i = 0; i < jsonObj .length; i++) { 
+                    var startLat = jsonObj[i].startLatitude.replace(",", ".");
+                    var startLong = jsonObj[i].startLongitude.replace(",", ".");
+                    var endLat = jsonObj[i].endLatitude.replace(",", ".");
+                    var endLong = jsonObj[i].endLongitude.replace(",", ".");
+                    var source = startLat + "," + startLong;
+                    var destination = endLat +","+endLong;
+                }
+             
+                
+            
+        
+                console.log(source);
+                
 
                 var request = {
                     origin: source,
                     destination: destination,
-                    travelMode: google.maps.TravelMode.DRIVING
+                    travelMode: google.maps.TravelMode.WALKING
                 };
 
-                directionsService.route(request, function (response, status) {
-                    if (status == google.maps.DirectionsStatus.OK) {
-                        directionsDisplay.setDirections(response);
-                    }
-                });
+                   directionsService.route(request, function (response, status) {
+                       if (status == google.maps.DirectionsStatus.OK) {
+                           directionsDisplay.setDirections(response);
+                       }
+                   });
 
-                //*********DISTANCE AND DURATION**********************//
-                var service = new google.maps.DistanceMatrixService();
-                service.getDistanceMatrix({
-                    origins: [source],
+                   //*********DISTANCE AND DURATION**********************//
+                   var service = new google.maps.DistanceMatrixService();
+                   service.getDistanceMatrix({
+                   origins: [source],
                     destinations: [destination],
                     travelMode: google.maps.TravelMode.DRIVING,
                     unitSystem: google.maps.UnitSystem.METRIC,
                     avoidHighways: false,
                     avoidTolls: false
-                }, function (response, status) {
+                   }, function (response, status) {
 
-                    if (status == google.maps.DistanceMatrixStatus.OK && response.rows[0].elements[0].status != "ZERO_RESULTS") {
-                        var distance = response.rows[0].elements[0].distance.text;
-                        var duration = response.rows[0].elements[0].duration.value;
-                        var dvDistance = document.getElementById("dvDistance");
-                        duration = parseFloat(duration / 60).toFixed(2);
-                        dvDistance.innerHTML = "";
-                        dvDistance.innerHTML += "Distance: " + distance + "<br />";
-                        dvDistance.innerHTML += "Time:" + duration + " min";
+                       if (status == google.maps.DistanceMatrixStatus.OK && response.rows[0].elements[0].status != "ZERO_RESULTS") {
+                           var distance = response.rows[0].elements[0].distance.text;
+                           var duration = response.rows[0].elements[0].duration.value;
+                           var dvDistance = document.getElementById("dvDistance");
+                           duration = parseFloat(duration / 60).toFixed(2);
+                           dvDistance.innerHTML = "";
+                           dvDistance.innerHTML += "Distance: " + distance + "<br />";
+                           dvDistance.innerHTML += "Time:" + duration + " min";
 
-                    } else {
-                        alert("Unable to find the distance via road.");
-                    }
-                });
-            }
+                       } else {
+                           alert("Unable to find the distance via road.");
+                       }
+                   });
+               }
 
         </script>
         }

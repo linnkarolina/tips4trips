@@ -123,25 +123,9 @@ namespace WebApplicationFinal.Controllers
                 });
             }
             mysql.Close();
-            List<Account> list2 = new List<Account>();
-            string query1 = "SELECT * FROM user_tag INNER JOIN tag ON user_tag.tag = tag.tag WHERE user_tag.username ='" + name + "';";
-            MySqlCommand comm1 = new MySqlCommand(query1);
-            comm1.Connection = mysql;
-            mysql.Open();
-            MySqlDataReader mr = comm1.ExecuteReader();
-            while (mr.Read())
-            {
-                list2.Add(new Account
-                {
-                    tagname = mr["username"].ToString(),
-
-
-
-                });
-            }
-
+            getUserTag();
             ViewData["List1"] = list1;
-            ViewData["List2"] = list2;
+            
             return View();
 
 
@@ -262,6 +246,7 @@ namespace WebApplicationFinal.Controllers
            
             mysql.Close();
             ViewData["list1"] = list1;
+            
             return View("ShowAccount");
             
         }
@@ -273,13 +258,15 @@ namespace WebApplicationFinal.Controllers
         {
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
-            string query = "UPDATE user set city='"+user.location+"', email='"+user.email+"', full_name='"+user.full_name+"', phone_nr='"+user.phone_NR+"'  WHERE username='" + user.Name + "';";
+            string name = Request.Cookies["UserCookie"].Value;
+            string query = "UPDATE user set city='"+user.location+"', email='"+user.email+"', full_name='"+user.full_name+"', phone_nr='"+user.phone_NR+"'  WHERE username='" + name + "';";
             MySqlCommand comm = new MySqlCommand(query);
             comm.Connection = mysql;
             mysql.Open();
             int dr = comm.ExecuteNonQuery();
                 mysql.Close();
                 MyAccount();
+           
                 return View("MyAccount");
         }
         public ActionResult ShowTags()
@@ -346,7 +333,4 @@ namespace WebApplicationFinal.Controllers
 
         }
     }
-
-
-
 }

@@ -74,9 +74,9 @@
                     title: data.title
                 });
 
-                
+               @string tripid = @"Html.Raw(markers[0].trip_id)";
                         var contentString = '<div id="content">' +
-                             +' <a class="trips" href="@Url.Action("Trip", "Explore", new { ams = "@Html.Raw(markers[0].trip_id)" })">'+
+                             +' <a class="trips" href="@Url.Action("Trip", "Explore", new { ams = @Html.Raw(markers[0].trip_id) })">'+
                     '<div id="siteNotice">'+
                     '</div>'+
                     '<h1 id="firstHeading" class="firstHeading">'+ markers[0].title +'</h1>'+

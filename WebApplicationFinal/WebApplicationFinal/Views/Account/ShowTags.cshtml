@@ -24,20 +24,21 @@
 
     </fieldset>
     <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <form action="DeleteTags" method="POST">
+        <fieldset>
+            <legend>Delete tags</legend>
+            <div class="form-group row">
 
-    <fieldset>
-        <legend>Delete tags</legend>
-        <div class="form-group row">
+                <select id="tags" name="tagname">
+                    @foreach (var details in ViewBag.list2)
+                    {
+                        <option value="@details.tagname">@details.tagname</option>
+                    }
+                </select>
 
-            <select id="tags" name="tagname">
-                @foreach (var details in ViewBag.list1)
-                {
-                    <option value="@details.tagname">@details.tagname</option>
-                }
-            </select>
-
-    </fieldset>
-    <button type="submit" class="btn btn-primary">Delete</button>
+        </fieldset>
+        <button type="submit" class="btn btn-primary">Delete</button>
 
 
-</form>
+    </form>

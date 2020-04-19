@@ -352,6 +352,7 @@ namespace WebApplicationFinal.Controllers
         {
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
+            string name = Request.Cookies["UserCookie"].Value;
             string query = "DELETE FROM user_tag WHERE tag = '"+user.tagname +"' AND username ='"+name +"';";
             MySqlCommand comm = new MySqlCommand(query);
             comm.Connection = mysql;

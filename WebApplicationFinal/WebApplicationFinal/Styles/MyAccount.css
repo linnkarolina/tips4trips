@@ -32,3 +32,8 @@ button {
     position: static;
     float: center;
 }
+
+
+form{
+    margin-bottom: 20px;
+}

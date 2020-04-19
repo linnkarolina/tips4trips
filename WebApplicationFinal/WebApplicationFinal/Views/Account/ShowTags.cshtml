@@ -3,7 +3,8 @@
     ViewBag.Title = "ShowTags";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="~/Styles/MyAccount.css" rel="stylesheet" />
 
 <h2>Tags</h2>
 
@@ -12,33 +13,36 @@
 
     <fieldset>
         <legend>Add tags</legend>
-        <div class="form-group row">
-            <label for="staticusername" class="col-sm-2 col-form-label">username</label>
+        <div class="form-group">
 
-            <select id="tags" name="tagname">
+            <select id="tags" name="tagname" multiple="" class="form-control">
                 @foreach (var details in ViewBag.list1)
                 {
                     <option value="@details.tagname">@details.tagname</option>
                 }
             </select>
+        </div>
 
     </fieldset>
     <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+</form>
+
+
+
     <form action="DeleteTags" method="POST">
+
         <fieldset>
             <legend>Delete tags</legend>
-            <div class="form-group row">
-
-                <select id="tags" name="tagname">
+            <div class="form-group">
+                <select id="tags" name="tagname" multiple="" class="form-control">
                     @foreach (var details in ViewBag.list2)
                     {
                         <option value="@details.tagname">@details.tagname</option>
                     }
                 </select>
+            </div>
 
         </fieldset>
         <button type="submit" class="btn btn-primary">Delete</button>
-
 
     </form>

@@ -5,6 +5,10 @@
         <link rel="stylesheet" type="text/css" href="../Content/Frontpage.css" />
         <script src="~/Scripts/Slideshow.js"></script>
         <link rel="stylesheet" href="bower_components/css-star-rating/dist/css/star-rating.css">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
         <head />
 
         <body>
@@ -23,7 +27,6 @@
             @{ try
                 {
 
-
                     if (Request.Cookies["UserCookie"].Expires < DateTime.Now)
                     {
 
@@ -38,9 +41,11 @@
 
                                     @foreach (var details in ViewBag.ExploreClass)
                                     {
+
                                         int counter = 0;
                                         int i = 0;
                                         int resultat = 0;
+
 
                                         <a class="trips" href='@Url.Action("Trip", "Explore", new { ams = @details.trip_id })'>
                                             <div type="submit" name="valg" style="cursor: pointer;">
@@ -64,6 +69,7 @@
                                                             <div class="tag">  @detail.tagname</div>
                                                         }
                                                     }
+
 
                                                     @foreach (var detail in ViewBag.listReview)
                                                     {

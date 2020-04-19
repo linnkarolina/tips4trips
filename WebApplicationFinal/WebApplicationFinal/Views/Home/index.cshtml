@@ -70,23 +70,7 @@
                                                     }
 
 
-                                                    @foreach (var detail in ViewBag.listReview)
-                                                    {
-
-                                                        if (details.trip_id == detail.idtag.ToString())
-                                                        {
-                                                            i += detail.rating;
-                                                            counter++;
-                                                        }
-                                                    }
-                                                    @{
-                                                        resultat = i / counter;
-
-                                                        <i> <div class="resultat">  @resultat </div></i>
-
-                                                        i = 0;
-                                                        counter = 0;
-                                                    }
+                                                 
 
                                                 </div>
                                             </div>

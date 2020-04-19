@@ -13,7 +13,7 @@
     <script src="~/Scripts/Slideshow.js"></script>
     <link href="~/Styles/Trip.css" rel="stylesheet" />
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <head />
 
     <div class="slider" id="main-slider">
@@ -37,7 +37,47 @@
         <div class="info">
             @foreach (var details in ViewBag.list1)
             {
-                <div class="trip_name">  @details.trip_name</div>
+                <div class="headline">
+                    <div class="trip_name">
+                        @details.trip_name
+                    </div>
+
+                @{ int counter = 0;
+                    int b = 0;
+                    int resultat = 0; }
+
+
+                @foreach (var detail in ViewBag.listReview)
+                {
+
+
+                    if (details.trip_id == detail.idtag.ToString())
+                    {
+                        b += detail.rating;
+                        counter++;
+                    }
+                }
+                @{
+                    resultat = b / counter;
+
+
+
+                    b = 0;
+                    counter = 0;
+                }
+                <div class="star">
+                @for (int i = 0; i < @resultat; i++)
+                {
+                    <span class="fa fa-star checked"></span>
+                }
+                @for (int i = 0; i < (5 - @resultat); i++)
+                {
+                    <span class="fa fa-star"></span>
+                }
+                    </div>
+            
+                    </div>
+            
                 <div class="lendif">
                     <hr>
                     <div class="line"><div class="label">Area</div> <div class="areaIcon"><i class='fas fa-map-marker-alt' style='font-size:24px'></i> @details.city</div></div>
@@ -82,7 +122,7 @@
             <div class="descriptionn"><p>@details.description</p></div>
             break;
         }
-        </div>
+    </div>
 
 
 
@@ -103,35 +143,35 @@
                 }
                 if (allReadyReviwed != true)
                 {
-            <div class="review">
-                <h3>Been here? Why not leave a review</h3>
-                @foreach (var details in ViewBag.list1)
-                {
-                    using (Html.BeginForm("LeaveReview", "Explore", FormMethod.Post, new { ams = @details.trip_id }))
-                    {
+                    <div class="review">
+                        <h3>Been here? Why not leave a review</h3>
+                        @foreach (var details in ViewBag.list1)
+                        {
+                            using (Html.BeginForm("LeaveReview", "Explore", FormMethod.Post, new { ams = @details.trip_id }))
+                            {
 
-                        <span class="star-rating star-5">
+                                <span class="star-rating star-5">
 
-                            @Html.RadioButton("rating", "1", false)<i></i>
-                            @Html.RadioButton("rating", "2", false)<i></i>
-                            @Html.RadioButton("rating", "3", false)<i></i>
-                            @Html.RadioButton("rating", "4", false)<i></i>
-                            @Html.RadioButton("rating", "5", false)<i></i>
-                            @Html.RadioButton("rating", "6", false)<i></i>
-
-
-
-                            <input type="hidden" value=" @details.trip_id" name="ams" />
+                                    @Html.RadioButton("rating", "1", false)<i></i>
+                                    @Html.RadioButton("rating", "2", false)<i></i>
+                                    @Html.RadioButton("rating", "3", false)<i></i>
+                                    @Html.RadioButton("rating", "4", false)<i></i>
+                                    @Html.RadioButton("rating", "5", false)<i></i>
+                                    @Html.RadioButton("rating", "6", false)<i></i>
 
 
-                        </span>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    }
 
-                    break;
-                }
+                                    <input type="hidden" value=" @details.trip_id" name="ams" />
 
-            </div>
+
+                                </span>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            }
+
+                            break;
+                        }
+
+                    </div>
                 }
             }
 
@@ -169,7 +209,7 @@
                 directionsDisplay.setMap(map);
 
                 var jsonObj = @Html.Raw(Json.Encode(ViewBag.coordinates));
-                for (i = 0; i < jsonObj .length; i++) { 
+                for (i = 0; i < jsonObj .length; i++) {
                     var startLat = jsonObj[i].startLatitude.replace(",", ".");
                     var startLong = jsonObj[i].startLongitude.replace(",", ".");
                     var endLat = jsonObj[i].endLatitude.replace(",", ".");
@@ -177,8 +217,8 @@
                     var source = startLat + "," + startLong;
                     var destination = endLat +","+endLong;
                 }
-             
-                
+
+
 
                 var request = {
                     origin: source,
@@ -219,5 +259,5 @@
                }
 
         </script>
-        }
+    }
     </html>

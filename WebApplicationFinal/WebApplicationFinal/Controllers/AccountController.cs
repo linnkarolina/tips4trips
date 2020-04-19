@@ -285,7 +285,7 @@ namespace WebApplicationFinal.Controllers
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
             string name = Request.Cookies["UserCookie"].Value;
-            string query = "SELECT * FROM user_tag where username='" + name + "';";
+            string query = "SELECT * FROM tag;";
             MySqlCommand comm = new MySqlCommand(query);
             comm.Connection = mysql;
             mysql.Open();
@@ -294,7 +294,6 @@ namespace WebApplicationFinal.Controllers
             {
                 list1.Add(new Account
                 {
-                    Name = dr["Username"].ToString(),
                     tagname = dr["tag"].ToString(),
                 });
             }
@@ -309,14 +308,15 @@ namespace WebApplicationFinal.Controllers
         {
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
-            string query = "UPDATE user_tag set tag='" + user.tagname + "' WHERE username='" + user.Name + "';";
+            string name = Request.Cookies["UserCookie"].Value;
+            string query = "INSERT INTO user_tag VALUES ('" + user.tagname + "' , '" + name + "')";
             MySqlCommand comm = new MySqlCommand(query);
             comm.Connection = mysql;
             mysql.Open();
             int dr = comm.ExecuteNonQuery();
             mysql.Close();
             MyAccount();
-            return View("MyTags");
+            return View("MyAccount");
 
 
         }

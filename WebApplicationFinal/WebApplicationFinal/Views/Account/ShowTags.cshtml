@@ -7,7 +7,7 @@
 
 <h2>Tags</h2>
 
-<form action="EditAccount" method="POST">
+<form action="EditTags" method="POST">
    
 
     <fieldset>
@@ -15,7 +15,7 @@
         <div class="form-group row">
             <label for="staticusername" class="col-sm-2 col-form-label">username</label>
           
-            <select id="tags">
+            <select id="tags"  name="tagname">
                 @foreach (var details in ViewBag.list1)
                 {
                     <option value="@details.tagname">@details.tagname</option>

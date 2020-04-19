@@ -11,20 +11,23 @@
 
 .account-element {
     margin: 5px;
+    padding: 10px;
     min-width: 200px;
-    width: 30%;
-    background-color: #888888;
-    color: #fff;
-    border-radius: 5px;
+    width: 40%;
+    background-color: #f2f2f2;
+    color: black;
     align-self: auto;
 }
 
 .tags {
     margin: 5px;
+    padding: 10px;
     min-width: 200px;
-    width: 30%;
-    background-color: #888888;
-    color: #fff;
-    border-radius: 5px;
+    width: 40%;
+    background-color: #f2f2f2;
+    color: black;
     align-self: auto;
 }
+button {
+    position: static;
+    float: center;

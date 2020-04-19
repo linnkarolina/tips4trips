@@ -32,14 +32,15 @@
             </div>
             }
       
-        <div class="tags">
-            <h2>Your tags</h2>
-            @foreach (var details in ViewBag.list2)
-            {
+<div class="tags">
+    <h2>Your tags</h2>
+    @foreach (var details in ViewBag.list2)
+    {
 
-                <div>@details.tagname</div>
+        <div>@details.tagname</div>
 
-            }
-            <button type="button" class="btn btn-primary btn-lg">Edit tags</button>
-        </div>
+    }
+    <a class="trips" href='@Url.Action("ShowTags", "Account")'>
+        <button type="button" class="btn btn-primary btn-lg">Edit tags</button>
+</div>
 </div>

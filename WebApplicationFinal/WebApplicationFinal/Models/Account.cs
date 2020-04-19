@@ -29,6 +29,7 @@ namespace WebApplicationFinal.Models
         public string admin { get; set; }
 
         public string user { get; set; }
+        public int rating { get; set; }
 
     }
 }

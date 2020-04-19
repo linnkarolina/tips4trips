@@ -59,27 +59,33 @@
 
 
 
-        <div class="map-responsive">
 
 
 
-            <div id="dvMap" style="min-height:300px; width:100%; "></div>
 
+        <div id="dvMap" style="min-height:300px; width:100%; max-width: 400px; "></div>
+
+
+
+
+
+
+
+
+
+
+
+
+        @foreach (var details in ViewBag.list1)
+        {
+
+            <div class="descriptionn"><p>@details.description</p></div>
+            break;
+        }
         </div>
-        
-
-            
-                  
-
-                    
-
-
-                
 
 
 
-       
-    </div>
 
     @{ try
         {
@@ -97,35 +103,35 @@
                 }
                 if (allReadyReviwed != true)
                 {
-                    <div class="review">
-                        <h3>Been here? Why not leave a review</h3>
-                        @foreach (var details in ViewBag.list1)
-                        {
-                            using (Html.BeginForm("LeaveReview", "Explore", FormMethod.Post, new { ams = @details.trip_id }))
-                            {
+            <div class="review">
+                <h3>Been here? Why not leave a review</h3>
+                @foreach (var details in ViewBag.list1)
+                {
+                    using (Html.BeginForm("LeaveReview", "Explore", FormMethod.Post, new { ams = @details.trip_id }))
+                    {
 
-                                <span class="star-rating star-5">
+                        <span class="star-rating star-5">
 
-                                    @Html.RadioButton("rating", "1", false)<i></i>
-                                    @Html.RadioButton("rating", "2", false)<i></i>
-                                    @Html.RadioButton("rating", "3", false)<i></i>
-                                    @Html.RadioButton("rating", "4", false)<i></i>
-                                    @Html.RadioButton("rating", "5", false)<i></i>
-                                    @Html.RadioButton("rating", "6", false)<i></i>
-
-
-
-                                    <input type="hidden" value=" @details.trip_id" name="ams" />
+                            @Html.RadioButton("rating", "1", false)<i></i>
+                            @Html.RadioButton("rating", "2", false)<i></i>
+                            @Html.RadioButton("rating", "3", false)<i></i>
+                            @Html.RadioButton("rating", "4", false)<i></i>
+                            @Html.RadioButton("rating", "5", false)<i></i>
+                            @Html.RadioButton("rating", "6", false)<i></i>
 
 
-                                </span>
-                                <input type="submit" value="submit" />
-                            }
 
-                            break;
-                        }
+                            <input type="hidden" value=" @details.trip_id" name="ams" />
 
-                    </div>
+
+                        </span>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    }
+
+                    break;
+                }
+
+            </div>
                 }
             }
 

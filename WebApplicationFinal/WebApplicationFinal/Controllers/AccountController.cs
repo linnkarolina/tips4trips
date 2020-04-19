@@ -173,7 +173,7 @@ namespace WebApplicationFinal.Controllers
 
 
             mysqli.Close();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("MyMessages", "Account");
 
 
         }
@@ -263,11 +263,14 @@ namespace WebApplicationFinal.Controllers
                     phone_NR = dr.GetInt32(dr.GetOrdinal("phone_NR")),
                 });
             }
+           
             mysql.Close();
             ViewData["list1"] = list1;
             return View("ShowAccount");
 
         }
+
+       
 
         [HttpPost]
         public ActionResult EditAccount(Account user)
@@ -302,11 +305,33 @@ namespace WebApplicationFinal.Controllers
                 });
             }
             mysql.Close();
+            getUserTag();
             ViewData["list1"] = list1;
             return View("ShowTags");
 
         }
 
+        public ActionResult getUserTag()
+        {
+            List<Account> list2 = new List<Account>();
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+            string name = Request.Cookies["UserCookie"].Value;
+            string query = "SELECT * FROM user_tag where username='" + name + "';";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+            MySqlDataReader dr = comm.ExecuteReader();
+            while (dr.Read())
+            {
+                list2.Add(new Account
+                {
+                    tagname = dr["tag"].ToString(),
+                });
+            }
+            ViewData["list2"] = list2;
+            return null;
+        }
         [HttpPost]
         public ActionResult EditTags(Account user)
         {

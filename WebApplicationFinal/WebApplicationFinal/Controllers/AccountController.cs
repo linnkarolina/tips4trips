@@ -147,7 +147,8 @@ namespace WebApplicationFinal.Controllers
 
         }
 
-        public ActionResult writeFeedback() {
+        public ActionResult writeFeedback()
+        {
 
             return View("writeFeedback");
         }
@@ -178,7 +179,8 @@ namespace WebApplicationFinal.Controllers
         }
 
 
-        public ActionResult MyMessages() {
+        public ActionResult MyMessages()
+        {
             List<Account> sent = new List<Account>();
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
@@ -207,7 +209,8 @@ namespace WebApplicationFinal.Controllers
             return View("MyMessages");
         }
 
-        public void answaredMessage() {
+        public void answaredMessage()
+        {
             List<Account> answared = new List<Account>();
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
@@ -236,8 +239,9 @@ namespace WebApplicationFinal.Controllers
             ViewData["answared"] = answared;
 
         }
-       
-        public ActionResult ShowAccount(){
+
+        public ActionResult ShowAccount()
+        {
             List<Account> list1 = new List<Account>();
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
@@ -262,7 +266,7 @@ namespace WebApplicationFinal.Controllers
             mysql.Close();
             ViewData["list1"] = list1;
             return View("ShowAccount");
-            
+
         }
 
         [HttpPost]
@@ -270,14 +274,14 @@ namespace WebApplicationFinal.Controllers
         {
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
-            string query = "UPDATE user set city='"+user.location+"', email='"+user.email+"', full_name='"+user.full_name+"', phone_nr='"+user.phone_NR+"'  WHERE username='" + user.Name + "';";
+            string query = "UPDATE user set city='" + user.location + "', email='" + user.email + "', full_name='" + user.full_name + "', phone_nr='" + user.phone_NR + "'  WHERE username='" + user.Name + "';";
             MySqlCommand comm = new MySqlCommand(query);
             comm.Connection = mysql;
             mysql.Open();
             int dr = comm.ExecuteNonQuery();
-                mysql.Close();
-                MyAccount();
-                return View("MyAccount");
+            mysql.Close();
+            MyAccount();
+            return View("MyAccount");
         }
         public ActionResult ShowTags()
         {
@@ -317,11 +321,21 @@ namespace WebApplicationFinal.Controllers
             mysql.Close();
             MyAccount();
             return View("MyAccount");
-
+        }
+        [HttpPost]
+        public ActionResult DeleteTags(Account user)
+        {
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+            string query = "DELETE FROM user_tag WHERE tag = '"+user.tagname +"' AND username ='"+name +"';";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+            int dr = comm.ExecuteNonQuery();
+            mysql.Close();
+            MyAccount();
+            return View("MyAccount");
 
         }
     }
-
-
-
 }

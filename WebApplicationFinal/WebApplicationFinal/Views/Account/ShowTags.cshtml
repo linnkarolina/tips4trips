@@ -8,22 +8,36 @@
 <h2>Tags</h2>
 
 <form action="EditTags" method="POST">
-   
+
 
     <fieldset>
         <legend>Add tags</legend>
         <div class="form-group row">
             <label for="staticusername" class="col-sm-2 col-form-label">username</label>
-          
-            <select id="tags"  name="tagname">
+
+            <select id="tags" name="tagname">
                 @foreach (var details in ViewBag.list1)
                 {
                     <option value="@details.tagname">@details.tagname</option>
                 }
             </select>
-            
-</fieldset>
-        <button type="submit" class="btn btn-primary">Submit</button>
 
-  
+    </fieldset>
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+    <fieldset>
+        <legend>Delete tags</legend>
+        <div class="form-group row">
+
+            <select id="tags" name="tagname">
+                @foreach (var details in ViewBag.list1)
+                {
+                    <option value="@details.tagname">@details.tagname</option>
+                }
+            </select>
+
+    </fieldset>
+    <button type="submit" class="btn btn-primary">Delete</button>
+
+
 </form>

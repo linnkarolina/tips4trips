@@ -48,7 +48,8 @@ namespace WebApplicationFinal.Controllers
             ViewBag.ExploreClass = images;
             getImage();
             getTag();
-           /* var thisMenu = RecommendTrips();*/
+            getRating();
+            var thisMenu = RecommendTrips();
             var ok = RecommendNearby();
             return View(images);
         }
@@ -180,6 +181,28 @@ namespace WebApplicationFinal.Controllers
             ViewData["listTag"] = listTag;
 
 
+        }
+
+        public ActionResult getRating() {
+            List<Account> listReview = new List<Account>();
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+            string query1 = "SELECT * FROM review;";
+            MySqlCommand comm1 = new MySqlCommand(query1);
+            comm1.Connection = mysql;
+            mysql.Open();
+            MySqlDataReader mr = comm1.ExecuteReader();
+            while (mr.Read())
+            {
+                listReview.Add(new Account
+                {
+                    idtag = mr.GetInt32(mr.GetOrdinal("trip_ID")),
+                    rating = mr.GetInt32(mr.GetOrdinal("rating")),
+                });
+            }
+
+            ViewData["listReview"] = listReview;
+            return null;
         }
 
 

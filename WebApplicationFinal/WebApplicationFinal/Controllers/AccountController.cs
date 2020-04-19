@@ -172,7 +172,7 @@ namespace WebApplicationFinal.Controllers
 
 
             mysqli.Close();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("MyMessages", "Account");
 
 
         }

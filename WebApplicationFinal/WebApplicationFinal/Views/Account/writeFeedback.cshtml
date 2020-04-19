@@ -10,8 +10,18 @@
     </div>
 <form action="storeFeedback" method="POST">
     <div class="feedback-container">
-   <div class="subject">Subject<input type='text' id='subject' name="subject" placeholder='subject' /></div>
-    <div class="feedback_text">Message<input type='text' id='feedback_text' name="feedback_text" placeholder='your feedback here' /></div>
-    <button type="submit">Send feedback</button>
-     </div>
+        <fieldset>
+        <div class="form-group">
+            <label for="subjectinput">Subject</label>
+            <input type="text" class="form-control" id="exampleInputsubject" aria-describedby="subjectHelp" name="subject" placeholder='subject'>
+        </div>
+
+
+        <div class="form-group">
+            <label for="Message">Message</label>
+            <textarea class="form-control" id="exampleTextarea" rows="3" name="feedback_text" spellcheck="false"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Feedback</button>
+        </fieldset>
+    </div>
 </form>

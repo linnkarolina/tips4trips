@@ -25,6 +25,7 @@ namespace WebApplicationFinal.Controllers
                     {
                         markers += "{";
                         markers += string.Format("'title': '{0}',", sdr["trip_name"]);
+                        markers += string.Format("'trip_id': '{0}',", sdr["trip_id"]);
                         markers += string.Format("'lat': '{0}',", sdr["startLatitude"]);
                         markers += string.Format("'lng': '{0}',", sdr["startLongitude"]);
                         markers += string.Format("'description': '{0}',", sdr["description"]);

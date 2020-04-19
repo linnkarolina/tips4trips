@@ -74,36 +74,37 @@
                     title: data.title
                 });
 
-               @string tripid = @"Html.Raw(markers[0].trip_id)";
-                        var contentString = '<div id="content">' +
-                             +' <a class="trips" href="@Url.Action("Trip", "Explore", new { ams = @Html.Raw(markers[0].trip_id) })">'+
-                    '<div id="siteNotice">'+
-                    '</div>'+
-                    '<h1 id="firstHeading" class="firstHeading">'+ markers[0].title +'</h1>'+
-                        '<div id="bodyContent">' +
-                        "<img src= data:image;base64, />"+
-                    '<p>'+ markers[0].description +'</p>'+
-                    "<p><a href='"+markers[0].website +"'> link to homepage<a/>"+
-                    '.</p>'+
-                    '</div>'+
-                    '</div>';
+               
+                       var contentString = '<div id="content">' +
+                            +' <a class="trips" href="/Explore/Trip?ams='+markers[0].trip_id+'">'+
+                   '<div id="siteNotice">'+
+                   '</div>'+
+                   '<h1 id="firstHeading" class="firstHeading">'+ markers[0].title +'</h1>'+
+                       '<div id="bodyContent">' +
+                       "<img src= data:image;base64, />"+
+                   '<p>'+ markers[0].description +'</p>'+
+                   "<p><a href='"+markers[0].website +"'> link to homepage<a/>"+
+                   '.</p>'+
+                   '</div>'+
+                   '</div>';
 
 
-                        (function (marker, data) {
+                       (function (marker, data) {
                     google.maps.event.addListener(marker, "click", function (e) {
-                            infoWindow.setContent('<div id="content">'+
-                '<div id="siteNotice">'+
-                '</div>'+
-                '<h1 id="firstHeading" class="firstHeading">'+data.title +'</h1>'+
-                    '<div id="bodyContent">' +
-                    '<img src=" data:image/jpeg;base64,' + data.image + '"/>'+
-                '<p>'+data.description+'</p>'+
-                "<p><a href='"+data.website+"'> link to homepage<a/>"+
-                '.</p></a>'+
-                '</div>'+
-                '</div>');
-                            infoWindow.open(map, marker);
-                        });
+                           infoWindow.setContent('<div id="content">'+
+               '<div id="siteNotice">'+
+                               '</div>' +
+                               ' <a class="trips" href="/Explore/Trip?ams='+data.trip_id+'">'+
+               '<h1 id="firstHeading" class="firstHeading">'+data.title +'</h1>'+
+                   '<div id="bodyContent">' +
+                   '<img src=" data:image/jpeg;base64,' + data.image + '"/>'+
+               '<p>'+data.description+'</p>'+
+               "<p><a href='"+data.website+"'> link to homepage</a>"+
+               '.</p>'+
+               '</div>'+
+               '</div>');
+                           infoWindow.open(map, marker);
+                       });
                 })(marker, data);
 
 

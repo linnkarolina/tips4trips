@@ -38,7 +38,6 @@
 
                                 <div class="trips-container">
 
-
                                     @foreach (var details in ViewBag.ExploreClass)
                                     {
 
@@ -82,9 +81,9 @@
                                                     }
                                                     @{
                                                         resultat = i / counter;
-                                                       
-                                                            <i> <div class="resultat">  @resultat </div></i>
-                                                      
+
+                                                        <i> <div class="resultat">  @resultat </div></i>
+
                                                         i = 0;
                                                         counter = 0;
                                                     }
@@ -92,53 +91,61 @@
                                                 </div>
                                             </div>
                                         </a>
-
                                     }
+
+                                    @foreach (var det in ViewBag.recommendCity)
+                                    {
+                                        foreach (var details in ViewBag.ExploreClass)
+                                        {
+
+                                            if (det.trip_id == details.trip_id)
+                                            {
+                                                break;
+                                            }
+
+                                        }
+
+
+
+
+                                            <a class="trips" href='@Url.Action("Trip", "Explore", new { ams = @det.trip_id })'>
+                                                <div type="submit" name="valg" style="cursor: pointer;">
+
+                                                    @foreach (var detail in ViewBag.listImage)
+                                                    {
+                                                        if (@detail.img_ID == @det.trip_id)
+                                                        {
+                                                            <img src="data:image;base64,@System.Convert.ToBase64String(detail.image)" />
+                                                            break;
+                                                        }
+                                                    }
+                                                    <div class="areaid">  @det.trip_name</div>
+                                                    <p class="description module">  @det.description</p>
+                                                    <div class="at">
+                                                        <div class="length_of_trip">  @det.length</div>
+                                                        <div class="difficulty">  @det.difficulty</div>
+                                                        @foreach (var detail in ViewBag.listTag)
+                                                        {
+                                                            if (det.trip_id == detail.idtag.ToString())
+                                                            {
+                                                                <div class="tag">  @detail.tagname</div>
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                        }
+                                    
+
+
+
+
                                 </div>
                             </div>
 
                         }
-                        <h1>Trips near you!</h1>
-                        <div id="main">
-
-                            <div class="trips-container">
-
-
-                                @foreach (var details in ViewBag.recommendCity)
-                                {
-
-
-
-                                    <a class="trips" href='@Url.Action("Trip", "Explore", new { ams = @details.trip_id })'>
-                                        <div type="submit" name="valg" style="cursor: pointer;">
-
-                                            @foreach (var detail in ViewBag.listImage)
-                                            {
-                                                if (@detail.img_ID == @details.trip_id)
-                                                {
-                                                    <img src="data:image;base64,@System.Convert.ToBase64String(detail.image)" />
-                                                    break;
-                                                }
-                                            }
-                                            <div class="areaid">  @details.trip_name</div>
-                                            <p class="description module">  @details.description</p>
-                                            <div class="at">
-                                                <div class="length_of_trip">  @details.length</div>
-                                                <div class="difficulty">  @details.difficulty</div>
-                                                @foreach (var detail in ViewBag.listTag)
-                                                {
-                                                    if (details.trip_id == detail.idtag.ToString())
-                                                    {
-                                                        <div class="tag">  @detail.tagname</div>
-                                                    }
-                                                }
-                                            </div>
-                                        </div>
-                                    </a>
-
-                                }
-                            </div>
-                        </div>
+                       
 
                     }
                 }

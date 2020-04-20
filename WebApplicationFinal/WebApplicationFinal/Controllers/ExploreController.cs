@@ -40,7 +40,6 @@ namespace WebApplicationFinal.Controllers
             }
             ViewBag.ExploreClass = images;
             getImage();
-
             ViewData["List1"] = images;
             return View("Index");
         }
@@ -52,7 +51,7 @@ namespace WebApplicationFinal.Controllers
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
             int i = 0;
-            string query = "SELECT * FROM trip left join trip_tag on trip.trip_id = trip_tag.Trip_id inner join tag on tag.tag= trip_tag.tag where ";
+            string query = "SELECT * FROM trip left join trip_tag on trip.trip_id = trip_tag.Trip_id LEFT JOIN tag on tag.tag= trip_tag.tag where ";
             string city = search.city;
             string tags = search.tags;
             string diff = search.diff;
@@ -158,17 +157,74 @@ namespace WebApplicationFinal.Controllers
                     website = dr["website"].ToString(),
                     type_of_trip = dr["type_of_trip"].ToString(),
                     image = (byte[])dr["Image"],
-                    route = dr["route"].ToString(),
 
                 }
                 ) ;
                 GetIcon(dr["type_of_trip"].ToString());
                 GetDiff(dr["difficulty"].ToString());
             }
-           
-  
+            getMapCoordinates(off.ams);
+            isRegistered(off.ams);
+            getRating(off.ams);
             ViewData["List1"] = images;
             return View("Trip");
+        }
+
+        public ActionResult getMapCoordinates(string tripid)
+        {
+            List<ExploreClass> coordinates = new List<ExploreClass>();
+
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+
+            string query = "SELECT * FROM map_coordinates WHERE trip_ID='" + tripid + "'";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+
+            MySqlDataReader dr = comm.ExecuteReader();
+            while (dr.Read())
+            {
+                coordinates.Add(new ExploreClass
+                {
+                    startLatitude = dr["startLatitude"].ToString(),
+                    startLongitude = dr["startLongitude"].ToString(),
+                    endLatitude = dr["endLatitude"].ToString(),
+                    endLongitude = dr["endLongitude"].ToString(),
+
+                }
+                );
+
+            }
+            ViewData["coordinates"] = coordinates;
+            return null;
+        }
+
+        public ActionResult isRegistered(string tripid) {
+            List<ExploreClass> userReviews = new List<ExploreClass>();
+
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+
+            string query = "SELECT * FROM review WHERE trip_ID='" + tripid + "'";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+
+            MySqlDataReader dr = comm.ExecuteReader();
+            while (dr.Read())
+            {
+                userReviews.Add(new ExploreClass
+                {
+                    trip_id = dr["trip_id"].ToString(),
+                    username = dr["username"].ToString(),
+
+                }
+                );
+                
+            }
+            ViewData["userReviews"] = userReviews;
+            return null;
         }
 
         public ActionResult GetDiff(string diff)
@@ -253,13 +309,15 @@ namespace WebApplicationFinal.Controllers
                     website = dr["website"].ToString(),
                     type_of_trip = dr["type_of_trip"].ToString(),
                     image = (byte[])dr["Image"],
-                    route = dr["route"].ToString(),
 
                 }
                 );
                 GetIcon(dr["type_of_trip"].ToString());
                 GetDiff(dr["difficulty"].ToString());
             }
+            getMapCoordinates(amv.ams);
+            isRegistered(amv.ams);
+            getRating(amv.ams);
             ViewData["List1"] = images;
 
             string mainconni = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
@@ -320,6 +378,29 @@ namespace WebApplicationFinal.Controllers
 
             ViewData["listImage"] = listImage;
 
+        }
+
+        public ActionResult getRating(string trip_id)
+        {
+            List<Account> listReview = new List<Account>();
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+            string query1 = "SELECT * FROM review where trip_id='"+trip_id+"';";
+            MySqlCommand comm1 = new MySqlCommand(query1);
+            comm1.Connection = mysql;
+            mysql.Open();
+            MySqlDataReader mr = comm1.ExecuteReader();
+            while (mr.Read())
+            {
+                listReview.Add(new Account
+                {
+                    idtag = mr.GetInt32(mr.GetOrdinal("trip_ID")),
+                    rating = mr.GetInt32(mr.GetOrdinal("rating")),
+                });
+            }
+
+            ViewData["listReview"] = listReview;
+            return null;
         }
     }
 }

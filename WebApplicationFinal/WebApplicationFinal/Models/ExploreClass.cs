@@ -26,6 +26,15 @@ namespace WebApplicationFinal.Models
 
         public int rating { get; set; }
         public string img_ID { get; set; }
+        public string username { get; set; }
+
+
+        public string startLongitude { get; set; }
+        public string startLatitude { get; set; }
+        public string endLongitude { get; set; }
+        
+        public string endLatitude { get; set; }
+
 
 
     }

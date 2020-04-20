@@ -15,16 +15,29 @@ body {
 
 .content {
     display: flex;
-    flex-direction:row;
-    flex-wrap:wrap;
-    justify-content:space-around;
-    margin:20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 10px;
+    
+}
+
+@media only screen and (max-width: 980px) {
+    .info {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    #dvMap {
+        max-width: 100% !important;
+    }
+    .descriptionn {
+        max-width: 100% !important;
+    }
 }
 
 .info {
-    width: 40%;
-    
-    max-width: 400px;
+    width: 50%;
+    max-width: 500px;
 }
 
 
@@ -197,5 +210,21 @@ background-color: #fff;
 
 
 .descriptionn{
-    width:50%;
+    max-width:50%;
 }
+
+
+.checked {
+    color: orange;
+}
+
+ .star {
+font-size:20px;
+margin-top:30px;
+}
+
+ .headline{
+     display:flex;
+     flex-direction:row;
+     justify-content:space-between;
+ }

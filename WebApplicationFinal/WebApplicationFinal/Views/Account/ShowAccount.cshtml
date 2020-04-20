@@ -1,0 +1,55 @@
+﻿@model IEnumerable<WebApplicationFinal.Models.Account>
+@{
+    ViewBag.Title = "ShowAccount";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<form action="EditAccount" method="POST">
+    @foreach (var details in ViewBag.list1)
+    {
+        
+    <fieldset>
+        <legend>Change account details</legend>
+        <div class="form-group row">
+            <label for="staticusername" class="col-sm-2 col-form-label">username</label>
+            <div class="col-sm-10">
+                <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value="@details.Name">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" name="Password" class="form-control" value="@details.Password" id="exampleInputPassword1" placeholder="Password">
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputCity1">City</label>
+            <input type="text" name="location" class="form-control" value="@details.location" id="exampleInputLocatio1">
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputEmail">E-mail</label>
+            <input type="text" name="email" class="form-control" value="@details.email" id="exampleInputemail1">
+        </div>
+
+
+        <div class="form-group">
+            <label for="exampleInputfullname1">Full Name</label>
+            <input type="text" name="full_name" class="form-control" value="@details.full_name" id="exampleInputfull_name1">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputCity1">phone_nr</label>
+            <input type="number" name="phone_NR" class="form-control" value="@details.phone_NR" id="exampleInputphone_NR1">
+        </div>
+     
+    </fieldset>
+        <button type="submit" class="btn btn-primary">Submit</button>
+   
+        }
+</form>
+
+
+   

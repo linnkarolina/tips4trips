@@ -74,7 +74,6 @@
                         <div id="Dropdown" class="dropdownmenu-content">
                             <a href="/Account/LogOut">Sign Out</a>
                             <a href="/Account/MyAccount">My Account</a>
-                            <a href="#CSS">My taggs</a>
                             <a href="/Account/MyMessages">My Messages</a>
                         </div>
                     </div>
@@ -103,7 +102,7 @@
 
                     if (Request.Cookies["UserCookie"].Expires < DateTime.Now)
                     {
-                        <a href="../Account/writeFeedback">Write us feedback</a>
+                        <a href="../Account/writeFeedback">Questions? Give Us Feedback!</a>
                            }
                     }
                     catch (NullReferenceException) { }

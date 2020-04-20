@@ -330,6 +330,12 @@
     <Content Include="Styles\explore.css" />
     <Content Include="Styles\MyAccount.css" />
     <Content Include="Styles\Trip.css" />
+    <Content Include="Views\Account\ShowAccount.cshtml">
+      <DependentUpon>MyAccount.cshtml</DependentUpon>
+    </Content>
+    <Content Include="Views\Account\ShowTags.cshtml">
+      <DependentUpon>MyAccount.cshtml</DependentUpon>
+    </Content>
     <Content Include="Views\Explore\LeaveReview.cshtml">
       <DependentUpon>Trip.cshtml</DependentUpon>
     </Content>
@@ -368,9 +374,12 @@
     <Content Include="Views\Explore\Index.cshtml" />
     <Content Include="Views\Map\Index.cshtml" />
     <Content Include="Views\Account\MyAccount.cshtml" />
-<HEAD>
-    <Content Include="Views\Account\EditAccount.cshtml" />
 
+    <Content Include="Views\Account\EditAccount.cshtml" />
+    <Content Include="Views\Explore\TripSearch.cshtml" />
+    <Content Include="Views\Explore\Trip.cshtml" />
+    <Content Include="Views\Account\MyMessages.cshtml" />
+    <Content Include="Views\Account\writeFeedback.cshtml" /
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

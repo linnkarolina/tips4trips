@@ -13,5 +13,11 @@ namespace WebApplicationFinal.Models
 
         public string Name { get; set; }
         public string Pass { get; set; }
+
+        public string Location { get; set; }
+        public string Email { get; set; }
+        public string Full_Name { get; set; }
+        public string Phone_NR { get; set; }
+
     }
 }

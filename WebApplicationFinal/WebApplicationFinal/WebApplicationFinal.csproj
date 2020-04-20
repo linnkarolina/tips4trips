@@ -379,7 +379,7 @@
     <Content Include="Views\Explore\TripSearch.cshtml" />
     <Content Include="Views\Explore\Trip.cshtml" />
     <Content Include="Views\Account\MyMessages.cshtml" />
-    <Content Include="Views\Account\writeFeedback.cshtml" /
+    <Content Include="Views\Account\writeFeedback.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

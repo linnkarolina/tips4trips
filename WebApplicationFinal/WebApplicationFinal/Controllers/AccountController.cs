@@ -246,7 +246,7 @@ namespace WebApplicationFinal.Controllers
            
             mysql.Close();
             ViewData["list1"] = list1;
-            
+            getUserTag();
             return View("ShowAccount");
             
         }
@@ -322,6 +322,23 @@ namespace WebApplicationFinal.Controllers
             MySqlConnection mysql = new MySqlConnection(mainconn);
             string name = Request.Cookies["UserCookie"].Value;
             string query = "INSERT INTO user_tag VALUES ('" + user.tagname + "' , '" + name + "')";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+            int dr = comm.ExecuteNonQuery();
+            mysql.Close();
+            MyAccount();
+            return View("MyAccount");
+
+
+        }
+
+        public ActionResult DeleteTags(Account user)
+        {
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+            string name = Request.Cookies["UserCookie"].Value;
+            string query = "DELETE FROM user_tag WHERE tag='" + user.tagname + "' and username= '" + name + "';";
             MySqlCommand comm = new MySqlCommand(query);
             comm.Connection = mysql;
             mysql.Open();

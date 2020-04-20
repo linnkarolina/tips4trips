@@ -27,3 +27,24 @@
 
   
 </form>
+
+<form action="DeleteTags" method="POST">
+
+
+    <fieldset>
+        <legend>Delete tags</legend>
+        <div class="form-group row">
+            <label for="staticusername" class="col-sm-2 col-form-label">username</label>
+
+            <select id="tags" name="tagname">
+                @foreach (var details in ViewBag.list2)
+                {
+                    <option value="@details.tagname" name="tagname">@details.tagname</option>
+                }
+            </select>
+
+    </fieldset>
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+
+</form>

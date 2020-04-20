@@ -1,0 +1,35 @@
+﻿@{@model IEnumerable<WebApplicationFinal.Models.Account>
+@{
+    ViewBag.Title = "EditAccount";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/Styles/MyAccount.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <h2>Edit Your Account</h2>
+
+            @foreach (var details in ViewBag.list1)
+            {
+                <div class="editaccount-container">
+                    <div class="form">
+                        <form class="register-form" action="RegisterVerify" method="POST">
+                            <input type="text" placeholder="@details.Name" name="Name" />
+                            <input type="password" placeholder="@details.password" name="Password" />
+                            <input type="text" placeholder="@details.location" name="location" />
+                            <input type="text" placeholder=" @details.email" name="email" />
+                            <input type="text" placeholder="@details.full_name" name="full_name" />
+                            <input type="number" placeholder="@details.phone_NR" name="phone_NR" />
+                            <button type="button" class="btn btn-primary btn-lg">Save changes</button>
+                        </form>
+                    </div>
+             } 
+</body>
+</html>

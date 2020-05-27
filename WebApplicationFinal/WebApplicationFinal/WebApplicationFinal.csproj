@@ -237,6 +237,8 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <None Include="Properties\PublishProfiles\APP2000 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\WebApplicationFinal20200527032824 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\navaccount.js" />
     <Content Include="Scripts\jquery.shake.js" />
@@ -374,12 +376,12 @@
     <Content Include="Views\Explore\Index.cshtml" />
     <Content Include="Views\Map\Index.cshtml" />
     <Content Include="Views\Account\MyAccount.cshtml" />
-
     <Content Include="Views\Account\EditAccount.cshtml" />
     <Content Include="Views\Explore\TripSearch.cshtml" />
     <Content Include="Views\Explore\Trip.cshtml" />
     <Content Include="Views\Account\MyMessages.cshtml" />
     <Content Include="Views\Account\writeFeedback.cshtml" />
+    <Content Include="Views\Account\Message.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

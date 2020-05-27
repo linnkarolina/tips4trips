@@ -4,6 +4,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     int i = 1;
 }
+
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            jQuery(document).ready(function ($) {
+                $(".clickable-row").click(function () {
+                    window.location = $(this).data("href");
+                });
+            });
+        </script>
+    </head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <h2>MyMessages</h2>
@@ -15,16 +26,21 @@
 
         <th>message ID</th>
         <th>subject</th>
-        <th>Your message</th>
+
     </tr>
     @foreach (var detail in ViewBag.sent)
     {
-        <tr>
-            <td><div class="message_nr"> @detail.message_ID </div>  </td>
-            <td> <div class="subject">@detail.subject</div>  </td>
-            <td><div class="message">@detail.feedback_text</div>  </td>
+
+        <tr class='clickable-row' data-href='@Url.Action("MyMessages", "Account", new { ams = @detail.message_ID })'>
+                <td><div class="message_nr"> @detail.message_ID </div>  </td>
+                <td> <div class="subject">@detail.subject</div>  </td>
         </tr>
+
     }
+
+
+
+    
 
 </table>
     <h3>Answared</h3>

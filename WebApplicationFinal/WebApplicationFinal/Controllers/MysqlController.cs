@@ -116,7 +116,7 @@ namespace WebApplicationFinal.Controllers
         {
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
-            string query = "UPDATE FROM user WHERE username='" + username + "';";
+            string query = "UPDATE FROM user WHERE username='" + user.Username + "';";
             MySqlCommand comm = new MySqlCommand(query);
             comm.Connection = mysql;
             mysql.Open();

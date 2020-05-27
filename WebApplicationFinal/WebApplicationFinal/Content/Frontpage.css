@@ -98,6 +98,7 @@ img {
     margin-right: 10px;
 }
 
+/*
 .body-content {
     all: initial;
     *
@@ -106,7 +107,7 @@ img {
     all: unset;
 }
 }
-
+    */
 .body-content {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-size: 1rem;

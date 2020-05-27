@@ -187,11 +187,40 @@ namespace WebApplicationFinal.Controllers
             mysql.Close();
 
             ViewData["sent"] = sent;
-            answaredMessage();
             return View("MyMessages");
         }
 
-        public void answaredMessage() {
+        public ActionResult Message(Account acc)
+        {
+            List<Account> sent = new List<Account>();
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+            string name = Request.Cookies["UserCookie"].Value;
+            string query = "SELECT * FROM admin_inbox where user_username='" + name + "' and message_ID='"+ acc.clicked_value +"'";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+            MySqlDataReader dr = comm.ExecuteReader();
+            while (dr.Read())
+            {
+                sent.Add(new Account
+                {
+                    message_ID = dr.GetInt32(dr.GetOrdinal("message_ID")),
+                    subject = dr["subject"].ToString(),
+                    feedback_text = dr["message"].ToString(),
+
+
+
+                });
+            }
+            mysql.Close();
+
+            ViewData["sent"] = sent;
+            answaredMessage();
+            return View("Message");
+        }
+
+            public void answaredMessage() {
             List<Account> answared = new List<Account>();
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);

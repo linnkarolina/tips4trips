@@ -1,8 +1,51 @@
-﻿
+﻿@model IEnumerable<WebApplicationFinal.Models.Account>
 @{
     ViewBag.Title = "Message";
-    Layout = "~/Views/Account/MyMessages.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Message</h2>
-bjjhh
+<h3>Feedback sent by you</h3>
+<table class="table table-hover">
+    <tr>
+
+
+        <th>Message ID</th>
+        <th>Subject</th>
+        <th>feedback question</th>
+
+    </tr>
+    @foreach (var detail in ViewBag.sent)
+    {
+
+<tr>
+    <td><div class="message_nr"> @detail.message_ID </div>  </td>
+    <td> <div class="subject">@detail.subject</div>  </td>
+    <td><div class="message">@detail.feedback_text</div></td>
+</tr>
+
+    }
+
+</table>
+
+<h3>Answare from admin</h3>
+
+
+
+<table class="table table-hover">
+    <tr>
+        <th>admin</th>
+        <th>subject</th>
+        <th>feedback answare</th>
+    </tr>
+    @foreach (var detail in ViewBag.answared)
+    {
+        <tr>
+
+            <td><div class="admin"> @detail.admin </div></td>
+            <td><div class="subject">@detail.subject</div></td>
+            <td><div class="message">@detail.feedback_text</div></td>
+        </tr>
+
+    }
+</table>

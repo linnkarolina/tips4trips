@@ -31,7 +31,7 @@
     @foreach (var detail in ViewBag.sent)
     {
 
-        <tr class='clickable-row' data-href='@Url.Action("MyMessages", "Account", new { ams = @detail.message_ID })'>
+        <tr class='clickable-row' data-href='@Url.Action("Message", "Account/Message", new { clicked_value = @detail.message_ID })'>
                 <td><div class="message_nr"> @detail.message_ID </div>  </td>
                 <td> <div class="subject">@detail.subject</div>  </td>
         </tr>
@@ -43,28 +43,4 @@
     
 
 </table>
-    <h3>Answared</h3>
-
-
-
-    <table class="table table-hover">
-        <tr>
-            <th>admin</th>
-            <th>username</th>
-            <th>message ID</th>
-            <th>subject</th>
-            <th>feedback answare</th>
-        </tr>
-        @foreach (var detail in ViewBag.answared)
-        {
-            <tr>
-
-                <td><div class="admin"> @detail.admin </div></td>
-                <td><div class="user"> @detail.user</div></td>
-                <td><div class="message_id"> @detail.message_ID </div></td>
-                <td><div class="subject">@detail.subject</div></td>
-                <td><div class="message">@detail.feedback_text</div></td>
-            </tr>
-
-        }
-    </table>
+ 

@@ -31,5 +31,7 @@ namespace WebApplicationFinal.Models
         public string user { get; set; }
         public int rating { get; set; }
 
+        public string clicked_value { get; set;}
+
     }
 }

@@ -117,3 +117,15 @@ img {
     text-align: left;
     background-color: #fff;
 }
+
+a:link {
+    text-decoration: none;
+}
+
+.card.border-primary.mb-3 {
+    transition: box-shadow .3s;
+    color: black;
+    -webkit-box-shadow: 10px 10px 20px 0px rgba(112,112,112,0.82);
+    -moz-box-shadow: 10px 10px 20px 0px rgba(112,112,112,0.82);
+    box-shadow: 10px 10px 20px 0px rgba(112,112,112,0.82);
+}

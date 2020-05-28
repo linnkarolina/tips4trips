@@ -333,6 +333,7 @@
     <Content Include="Styles\explore.css" />
     <Content Include="Styles\MyAccount.css" />
     <Content Include="Styles\Trip.css" />
+    <Content Include="Styles\TripBox.css" />
     <Content Include="Views\Account\Message.cshtml">
       <DependentUpon>MyMessages.cshtml</DependentUpon>
     </Content>

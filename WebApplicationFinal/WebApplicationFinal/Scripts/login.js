@@ -1,17 +1,7 @@
 ﻿
-function setCookie(name, value, maxAgeSeconds) {
-    var maxAgeSegment = "; max-age=" + maxAgeSeconds;
-    document.cookie = encodeURI(name) + "=" + encodeURI(value) + maxAgeSegment;
-}
-
-function getCookie(name) {
-    var value = "; " + document.cookie;
-    var parts = value.split("; " + name + "=");
-    if (parts.length == 2) return parts.pop().split(";").shift();
-}
 
 var x = document.cookie;
-if (x === 'blaise') {
+if (x === 'ok') {
     console.log("fEIL PASSORD");
     var head = document.getElementsByTagName('HEAD')[0];
 
@@ -25,19 +15,20 @@ if (x === 'blaise') {
 
     link.href = '/Styles/shake.css';
 
+    alert("Password or Username did not match");
+
     // Append link element to HTML head 
-    head.appendChild(link);  
+    head.appendChild(link);
 
 
 
 } else {
-   x= setCookie("login", "blaise", 30);
- 
+    console.log("oke");
     document.cookie = "ok";
-    
-    console.log(getCookie(x));
+
+    console.log(x);
 }
-       
+
 
 // Real-time username checks
 

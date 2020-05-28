@@ -21,7 +21,7 @@ namespace WebApplicationFinal.Models
         public string tags { get; set; }
         public string trip_area { get; set; }
         public string diff { get; set; }
-        [AllowHtml]
+       
         public string ams { get; set; }
         public string route { get; set; }
         public string type_of_trip { get; set; }

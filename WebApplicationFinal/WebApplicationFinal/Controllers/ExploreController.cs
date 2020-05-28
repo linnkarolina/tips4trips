@@ -281,12 +281,12 @@ namespace WebApplicationFinal.Controllers
         [HttpPost]
         public ActionResult LeaveReview(ExploreClass amv)
         {
-            List<ExploreClass> images = new List<ExploreClass>();
+//            List<ExploreClass> images = new List<ExploreClass>();
 
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
 
-            string query = "SELECT * FROM image as i " +
+  /*          string query = "SELECT * FROM image as i " +
                 "LEFT JOIN trip as t ON t.trip_id = i.trip_id " +
                 "LEFT JOIN map_coordinates AS m ON t.trip_id = m.trip_id " +
                 "LEFT JOIN trip_with_type AS tw ON tw.trip_ID=t.trip_ID " +
@@ -318,7 +318,7 @@ namespace WebApplicationFinal.Controllers
             getMapCoordinates(amv.ams);
             isRegistered(amv.ams);
             getRating(amv.ams);
-            ViewData["List1"] = images;
+            ViewData["List1"] = images;*/
 
             string mainconni = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysqli = new MySqlConnection(mainconn);
@@ -328,7 +328,8 @@ namespace WebApplicationFinal.Controllers
             commi.Connection = mysqli;
             mysqli.Open();
             int dri = commi.ExecuteNonQuery();
-            return View();
+            Trip(amv);
+            return RedirectToAction("Trip", new { ams = amv.ams });
 
         }
 

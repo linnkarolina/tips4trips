@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace WebApplicationFinal.Models
 {
     public class ExploreClass
     {
+        [AllowHtml]
         public string trip_id { get; set; }
         public string trip_name { get; set; }
        
@@ -19,8 +21,8 @@ namespace WebApplicationFinal.Models
         public string tags { get; set; }
         public string trip_area { get; set; }
         public string diff { get; set; }
-
-       public string ams { get; set; }
+        [AllowHtml]
+        public string ams { get; set; }
         public string route { get; set; }
         public string type_of_trip { get; set; }
 

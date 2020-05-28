@@ -1,180 +1,181 @@
 @model IEnumerable<WebApplicationFinal.Models.ExploreClass>
-    <head>
-        <script src="~/Scripts/Slideshow.js"></script>
-        <link rel="stylesheet" type="text/css" href="../Content/Site.css" />
-        <link rel="stylesheet" type="text/css" href="../Content/Frontpage.css" />
-        <script src="~/Scripts/Slideshow.js"></script>
-        <link rel="stylesheet" href="bower_components/css-star-rating/dist/css/star-rating.css">
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <script src="~/Scripts/Slideshow.js"></script>
+    <link rel="stylesheet" type="text/css" href="../Content/Site.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/Frontpage.css" />
+    <script src="~/Scripts/Slideshow.js"></script>
+    <link rel="stylesheet" href="bower_components/css-star-rating/dist/css/star-rating.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-        <head />
+    <head />
 
-        <body>
-            <div class="slider" id="main-slider">
-                <!-- outermost container element -->
-                <div class="slider-wrapper">
-                    <!-- innermost wrapper element -->
-                    <img src="~/Photos/forest-dark.jpg" alt="First" class="slide" /><!-- slides -->
-                    <img src="~/Photos/forest.jpg" alt="Second" class="slide" />
-                    <img src="~/Photos/norway-island.jpg" alt="Third" class="slide" />
-                </div>
+    <body>
+        <div class="slider" id="main-slider">
+            <!-- outermost container element -->
+            <div class="slider-wrapper">
+                <!-- innermost wrapper element -->
+                <img src="~/Photos/forest-dark.jpg" alt="First" class="slide" /><!-- slides -->
+                <img src="~/Photos/forest.jpg" alt="Second" class="slide" />
+                <img src="~/Photos/norway-island.jpg" alt="Third" class="slide" />
             </div>
+        </div>
 
 
 
-            @{ try
+        @{ try
+            {
+
+                if (Request.Cookies["UserCookie"].Expires < DateTime.Now)
                 {
 
-                    if (Request.Cookies["UserCookie"].Expires < DateTime.Now)
+                    if (Enumerable.Any(ViewBag.ExploreClass))
                     {
 
-                        if (Enumerable.Any(ViewBag.ExploreClass))
-                        {
+                        <h1>Recommended trips for you</h1>
+                        <div id="main">
 
-                            <h1>Recommended trips for you</h1>
-                            <div id="main">
+                            <div class="trips-container">
 
-                                <div class="trips-container">
+                                @foreach (var details in ViewBag.ExploreClass)
+                                {
 
-                                    @foreach (var details in ViewBag.ExploreClass)
-                                    {
-
-                                        int counter = 0;
-                                        int i = 0;
-                                        int resultat = 0;
+                                    int counter = 0;
+                                    int i = 0;
+                                    int resultat = 0;
 
 
-                                        <a class="trips" href='@Url.Action("Trip", "Explore", new { ams = @details.trip_id })'>
-                                            <div type="submit" name="valg" style="cursor: pointer;">
-                                                @foreach (var detail in ViewBag.listImage)
+                                    <a class="trips" href='@Url.Action("Trip", "Explore", new { ams = @details.trip_id })'>
+                                        <div type="submit" name="valg" style="cursor: pointer;">
+                                            @foreach (var detail in ViewBag.listImage)
+                                            {
+                                                if (@detail.img_ID == @details.trip_id)
                                                 {
-                                                    if (@detail.img_ID == @details.trip_id)
+                                                    <img src="data:image;base64,@System.Convert.ToBase64String(detail.image)" />
+                                                    break;
+                                                }
+                                            }
+                                            <div class="areaid">  @details.trip_name</div>
+                                            <p class="description module">  @details.description</p>
+                                            <div class="at">
+                                                <div class="length_of_trip">  @details.length</div>
+                                                <div class="difficulty">  @details.difficulty</div>
+                                                @foreach (var detail in ViewBag.listTag)
+                                                {
+                                                    if (details.trip_id == detail.idtag.ToString())
                                                     {
-                                                        <img src="data:image;base64,@System.Convert.ToBase64String(detail.image)" />
-                                                        break;
+                                                        <div class="tag">  @detail.tagname</div>
                                                     }
                                                 }
-                                                <div class="areaid">  @details.trip_name</div>
-                                                <p class="description module">  @details.description</p>
-                                                <div class="at">
-                                                    <div class="length_of_trip">  @details.length</div>
-                                                    <div class="difficulty">  @details.difficulty</div>
-                                                    @foreach (var detail in ViewBag.listTag)
-                                                    {
-                                                        if (details.trip_id == detail.idtag.ToString())
-                                                        {
-                                                            <div class="tag">  @detail.tagname</div>
-                                                        }
-                                                    }
 
 
-                                                 
 
-                                                </div>
+
                                             </div>
-                                        </a>
+                                        </div>
+                                    </a>
+                                }
+
+                                @foreach (var det in ViewBag.recommendCity)
+                                {
+                                    foreach (var details in ViewBag.ExploreClass)
+                                    {
+
+                                        if (det.trip_id == details.trip_id)
+                                        {
+                                            break;
+                                        }
+
                                     }
 
-                                    @foreach (var det in ViewBag.recommendCity)
-                                    {
-                                        foreach (var details in ViewBag.ExploreClass)
-                                        {
 
-                                            if (det.trip_id == details.trip_id)
+
+
+                                    <a class="trips" href='@Url.Action("Trip", "Explore", new { ams = @det.trip_id })'>
+                                        <div type="submit" name="valg" style="cursor: pointer;">
+
+                                            @foreach (var detail in ViewBag.listImage)
                                             {
-                                                break;
+                                                if (@detail.img_ID == @det.trip_id)
+                                                {
+                                                    <img src="data:image;base64,@System.Convert.ToBase64String(detail.image)" />
+                                                    break;
+                                                }
                                             }
-
-                                        }
-
-
-
-
-                                            <a class="trips" href='@Url.Action("Trip", "Explore", new { ams = @det.trip_id })'>
-                                                <div type="submit" name="valg" style="cursor: pointer;">
-
-                                                    @foreach (var detail in ViewBag.listImage)
+                                            <div class="areaid">  @det.trip_name</div>
+                                            <p class="description module">  @det.description</p>
+                                            <div class="at">
+                                                <div class="length_of_trip">  @det.length</div>
+                                                <div class="difficulty">  @det.difficulty</div>
+                                                @foreach (var detail in ViewBag.listTag)
+                                                {
+                                                    if (det.trip_id == detail.idtag.ToString())
                                                     {
-                                                        if (@detail.img_ID == @det.trip_id)
-                                                        {
-                                                            <img src="data:image;base64,@System.Convert.ToBase64String(detail.image)" />
-                                                            break;
-                                                        }
+                                                        <div class="tag">  @detail.tagname</div>
                                                     }
-                                                    <div class="areaid">  @det.trip_name</div>
-                                                    <p class="description module">  @det.description</p>
-                                                    <div class="at">
-                                                        <div class="length_of_trip">  @det.length</div>
-                                                        <div class="difficulty">  @det.difficulty</div>
-                                                        @foreach (var detail in ViewBag.listTag)
-                                                        {
-                                                            if (det.trip_id == detail.idtag.ToString())
-                                                            {
-                                                                <div class="tag">  @detail.tagname</div>
-                                                            }
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </a>
+                                                }
+                                            </div>
+                                        </div>
+                                    </a>
 
-                                        }
-                                    
+                                }
 
 
 
 
-                                </div>
+
                             </div>
-
-                        }
-                       
+                        </div>
 
                     }
+
+
                 }
-                catch (NullReferenceException) { }
             }
+            catch (NullReferenceException) { }
+        }
 
 
-            <h1>Trips</h1>
+        <h1>Trips</h1>
 
-            <div id="main">
-                <div class="trips-container">
+        <div id="main">
+            <div class="trips-container">
 
 
 
-                    @foreach (WebApplicationFinal.Models.ExploreClass details in Model)
-                    {
+                @foreach (WebApplicationFinal.Models.ExploreClass details in Model)
+                {
 
-                        <a class="trips" href='@Url.Action("Trip", "Explore", new { ams= @details. trip_id})'>
-                            <div type="submit" name="valg" style="cursor: pointer;">
+                    <a class="trips" href='@Url.Action("Trip", "Explore", new { ams= @details. trip_id})'>
+                        <div type="submit" name="valg" style="cursor: pointer;">
 
-                                @foreach (var detail in ViewBag.listImage)
+                            @foreach (var detail in ViewBag.listImage)
+                            {
+                                if (@detail.img_ID == @details.trip_id)
                                 {
-                                    if (@detail.img_ID == @details.trip_id)
+                                    <img src="data:image;base64,@System.Convert.ToBase64String(detail.image)" />
+                                    break;
+                                }
+                            }
+                            <div class="areaid">  @details.trip_name</div>
+                            <p class="description module">  @details.description</p>
+                            <div class="at">
+                                <div class="length_of_trip">  @details.length</div>
+                                <div class="difficulty">  @details.difficulty</div>
+                                @foreach (var detail in ViewBag.listTag)
+                                {
+                                    if (details.trip_id == detail.idtag.ToString())
                                     {
-                                        <img src="data:image;base64,@System.Convert.ToBase64String(detail.image)" />
-                                        break;
+                                        <div class="tag">  @detail.tagname</div>
                                     }
                                 }
-                                <div class="areaid">  @details.trip_name</div>
-                                <p class="description module">  @details.description</p>
-                                <div class="at">
-                                    <div class="length_of_trip">  @details.length</div>
-                                    <div class="difficulty">  @details.difficulty</div>
-                                    @foreach (var detail in ViewBag.listTag)
-                                    {
-                                        if (details.trip_id == detail.idtag.ToString())
-                                        {
-                                            <div class="tag">  @detail.tagname</div>
-                                        }
-                                    }
-                                </div>
                             </div>
-                        </a>
+                        </div>
+                    </a>
 
-                    }
-                </div>
+                }
             </div>
-        </body>
+        </div>
+    </body>

@@ -24,12 +24,18 @@
                 <input type="text" class="form-control" placeholder="tags" id="tags" name="tags">
                 <label class="col-form-label" for="difficulty">Difficulty</label>
                 <div class="diff">
-                    <div class="btn-group" role="group" aria-label="Basic example">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-secondary">
+                            @Html.RadioButton("diff", "Easy", false, new { id = "option1", autocomplete = "off" }) Easy
+                        </label>
 
+                        <label class="btn btn-secondary">
+                            @Html.RadioButton("diff", "Medium", false, new { id = "option1", autocomplete = "off" }) Medium
+                        </label>
 
-                        @Html.RadioButton("diff", "Easy", false, new { @class = "btn btn-secondary" })
-                        @Html.RadioButton("diff", "Medium", false, new { @class = "btn btn-secondary" })
-                        @Html.RadioButton("diff", "Hard", false, new { @class = "btn btn-secondary" })
+                        <label class="btn btn-secondary ">
+                            @Html.RadioButton("diff", "Hard", false, new { id = "option1", autocomplete = "off" }) Hard
+                        </label>
                     </div>
                 </div>
                 <button type="reset" value="reset" class="btn btn-secondary">Reset</button>

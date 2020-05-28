@@ -24,15 +24,15 @@
     <tr>
 
 
-        <th>message ID</th>
+        
         <th>subject</th>
 
     </tr>
     @foreach (var detail in ViewBag.sent)
     {
 
-        <tr class='clickable-row' data-href='@Url.Action("Message", "Account/Message", new { clicked_value = @detail.message_ID })'>
-                <td><div class="message_nr"> @detail.message_ID </div>  </td>
+        <tr class='clickable-row' data-href='@Url.Action("Message", "Account/Message", new { clicked_value = @detail.message_ID  , subject= detail.subject})'>
+             
                 <td> <div class="subject">@detail.subject</div>  </td>
         </tr>
 

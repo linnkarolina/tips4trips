@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -11,14 +12,14 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <meta charset="UTF-8">
-   
+
 </head>
 
 <body>
 
-   
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="/Home/Index">TipsForTrips</a>
+        <a class="navbar-brand" href="../../Home/Index">TipsForTrips</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -26,7 +27,7 @@
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto justify-content-end">
                 <li class="nav-item active">
-                    <a class="nav-link" href="../Home/Index">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="../../Home/Index">Home <span class="sr-only">(current)</span></a>
                 </li>
                 @{ try
                     {
@@ -49,7 +50,7 @@
                         if (Request.Cookies["UserCookie"] == null)
                         {
                             <li class="nav-item">
-                                <a class="nav-link" href="/Account/Login">Log in</a>
+                                <a class="nav-link" href="/LoginAndRegister/Login">Log in</a>
                             </li>
                         }
                     }
@@ -64,29 +65,29 @@
                     {
 
 
-                    <div class="dropdownmenu">
+                        <div class="dropdownmenu">
 
-                        <div class="account">
-                        <button onclick="btnToggle()" class="btn btn-secondary" >
-                            Account
-                        </button>
-                         </div>
-                        <div id="Dropdown" class="dropdownmenu-content">
-                            <a href="/Account/LogOut">Sign Out</a>
-                            <a href="/Account/MyAccount">My Account</a>
-                            <a href="/Account/MyMessages">My Messages</a>
+                            <div class="account">
+                                <button onclick="btnToggle()" class="btn btn-secondary">
+                                    Account
+                                </button>
+                            </div>
+                            <div id="Dropdown" class="dropdownmenu-content">
+                                <a href="/LoginAndRegister/LogOut">Sign Out</a>
+                                <a href="/Account/MyAccount">My Account</a>
+                                <a href="/Account/MyMessages">My Messages</a>
+                            </div>
                         </div>
-                    </div>
-                            }
-                        }
-                catch (NullReferenceException) { }
+                    }
                 }
-           
-           
+                catch (NullReferenceException) { }
+            }
 
 
 
-            <form class="form-inline my-2 my-lg-0"action="../Explore/Index">
+
+
+            <form class="form-inline my-2 my-lg-0" action="../Explore/Index">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search">
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
             </form>
@@ -96,18 +97,18 @@
         @RenderBody()
         <hr />
         <footer>
-             @try
+            @try
+            {
+
+
+                if (Request.Cookies["UserCookie"].Expires < DateTime.Now)
                 {
-
-
-                    if (Request.Cookies["UserCookie"].Expires < DateTime.Now)
-                    {
-                        <a href="../Account/writeFeedback">Questions? Give Us Feedback!</a>
-                           }
-                    }
-                    catch (NullReferenceException) { }
-                        <p>&copy; @DateTime.Now.Year</p>
-                    </footer>
+                    <a href="../Account/writeFeedback">Questions? Give Us Feedback!</a>
+                }
+            }
+            catch (NullReferenceException) { }
+            <p>&copy; @DateTime.Now.Year</p>
+        </footer>
 
     </div>
 

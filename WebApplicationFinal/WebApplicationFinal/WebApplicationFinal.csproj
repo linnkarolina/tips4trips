@@ -241,6 +241,7 @@
     <None Include="Properties\PublishProfiles\APP2000 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\WebApplicationFinal20200527032824 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\loginError.js" />
     <Content Include="Scripts\navaccount.js" />
     <Content Include="Scripts\jquery.shake.js" />
     <Content Include="Scripts\login.js" />

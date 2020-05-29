@@ -11,7 +11,7 @@ namespace WebApplicationFinal.Controllers
     public class AccountController : Controller
     {
 
-
+        // heipådeg
      
 
         public ActionResult MyAccount()

@@ -44,7 +44,7 @@ namespace WebApplicationFinal.Controllers
                 });
 
             }
-
+            mysql.Close();
             ViewBag.ExploreClass = images;
             getImage();
             getTag();
@@ -87,7 +87,7 @@ namespace WebApplicationFinal.Controllers
                     });
 
                 }
-
+                mysql.Close();
                 ViewBag.ExploreClass = recommend;
             }
             catch { }
@@ -126,7 +126,7 @@ namespace WebApplicationFinal.Controllers
                     });
 
                 }
-
+                mysql.Close();
                 ViewData["recommendCity"] = recommendCity;
             }
             catch { }
@@ -153,7 +153,7 @@ namespace WebApplicationFinal.Controllers
 
                 });
             }
-
+            mysql.Close();
             ViewData["listImage"] = listImage;
 
         }
@@ -177,7 +177,7 @@ namespace WebApplicationFinal.Controllers
 
                 });
             }
-
+            mysql.Close();
             ViewData["listTag"] = listTag;
 
 
@@ -200,7 +200,7 @@ namespace WebApplicationFinal.Controllers
                     rating = mr.GetInt32(mr.GetOrdinal("rating")),
                 });
             }
-
+            mysql.Close();
             ViewData["listReview"] = listReview;
             return null;
         }

@@ -69,7 +69,7 @@ namespace WebApplicationFinal.Controllers
 
                 });
             }
-
+            mysql.Close();
             ViewData["listImage"] = listImage;
             
         }

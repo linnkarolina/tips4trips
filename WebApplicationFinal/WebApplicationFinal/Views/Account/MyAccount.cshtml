@@ -10,14 +10,16 @@
 
 
 <div class="myaccount-container">
-   
-        
 
-            @foreach (var details in ViewBag.list1)
-            {
-
-
-            <div class="account-element">
+    <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">Header</div>
+        <div class="card-body">
+            <h4 class="card-title">Primary card title</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+    </div>
+    <div cla
+         @foreach (var details in ViewBag.list1) {   <div class="account-element">
                 <h2>Account details</h2>
 
                 <div class=""> Username: @details.Name </div>
@@ -31,7 +33,7 @@
                 </a>
             </div>
             }
-      
+
 <div class="tags">
     <h2>Your tags</h2>
     @foreach (var details in ViewBag.list2)

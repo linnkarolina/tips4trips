@@ -38,6 +38,7 @@ namespace WebApplicationFinal.Controllers
                 );
                 getTag();
             }
+            mysql.Close();
             ViewBag.ExploreClass = images;
             getImage();
             ViewData["List1"] = images;
@@ -117,6 +118,7 @@ namespace WebApplicationFinal.Controllers
                 }
                 );
             }
+            mysql.Close();
             getTag();
             getImage();
             ViewBag.ExploreClass = images;
@@ -166,6 +168,7 @@ namespace WebApplicationFinal.Controllers
             getMapCoordinates(off.ams);
             isRegistered(off.ams);
             getRating(off.ams);
+            mysql.Close();
             ViewData["List1"] = images;
             return View("Trip");
         }
@@ -196,6 +199,7 @@ namespace WebApplicationFinal.Controllers
                 );
 
             }
+            mysql.Close();
             ViewData["coordinates"] = coordinates;
             return null;
         }
@@ -223,6 +227,7 @@ namespace WebApplicationFinal.Controllers
                 );
                 
             }
+            mysql.Close();
             ViewData["userReviews"] = userReviews;
             return null;
         }
@@ -281,44 +286,10 @@ namespace WebApplicationFinal.Controllers
         [HttpPost]
         public ActionResult LeaveReview(ExploreClass amv)
         {
-//            List<ExploreClass> images = new List<ExploreClass>();
+
 
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
-
-  /*          string query = "SELECT * FROM image as i " +
-                "LEFT JOIN trip as t ON t.trip_id = i.trip_id " +
-                "LEFT JOIN map_coordinates AS m ON t.trip_id = m.trip_id " +
-                "LEFT JOIN trip_with_type AS tw ON tw.trip_ID=t.trip_ID " +
-                "WHERE i.trip_id='" + amv.ams + "'";
-            MySqlCommand comm = new MySqlCommand(query);
-            comm.Connection = mysql;
-            mysql.Open();
-
-            MySqlDataReader dr = comm.ExecuteReader();
-            while (dr.Read())
-            {
-                images.Add(new ExploreClass
-                {
-                    trip_id = dr["trip_id"].ToString(),
-                    trip_name = dr["trip_name"].ToString(),
-                    length = dr["length"].ToString(),
-                    difficulty = dr["difficulty"].ToString(),
-                    description = dr["description"].ToString(),
-                    city = dr["city"].ToString(),
-                    website = dr["website"].ToString(),
-                    type_of_trip = dr["type_of_trip"].ToString(),
-                    image = (byte[])dr["Image"],
-
-                }
-                );
-                GetIcon(dr["type_of_trip"].ToString());
-                GetDiff(dr["difficulty"].ToString());
-            }
-            getMapCoordinates(amv.ams);
-            isRegistered(amv.ams);
-            getRating(amv.ams);
-            ViewData["List1"] = images;*/
 
             string mainconni = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysqli = new MySqlConnection(mainconn);
@@ -328,6 +299,7 @@ namespace WebApplicationFinal.Controllers
             commi.Connection = mysqli;
             mysqli.Open();
             int dri = commi.ExecuteNonQuery();
+            mysql.Close();
             Trip(amv);
             return RedirectToAction("Trip", new { ams = amv.ams });
 
@@ -351,8 +323,8 @@ namespace WebApplicationFinal.Controllers
                         idtag = mr.GetInt32(mr.GetOrdinal("trip_ID")),
                     });
                 }
-
-        ViewData["listTag"] = listTag;
+            mysql.Close();
+            ViewData["listTag"] = listTag;
             }
 
         public void getImage()
@@ -360,7 +332,7 @@ namespace WebApplicationFinal.Controllers
             List<ExploreClass> listImage = new List<ExploreClass>();
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
-            string query1 = "SELECT * FROM image";
+            string query1 = "SELECT DISTINCT `trip_ID`,`image_ID`,`image` FROM `image`";
             MySqlCommand comm1 = new MySqlCommand(query1);
             comm1.Connection = mysql;
             mysql.Open();
@@ -376,10 +348,12 @@ namespace WebApplicationFinal.Controllers
 
                 });
             }
-
+            mysql.Close();
             ViewData["listImage"] = listImage;
 
         }
+
+      
 
         public ActionResult getRating(string trip_id)
         {
@@ -399,7 +373,7 @@ namespace WebApplicationFinal.Controllers
                     rating = mr.GetInt32(mr.GetOrdinal("rating")),
                 });
             }
-
+            mysql.Close();
             ViewData["listReview"] = listReview;
             return null;
         }

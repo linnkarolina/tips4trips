@@ -217,7 +217,7 @@ namespace WebApplicationFinal.Controllers
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
             string name = Request.Cookies["UserCookie"].Value;
-            string query = "SELECT * FROM tag;";
+            string query = "SELECT tag.* FROM tag WHERE tag.tag NOT IN(SELECT user_tag.tag FROM user_tag where user_tag.username = '"+name+"');";
             MySqlCommand comm = new MySqlCommand(query);
             comm.Connection = mysql;
             mysql.Open();
@@ -254,6 +254,7 @@ namespace WebApplicationFinal.Controllers
                     tagname = dr["tag"].ToString(),
                 });
             }
+            mysql.Close();
             ViewData["list2"] = list2;
             return null;
         }

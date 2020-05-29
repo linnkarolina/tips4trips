@@ -1,9 +1,11 @@
 ﻿using System;
-using System.Web;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using WebApplicationFinal.Models;
 using System.Configuration;
 using MySql.Data.MySqlClient;
+using System.Globalization;
+using System.Web;
 using System.Web.Security;
 
 namespace WebApplicationFinal.Controllers
@@ -17,10 +19,32 @@ namespace WebApplicationFinal.Controllers
 
         public ActionResult Register()
         {
+            getLocation();
             return View();
         }
 
-
+        public ActionResult getLocation()
+        {
+            List<Account> list1 = new List<Account>();
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+           
+            string query = "SELECT * FROM location";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+            MySqlDataReader dr = comm.ExecuteReader();
+            while (dr.Read())
+            {
+                list1.Add(new Account
+                {
+                    city = dr["city"].ToString(),
+                });
+            }
+            mysql.Close();
+            ViewData["list1"] = list1;
+            return null;
+        }
 
         [HttpPost]
         public ActionResult LoginVerify(Account acc)
@@ -58,6 +82,7 @@ namespace WebApplicationFinal.Controllers
 
         public ActionResult RegisterVerify(Account acc)
         {
+           checkregisterForm(acc);
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
             string query = "INSERT IGNORE INTO user (username, password, city, email, full_name, phone_NR) VALUES ('" + acc.Name + "', '" + acc.Password + "', '" + acc.location + "', '" + acc.email + "', '" + acc.full_name + "', '" + acc.phone_NR + "');";
@@ -95,6 +120,47 @@ namespace WebApplicationFinal.Controllers
             return null;
         }
 
+        public ActionResult checkregisterForm(Account acc) {
+           
+            if (acc.Name == null)
+            {
+                ViewBag.emptyForm= "You forgot to fill out username";
+                getLocation();
+                return RedirectToAction("Register");
+            }
 
+            if (acc.Password == null) {
+                ViewBag.emptyForm = "You forgot to fill out password";
+                getLocation();
+               return RedirectToAction("Register");
+            }
+             if (acc.location == null)
+            {
+                ViewBag.emptyForm = "You forgot to fill out location";
+                getLocation();
+                return RedirectToAction("Register");
+            }
+             if (acc.email == null)
+            {
+                ViewBag.emptyForm = "You forgot to fill out e-mail";
+                getLocation();
+                return RedirectToAction("Register");
+            }
+             if (acc.full_name == null)
+            {
+                ViewBag.emptyForm = "You forgot to fill out full name";
+                getLocation();
+                return RedirectToAction("Register");
+            }
+             if (acc.phone_NR == 0)
+            {
+                ViewBag.emptyForm = "You forgot to fill out your phone nr";
+                getLocation();
+                return RedirectToAction("Register");
+
+            }
+
+            return null ;
+        }
     }
 }

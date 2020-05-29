@@ -34,6 +34,8 @@ namespace WebApplicationFinal.Models
         public string clicked_value { get; set;}
 
         public string JavascriptToRun { get; set; }
+        public string city { get; set; }
+       
 
     }
 }

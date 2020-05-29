@@ -12,16 +12,10 @@
 <div class="myaccount-container">
 
     <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-        <div class="card-header">Header</div>
-        <div class="card-body">
-            <h4 class="card-title">Primary card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-    </div>
-    <div cla
-         @foreach (var details in ViewBag.list1) {   <div class="account-element">
-                <h2>Account details</h2>
-
+        @foreach (var details in ViewBag.list1)
+        {
+            <div class="card-header">Account details</div>
+            <div class="card-body">
                 <div class=""> Username: @details.Name </div>
                 <div class="">Location:  @details.location</div>
                 <div class="">E-mail:  @details.email</div>
@@ -29,20 +23,26 @@
                 <div class="">Phone number: @details.phone_NR</div>
 
                 <a class="trips" href='@Url.Action("ShowAccount", "Account")'>
-                    <button type="button" class="btn btn-primary btn-lg">Edit profile</button>
+                    <button type="button" class="btn btn-secondary btn-lg">Edit profile</button>
                 </a>
+
             </div>
+        }
+    </div>
+
+
+
+    <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">Your tags</div>
+        <div class="card-body">
+            @foreach (var details in ViewBag.list2)
+            {
+
+                <div> @details.tagname</div>
             }
+            <a class="trips" href='@Url.Action("ShowTags", "Account")'>
+                <button type="button" class="btn btn-secondary btn-lg">Edit tags</button>
+        </div>
+    </div>
 
-<div class="tags">
-    <h2>Your tags</h2>
-    @foreach (var details in ViewBag.list2)
-    {
-
-        <div>@details.tagname</div>
-
-    }
-    <a class="trips" href='@Url.Action("ShowTags", "Account")'>
-        <button type="button" class="btn btn-primary btn-lg">Edit tags</button>
-</div>
 </div>

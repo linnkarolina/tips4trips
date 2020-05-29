@@ -3,24 +3,47 @@
     ViewBag.Title = "Register";
     Layout = "~/Views/Register.cshtml";
 }
+<link href="../Content/bootstrap.min.css" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    .form-control {
+    margin-bottom:15px;
+    }
+</style>
 <body>
     <div>
-        
+
         <div class="login-page">
             <div class="form">
                 <form class="register-form" action="RegisterVerify" method="POST">
-                    <input type="text" placeholder="username" name="Name" />
-                    <input type="password" placeholder="password" name="Password" />
-                    <input type="text" placeholder="location" name="location" />
-                    <input type="text" placeholder="e-mail" name="email" />
-                    <input type="text" placeholder="full name" name="full_name" />
-                    <input type="number" placeholder="phone number" name="phone_NR" />
+                    <input type="text" class="form-control-plaintext" placeholder="username" name="Name" />
+                    <input type="password" class="form-control-plaintext" placeholder="password" name="Password" />
+                    <select class="form-control" id="location" name="location">
+                        @foreach (var details in ViewBag.list1)
+                        {
+                            <option value="@details.city">@details.city</option>
+                        }
+                    </select>
+
+                    <input type="text" class="form-control-plaintext" placeholder="e-mail" name="email" />
+                    <input type="text" class="form-control-plaintext" placeholder="full name" name="full_name" />
+                    <input type="number" class="form-control-plaintext" placeholder="phone number" name="phone_NR" />
                     <button>create</button>
 
                 </form>
                 <p class="message">Already registered? <a href="/Account/Login">Sign In</a></p>
             </div>
+
+            @if(ViewBag.emptyForm!=null){
+            <div class="alert alert-dismissible alert-danger">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong> @ViewBag.emptyForm</strong>
+            </div>
+            }
+           
+
+
+
 </body>
 </html>
 

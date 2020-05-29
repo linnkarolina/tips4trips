@@ -3,13 +3,13 @@ using System.Web.Mvc;
 using WebApplicationFinal.Models;
 using System.Configuration;
 using MySql.Data.MySqlClient;
-
-
+using System;
 
 namespace WebApplicationFinal.Controllers
 {
     public class ExploreController : Controller
     {
+        
         public ActionResult Index()
         {
             List<ExploreClass> images = new List<ExploreClass>();

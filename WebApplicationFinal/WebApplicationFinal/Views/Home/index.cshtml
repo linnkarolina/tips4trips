@@ -47,32 +47,31 @@
                                     int resultat = 0;
 
 
-                                    <a class="trips" href='@Url.Action("Trip", "Explore", new { ams = @details.trip_id })'>
-                                        <div type="submit" name="valg" style="cursor: pointer;">
-                                            @foreach (var detail in ViewBag.listImage)
-                                            {
-                                                if (@detail.img_ID == @details.trip_id)
+                                    <a href='@Url.Action("Trip", "Explore", new { ams= @details. trip_id})'>
+                                        <div class="card border-primary mb-3" style="max-width: 20rem;">
+
+                                            <div class="card-body">
+                                                @foreach (var detail in ViewBag.listImage)
                                                 {
-                                                    <img src="data:image;base64,@System.Convert.ToBase64String(detail.image)" />
-                                                    break;
+                                                    if (@detail.img_ID == @details.trip_id)
+                                                    {
+                                                        <img style="height: 200px; padding:-20px; width: 100%; display: block;" src="data:image;base64,@System.Convert.ToBase64String(detail.image)" />
+                                                        break;
+                                                    }
                                                 }
-                                            }
-                                            <div class="areaid">  @details.trip_name</div>
-                                            <p class="description module">  @details.description</p>
-                                            <div class="at">
-                                                <div class="length_of_trip">  @details.length</div>
-                                                <div class="difficulty">  @details.difficulty</div>
+                                                <h4 class="card-title"> @details.trip_name</h4>
+                                                <p class="card-text description module"> @details.description</p>
+                                            </div>
+                                            <div class="card-footer text-muted">
+                                                @details.length
+                                                @details.difficulty
                                                 @foreach (var detail in ViewBag.listTag)
                                                 {
                                                     if (details.trip_id == detail.idtag.ToString())
                                                     {
-                                                        <div class="tag">  @detail.tagname</div>
+                                                        @detail.tagname
                                                     }
                                                 }
-
-
-
-
                                             </div>
                                         </div>
                                     </a>
@@ -93,32 +92,36 @@
 
 
 
-                                    <a class="trips" href='@Url.Action("Trip", "Explore", new { ams = @det.trip_id })'>
-                                        <div type="submit" name="valg" style="cursor: pointer;">
-
+                            <a  href='@Url.Action("Trip", "Explore", new { ams = @det.trip_id })'>
+                                <div class="card border-primary mb-3" style="max-width: 20rem;">
+                                    <div type="submit" name="valg" style="cursor: pointer;">
+                                        <div class="card-body">
                                             @foreach (var detail in ViewBag.listImage)
                                             {
                                                 if (@detail.img_ID == @det.trip_id)
                                                 {
-                                                    <img src="data:image;base64,@System.Convert.ToBase64String(detail.image)" />
+                                                    <img style="height: 200px; padding:-20px; width: 100%; display: block;" src="data:image;base64,@System.Convert.ToBase64String(detail.image)" />
                                                     break;
                                                 }
                                             }
-                                            <div class="areaid">  @det.trip_name</div>
-                                            <p class="description module">  @det.description</p>
-                                            <div class="at">
-                                                <div class="length_of_trip">  @det.length</div>
-                                                <div class="difficulty">  @det.difficulty</div>
-                                                @foreach (var detail in ViewBag.listTag)
-                                                {
-                                                    if (det.trip_id == detail.idtag.ToString())
-                                                    {
-                                                        <div class="tag">  @detail.tagname</div>
-                                                    }
-                                                }
-                                            </div>
+                                            <h4 class="card-title"> @det.trip_name</h4>
+                                            <p class="card-text description module"> @det.description</p>
                                         </div>
-                                    </a>
+                                        <div class="card-footer text-muted">
+                                            @det.length
+                                            @det.difficulty
+                                            @foreach (var detail in ViewBag.listTag)
+                                            {
+                                                if (det.trip_id == detail.idtag.ToString())
+                                                {
+                                                    @detail.tagname
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+
+                                </div>
+                                </a>
 
                                 }
 
@@ -147,35 +150,34 @@
 
                 @foreach (WebApplicationFinal.Models.ExploreClass details in Model)
                 {
+                    <a href='@Url.Action("Trip", "Explore", new { ams= @details. trip_id})'>
+                        <div class="card border-primary mb-3" style="max-width: 20rem;">
 
-                    <a class="trips" href='@Url.Action("Trip", "Explore", new { ams= @details. trip_id})'>
-                        <div type="submit" name="valg" style="cursor: pointer;">
-
-                            @foreach (var detail in ViewBag.listImage)
-                            {
-                                if (@detail.img_ID == @details.trip_id)
+                            <div class="card-body">
+                                @foreach (var detail in ViewBag.listImage)
                                 {
-                                    <img src="data:image;base64,@System.Convert.ToBase64String(detail.image)" />
-                                    break;
+                                    if (@detail.img_ID == @details.trip_id)
+                                    {
+                                        <img style="height: 200px; padding:-20px; width: 100%; display: block;" src="data:image;base64,@System.Convert.ToBase64String(detail.image)" />
+                                        break;
+                                    }
                                 }
-                            }
-                            <div class="areaid">  @details.trip_name</div>
-                            <p class="description module">  @details.description</p>
-                            <div class="at">
-                                <div class="length_of_trip">  @details.length</div>
-                                <div class="difficulty">  @details.difficulty</div>
+                                <h4 class="card-title"> @details.trip_name</h4>
+                                <p class="card-text description module"> @details.description</p>
+                            </div>
+                            <div class="card-footer text-muted">
+                                @details.length
+                                @details.difficulty
                                 @foreach (var detail in ViewBag.listTag)
                                 {
                                     if (details.trip_id == detail.idtag.ToString())
                                     {
-                                        <div class="tag">  @detail.tagname</div>
+                                        @detail.tagname
                                     }
                                 }
                             </div>
                         </div>
                     </a>
-
                 }
             </div>
-        </div>
     </body>

@@ -1,7 +1,7 @@
 ﻿
 
 var x = document.cookie;
-if (x === 'ok') {
+if (x === 'feil') {
     console.log("fEIL PASSORD");
     var head = document.getElementsByTagName('HEAD')[0];
 
@@ -15,20 +15,15 @@ if (x === 'ok') {
 
     link.href = '/Styles/shake.css';
 
-    alert("Password or Username did not match");
+
 
     // Append link element to HTML head 
     head.appendChild(link);
 
+    document.cookie = feil '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 
 
-} else {
-    console.log("oke");
-    document.cookie = "ok";
-
-    console.log(x);
-}
-
+} 
 
 // Real-time username checks
 

@@ -39,14 +39,15 @@ namespace WebApplicationFinal.Controllers
                 Response.Cookies.Add(Cridentials);
                 Response.Cookies["UserCookie"].Value = acc.Name;
                 mysql.Close();
+                
                 Response.Redirect("../Home/Index", false);
-
+               
                 return null;
             }
             else
             {
                 mysql.Close();
-
+                ViewBag.JS = "feil";
                 return View("Login");
 
             }

@@ -12,7 +12,11 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <meta charset="UTF-8">
-
+    <style>
+       nav-link :active {
+  background-color: yellow;
+}
+  </style>
 </head>
 
 <body>
@@ -26,7 +30,7 @@
 
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto justify-content-end">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="../../Home/Index">Home <span class="sr-only">(current)</span></a>
                 </li>
                 @{ try
@@ -87,11 +91,15 @@
 
 
 
-            <form class="form-inline my-2 my-lg-0" action="../Explore/Index">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-            </form>
-        </div>
+            @using (Html.BeginForm("barSearch", "Explore", FormMethod.Post, new { @class = "form-inline my-2 my-lg-0" }))
+            {
+                
+                    <input class="form-control mr-sm-2" type="text" name="bar" placeholder="Search">
+                    
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+              
+            }
+            </div>
     </nav>
     <div class="container body-content">
         @RenderBody()

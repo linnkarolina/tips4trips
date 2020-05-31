@@ -32,3 +32,12 @@ button {
     position: static;
     float: center;
 }
+
+h2 {
+    padding: 10px 4px 4px 0px;
+}
+
+h3 {
+    padding: 8px 4px 4px 0px;
+   
+}

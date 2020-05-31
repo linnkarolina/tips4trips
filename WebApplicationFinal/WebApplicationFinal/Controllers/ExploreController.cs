@@ -48,15 +48,30 @@ namespace WebApplicationFinal.Controllers
         [HttpPost]
         public ActionResult TripSearch(ExploreClass search)
         {
+            string city;
+            string tags;
+            string diff;
+
+
             List<ExploreClass> images = new List<ExploreClass>();
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
             int i = 0;
             string query = "SELECT * FROM trip left join trip_tag on trip.trip_id = trip_tag.Trip_id LEFT JOIN tag on tag.tag= trip_tag.tag where ";
-            string city = search.city;
-            string tags = search.tags;
-            string diff = search.diff;
-
+            
+            string barSearch = search.bar;
+            if (!string.IsNullOrEmpty(barSearch))
+            {
+                city = barSearch;
+                tags = barSearch;
+                diff = barSearch;
+            }
+            else
+            {
+                city = search.city;
+                tags = search.tags;
+                diff = search.diff;
+            }
             if (!string.IsNullOrEmpty(city))
             {
                 if (i == 0)
@@ -94,6 +109,103 @@ namespace WebApplicationFinal.Controllers
                 else
                 {
                     query += " AND difficulty LIKE '" + diff + "'";
+                    i = 1;
+                }
+
+            }
+
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+
+            MySqlDataReader dr = comm.ExecuteReader();
+            while (dr.Read())
+            {
+                images.Add(new ExploreClass
+                {
+                    trip_id = dr["trip_id"].ToString(),
+                    trip_name = dr["trip_name"].ToString(),
+                    length = dr["length"].ToString(),
+                    difficulty = dr["difficulty"].ToString(),
+                    description = dr["description"].ToString(),
+                    city = dr["city"].ToString(),
+                    website = dr["website"].ToString(),
+                }
+                );
+            }
+            mysql.Close();
+            getTag();
+            getImage();
+            ViewBag.ExploreClass = images;
+            ViewData["list1"] = images;
+            return View();
+
+        }
+
+        [HttpPost]
+        public ActionResult barSearch(ExploreClass search)
+        {
+            string city;
+            string tags;
+            string diff;
+
+
+            List<ExploreClass> images = new List<ExploreClass>();
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+            int i = 0;
+            string query = "SELECT * FROM trip left join trip_tag on trip.trip_id = trip_tag.Trip_id LEFT JOIN tag on tag.tag= trip_tag.tag where ";
+
+            string barSearch = search.bar;
+            if (!string.IsNullOrEmpty(barSearch))
+            {
+                city = barSearch;
+                tags = barSearch;
+                diff = barSearch;
+            }
+            else
+            {
+                city = search.city;
+                tags = search.tags;
+                diff = search.diff;
+            }
+            if (!string.IsNullOrEmpty(city))
+            {
+                if (i == 0)
+                {
+                    query += " city = '" + city + "'";
+                    i = 1;
+                }
+                else
+                {
+                    query += " OR city = '" + city + "'";
+                    i = 1;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(tags))
+            {
+                if (i == 0)
+                {
+                    query += " tag.tag LIKE '" + tags + "'";
+                    i = 1;
+                }
+                else
+                {
+                    query += " OR tag.tag LIKE '" + tags + "'";
+                    i = 1;
+                }
+            }
+            if (!string.IsNullOrEmpty(diff))
+            {
+                if (i == 0)
+                {
+                    query += " difficulty LIKE '" + diff + "'";
+                    i = 1;
+                }
+                else
+                {
+                    query += " OR difficulty LIKE '" + diff + "'";
                     i = 1;
                 }
 

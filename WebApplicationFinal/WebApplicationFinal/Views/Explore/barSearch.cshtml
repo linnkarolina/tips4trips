@@ -1,0 +1,95 @@
+﻿@model IEnumerable<WebApplicationFinal.Models.ExploreClass>
+@{
+    ViewBag.Title = "barSearch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="~/Scripts/Explore.js"></script>
+<link href="~/Styles/explore.css" rel="stylesheet" />
+<div class="container-page">
+
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="filter">
+            <h2>Filter</h2>
+
+            @using (Html.BeginForm("TripSearch", "Explore", FormMethod.Post))
+            {
+
+
+                <label class="col-form-label" for="trip_area">Area</label>
+                <input type="text" class="form-control" placeholder="area" id="city" name="city">
+                <label class="col-form-label" for="tags">Tags</label>
+                <input type="text" class="form-control" placeholder="tags" id="tags" name="tags">
+                <label class="col-form-label" for="difficulty">Difficulty</label>
+                <div class="diff">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-secondary">
+                            @Html.RadioButton("diff", "Easy", false, new { id = "option1", autocomplete = "off" }) Easy
+                        </label>
+
+                        <label class="btn btn-secondary">
+                            @Html.RadioButton("diff", "Medium", false, new { id = "option1", autocomplete = "off" }) Medium
+                        </label>
+
+                        <label class="btn btn-secondary ">
+                            @Html.RadioButton("diff", "Hard", false, new { id = "option1", autocomplete = "off" }) Hard
+                        </label>
+                    </div>
+                </div>
+                <button type="reset" value="reset" class="btn btn-secondary">Reset</button>
+                <button type="submit" value="submit" class="btn btn-secondary">Search</button>
+
+
+
+            }
+        </div>
+    </div>
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+
+
+    <div id="main">
+        <div class="trips-container">
+            @if (ViewBag.list1.Count == 0)
+            {
+                <h1>No trips match your search</h1>
+            }
+            @foreach (var details in ViewBag.list1)
+            {
+                <a href='@Url.Action("Trip", "Explore", new { ams= @details. trip_id})'>
+                    <div class="card border-primary mb-3" style="max-width: 20rem;">
+
+                        <div class="card-body">
+                            @foreach (var detail in ViewBag.listImage)
+                            {
+                                if (@detail.img_ID == @details.trip_id)
+                                {
+                                    <img style="height: 200px; padding:-20px; width: 100%; display: block;" src="data:image;base64,@System.Convert.ToBase64String(detail.image)" />
+                                    break;
+                                }
+                            }
+                            <h4 class="card-title"> @details.trip_name</h4>
+                            <p class="card-text description module"> @details.description</p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            @details.length
+                            @details.difficulty
+                            @foreach (var detail in ViewBag.listTag)
+                            {
+                                if (details.trip_id == detail.idtag.ToString())
+                                {
+                                    @detail.tagname
+                                }
+                            }
+                        </div>
+                    </div>
+                </a>
+
+            }
+
+        </div>
+    </div>
+</div>
+
+

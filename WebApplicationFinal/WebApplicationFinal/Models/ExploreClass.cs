@@ -37,6 +37,8 @@ namespace WebApplicationFinal.Models
         
         public string endLatitude { get; set; }
 
+        public string bar { get; set; }
+
 
 
         

@@ -24,27 +24,32 @@
             <label for="exampleInputPassword1">Password</label>
             <input type="password" name="Password" class="form-control" value="@details.Password" id="exampleInputPassword1" placeholder="Password">
         </div>
-
+       
         <div class="form-group">
-            <label for="exampleInputCity1">City</label>
-            <input type="text" name="location" class="form-control" value="@details.location" id="exampleInputLocatio1">
+            <label for="staticity">City</label>
+            <select class="form-control" id="location" name="location">
+                @foreach (var detail in ViewBag.locationList)
+                {
+                    <option value="@detail.city">@detail.city</option>
+                }
+            </select>
         </div>
 
-        <div class="form-group">
-            <label for="exampleInputEmail">E-mail</label>
-            <input type="text" name="email" class="form-control" value="@details.email" id="exampleInputemail1">
-        </div>
+            <div class="form-group">
+                <label for="exampleInputEmail">E-mail</label>
+                <input type="text" name="email" class="form-control" value="@details.email" id="exampleInputemail1">
+            </div>
 
 
-        <div class="form-group">
-            <label for="exampleInputfullname1">Full Name</label>
-            <input type="text" name="full_name" class="form-control" value="@details.full_name" id="exampleInputfull_name1">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputCity1">phone_nr</label>
-            <input type="number" name="phone_NR" class="form-control" value="@details.phone_NR" id="exampleInputphone_NR1">
-        </div>
-     
+            <div class="form-group">
+                <label for="exampleInputfullname1">Full Name</label>
+                <input type="text" name="full_name" class="form-control" value="@details.full_name" id="exampleInputfull_name1">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputCity1">Phone number</label>
+                <input type="number" name="phone_NR" class="form-control" value="@details.phone_NR" id="exampleInputphone_NR1">
+            </div>
+
     </fieldset>
         <button type="submit" class="btn btn-primary">Submit</button>
    

@@ -235,3 +235,16 @@ input[type=submit]:hover {
 	background-color: #000;
 	color: #eee;
 }
+
+h3 {
+all: unset;
+}
+
+h3 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+    font-family: "Montserrat", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    line-height: 1.2;
+    color: #5a5a5a;
+}

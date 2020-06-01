@@ -15,9 +15,10 @@
 
         <div class="login-page">
             <div class="form">
+                <h3>Create account</h3>
                 <form class="register-form" action="RegisterVerify" method="POST">
-                    <input type="text" class="form-control-plaintext" placeholder="username" name="Name" />
-                    <input type="password" class="form-control-plaintext" placeholder="password" name="Password" />
+                    <input type="text" class="form-control-plaintext" placeholder="Username" name="Name" />
+                    <input type="password" class="form-control-plaintext" placeholder="Password" name="Password" />
                     <select class="form-control" id="location" name="location">
                         @foreach (var details in ViewBag.list1)
                         {
@@ -25,9 +26,9 @@
                         }
                     </select>
 
-                    <input type="text" class="form-control-plaintext" placeholder="e-mail" name="email" />
-                    <input type="text" class="form-control-plaintext" placeholder="full name" name="full_name" />
-                    <input type="number" class="form-control-plaintext" placeholder="phone number" name="phone_NR" />
+                    <input type="text" class="form-control-plaintext" placeholder="E-mail" name="mail" />
+                    <input type="text" class="form-control-plaintext" placeholder="Full name" name="full_name" />
+                    <input type="number" class="form-control-plaintext" placeholder="Phone number" name="phone_NR" />
                     <button>create</button>
 
                 </form>

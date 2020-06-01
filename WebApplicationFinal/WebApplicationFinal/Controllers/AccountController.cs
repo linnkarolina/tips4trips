@@ -81,6 +81,7 @@ namespace WebApplicationFinal.Controllers
             mysql.Close();
             ViewData["list1"] = list1;
             getUserTag();
+            getLocation();
             return View("ShowAccount");
             
         }
@@ -182,5 +183,29 @@ namespace WebApplicationFinal.Controllers
             MyAccount();
             return View("MyAccount");
         }
+
+        public ActionResult getLocation()
+        {
+            List<Account> locationList = new List<Account>();
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+
+            string query = "SELECT * FROM location";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+            MySqlDataReader dr = comm.ExecuteReader();
+            while (dr.Read())
+            {
+                locationList.Add(new Account
+                {
+                    city = dr["city"].ToString(),
+                });
+            }
+            mysql.Close();
+            ViewData["locationList"] = locationList;
+            return null;
+        }
+
     }
 }

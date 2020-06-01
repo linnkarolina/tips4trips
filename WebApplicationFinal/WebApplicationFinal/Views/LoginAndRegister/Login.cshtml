@@ -4,23 +4,24 @@
     Layout = "~/Views/Login.cshtml";
 }
 
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>login</title>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>login</title>
 
-        <script>
+
+    <script>
              document.cookie = "@ViewBag.JS=; expires=Thu, 01 Jan 2050 00:00:01 GMT;'";
             var x = document.cookie;
             console.log(x);
-        </script>
-        <link href="Login.css" rel="stylesheet" />
-        <script>
+    </script>
+    <link href="Login.css" rel="stylesheet" />
+    <script>
         var document.cookie = "null";
-        </script>
+    </script>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-    </head>
+</head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <div class="login-page">
@@ -58,11 +59,30 @@
         </form>
         <p class="message">Not registered? <a href="/LoginAndRegister/Register">Create an account</a></p>
     </div>
+
+
+    @if (ViewBag.emptyForm != null)
+    {
+
+        <div id="d3" class="alert alert-dismissible alert-danger">
+            <button type="button" class="close" data-dismiss="alert" onclick="showLess()">&times;</button>
+            <strong> @ViewBag.emptyForm</strong>
+        </div>
+    }
+
+    @if (ViewBag.wrongPassword != null)
+    {
+
+        <div id="d3" class="alert alert-dismissible alert-danger">
+            <button type="button" class="close" data-dismiss="alert" onclick="showLess()">&times;</button>
+            <strong> @ViewBag.wrongPassword</strong>
+        </div>
+    }
+
+ 
 </div>
 
 
-  
- 
-    
+
 
 <script src="login.js"></script>

@@ -49,6 +49,7 @@ namespace WebApplicationFinal.Controllers
         [HttpPost]
         public ActionResult LoginVerify(Account acc)
         {
+            checkLoginForm(acc);
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
             string query = "SELECT * FROM user where username='" + acc.Name + "' and password='" + acc.Password + "'";
@@ -71,7 +72,7 @@ namespace WebApplicationFinal.Controllers
             else
             {
                 mysql.Close();
-                ViewBag.JS = "feil";
+                ViewBag.wrongPassword = "Wrong username or password";
                 return View("Login");
 
             }
@@ -103,6 +104,7 @@ namespace WebApplicationFinal.Controllers
             else
             {
                 mysql.Close();
+                ViewBag.usernameIsTaken = "Username is taken!";
                 return View("Register");
             }
 
@@ -120,35 +122,53 @@ namespace WebApplicationFinal.Controllers
             return null;
         }
 
+        public ActionResult checkLoginForm(Account acc) {
+            if (acc.Name == null)
+            {
+                ViewBag.emptyForm = "You forgot to fill out your username";
+                getLocation();
+                return RedirectToAction("Register");
+            }
+
+            if (acc.Password == null)
+            {
+                ViewBag.emptyForm = "You forgot to fill out your password";
+                getLocation();
+                return RedirectToAction("Register");
+            }
+            return null;
+        }
+
         public ActionResult checkregisterForm(Account acc) {
            
             if (acc.Name == null)
             {
-                ViewBag.emptyForm= "You forgot to fill out username";
+                ViewBag.emptyForm= "You forgot to fill out your username";
                 getLocation();
                 return RedirectToAction("Register");
             }
 
             if (acc.Password == null) {
-                ViewBag.emptyForm = "You forgot to fill out password";
+                ViewBag.emptyForm = "You forgot to fill out your password";
                 getLocation();
                return RedirectToAction("Register");
             }
+
              if (acc.location == null)
             {
-                ViewBag.emptyForm = "You forgot to fill out location";
+                ViewBag.emptyForm = "You forgot to fill out your location";
                 getLocation();
                 return RedirectToAction("Register");
             }
              if (acc.email == null)
             {
-                ViewBag.emptyForm = "You forgot to fill out e-mail";
+                ViewBag.emptyForm = "You forgot to fill out your e-mail";
                 getLocation();
                 return RedirectToAction("Register");
             }
              if (acc.full_name == null)
             {
-                ViewBag.emptyForm = "You forgot to fill out full name";
+                ViewBag.emptyForm = "You forgot to fill out your full name";
                 getLocation();
                 return RedirectToAction("Register");
             }

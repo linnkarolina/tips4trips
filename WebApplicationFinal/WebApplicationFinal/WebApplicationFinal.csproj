@@ -334,7 +334,6 @@
     <Content Include="Styles\explore.css" />
     <Content Include="Styles\MyAccount.css" />
     <Content Include="Styles\Trip.css" />
-    <Content Include="Styles\TripBox.css" />
     <Content Include="Views\Feedback\Message.cshtml">
       <DependentUpon>MyMessages.cshtml</DependentUpon>
     </Content>
@@ -387,9 +386,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\AccountDetails\" />
-    <Folder Include="Views\AccountEdit\" />
-    <Folder Include="Views\EditAccount\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

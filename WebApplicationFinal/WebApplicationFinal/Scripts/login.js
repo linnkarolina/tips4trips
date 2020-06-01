@@ -1,5 +1,5 @@
 ﻿
-
+/*
 var x = document.cookie;
 if (x === 'feil') {
     console.log("fEIL PASSORD");
@@ -24,8 +24,20 @@ if (x === 'feil') {
 
 
 } 
+*/
 
 // Real-time username checks
+
+
+var button = document.getElementById("button");
+var d3 = document.getElementById("d3");
+
+
+function showLess() {
+    button.style.display = "inline-block";
+    d3.style.display = "none";
+}
+
 
 $('#username').keyup(function () {
     Console.log('#username');

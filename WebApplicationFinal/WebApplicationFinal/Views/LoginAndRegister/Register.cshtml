@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
     .form-control {
-    margin-bottom:15px;
+        margin-bottom: 15px;
     }
 </style>
 <body>
@@ -35,13 +35,23 @@
                 <p class="message">Already registered? <a href="/LoginAndRegister/Login">Sign In</a></p>
             </div>
 
-            @if(ViewBag.emptyForm!=null){
-            <div class="alert alert-dismissible alert-danger">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <strong> @ViewBag.emptyForm</strong>
-            </div>
+            @if (ViewBag.emptyForm != null)
+            {
+                <div class="alert alert-dismissible alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong> @ViewBag.emptyForm</strong>
+                </div>
             }
-           
+
+            @if (ViewBag.usernameIsTaken != null)
+            {
+
+                <div id="d3" class="alert alert-dismissible alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" onclick="showLess()">&times;</button>
+                    <strong> @ViewBag.usernameIsTaken</strong>
+                </div>
+                ViewData.Clear();
+            }
 
 
 

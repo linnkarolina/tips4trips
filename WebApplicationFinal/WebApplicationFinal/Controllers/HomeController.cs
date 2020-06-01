@@ -1,23 +1,19 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Web.Mvc;
 using WebApplicationFinal.Models;
-using System.Configuration;
-using MySql.Data.MySqlClient;
-using System.Drawing;
-using System.IO;
 namespace WebApplicationFinal.Controllers
 {
     public class HomeController : Controller
     {
         // GET: Home
-      
+
         public ActionResult Index()
         {
-           
-
             List<ExploreClass> images = new List<ExploreClass>();
-            
+
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
 
@@ -48,14 +44,13 @@ namespace WebApplicationFinal.Controllers
             ViewBag.ExploreClass = images;
             getImage();
             getTag();
-            getRating();
-            var thisMenu = RecommendTrips();
-            var ok = RecommendNearby();
+             RecommendTrips();
+             RecommendNearby();
             return View(images);
         }
 
 
-        public ActionResult RecommendTrips()
+        private ActionResult RecommendTrips()
         {
 
 
@@ -83,7 +78,6 @@ namespace WebApplicationFinal.Controllers
                         description = dr["description"].ToString(),
                         city = dr["city"].ToString(),
                         website = dr["website"].ToString(),
-                     
                     });
 
                 }
@@ -94,10 +88,8 @@ namespace WebApplicationFinal.Controllers
             return null;
         }
 
-        public ActionResult RecommendNearby()
+        private ActionResult RecommendNearby()
         {
-
-
             List<ExploreClass> recommendCity = new List<ExploreClass>();
 
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
@@ -122,7 +114,7 @@ namespace WebApplicationFinal.Controllers
                         description = dr["description"].ToString(),
                         city = dr["city"].ToString(),
                         website = dr["website"].ToString(),
-                        
+
                     });
 
                 }
@@ -133,7 +125,8 @@ namespace WebApplicationFinal.Controllers
             return null;
         }
 
-        public void getImage() {
+        private void getImage()
+        {
             List<ExploreClass> listImage = new List<ExploreClass>();
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
@@ -147,17 +140,16 @@ namespace WebApplicationFinal.Controllers
                 listImage.Add(new ExploreClass
                 {
                     image = (byte[])mr["Image"],
-                    
+
                     img_ID = mr["trip_ID"].ToString(),
-
-
                 });
             }
             mysql.Close();
             ViewData["listImage"] = listImage;
 
         }
-        public void getTag()
+
+        private void getTag()
         {
             List<Account> listTag = new List<Account>();
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
@@ -173,38 +165,11 @@ namespace WebApplicationFinal.Controllers
                 {
                     tagname = mr["tag"].ToString(),
                     idtag = mr.GetInt32(mr.GetOrdinal("trip_ID")),
-
-
                 });
             }
+
             mysql.Close();
             ViewData["listTag"] = listTag;
-
-
         }
-
-        public ActionResult getRating() {
-            List<Account> listReview = new List<Account>();
-            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
-            MySqlConnection mysql = new MySqlConnection(mainconn);
-            string query1 = "SELECT * FROM review;";
-            MySqlCommand comm1 = new MySqlCommand(query1);
-            comm1.Connection = mysql;
-            mysql.Open();
-            MySqlDataReader mr = comm1.ExecuteReader();
-            while (mr.Read())
-            {
-                listReview.Add(new Account
-                {
-                    idtag = mr.GetInt32(mr.GetOrdinal("trip_ID")),
-                    rating = mr.GetInt32(mr.GetOrdinal("rating")),
-                });
-            }
-            mysql.Close();
-            ViewData["listReview"] = listReview;
-            return null;
-        }
-
-
     }
 }

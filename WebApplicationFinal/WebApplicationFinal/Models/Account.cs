@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace WebApplicationFinal.Models
+﻿namespace WebApplicationFinal.Models
 {
     public class Account
     {
-       public string Name { get; set; }
+        public string Name { get; set; }
         public string Password { get; set; }
 
         public string location { get; set; }
-        
+
         public string email { get; set; }
 
         public string full_name { get; set; }
@@ -31,11 +26,11 @@ namespace WebApplicationFinal.Models
         public string user { get; set; }
         public int rating { get; set; }
 
-        public string clicked_value { get; set;}
+        public string clicked_value { get; set; }
 
         public string JavascriptToRun { get; set; }
         public string city { get; set; }
-       
+
 
     }
 }

@@ -1,12 +1,11 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
-using System.Web.Mvc;
-using WebApplicationFinal.Models;
 using System.Configuration;
-using MySql.Data.MySqlClient;
-using System.Globalization;
 using System.Web;
+using System.Web.Mvc;
 using System.Web.Security;
+using WebApplicationFinal.Models;
 
 namespace WebApplicationFinal.Controllers
 {
@@ -23,12 +22,12 @@ namespace WebApplicationFinal.Controllers
             return View();
         }
 
-        public ActionResult getLocation()
+        private void getLocation()
         {
             List<Account> list1 = new List<Account>();
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
-           
+
             string query = "SELECT * FROM location";
             MySqlCommand comm = new MySqlCommand(query);
             comm.Connection = mysql;
@@ -43,7 +42,6 @@ namespace WebApplicationFinal.Controllers
             }
             mysql.Close();
             ViewData["list1"] = list1;
-            return null;
         }
 
         [HttpPost]
@@ -64,9 +62,9 @@ namespace WebApplicationFinal.Controllers
                 Response.Cookies.Add(Cridentials);
                 Response.Cookies["UserCookie"].Value = acc.Name;
                 mysql.Close();
-                
+
                 Response.Redirect("../Home/Index", false);
-               
+
                 return null;
             }
             else
@@ -83,34 +81,40 @@ namespace WebApplicationFinal.Controllers
 
         public ActionResult RegisterVerify(Account acc)
         {
-           checkregisterForm(acc);
-            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
-            MySqlConnection mysql = new MySqlConnection(mainconn);
-            string query = "INSERT IGNORE INTO user (username, password, city, email, full_name, phone_NR) VALUES ('" + acc.Name + "', '" + acc.Password + "', '" + acc.location + "', '" + acc.email + "', '" + acc.full_name + "', '" + acc.phone_NR + "');";
-            MySqlCommand comm = new MySqlCommand(query);
-            comm.Connection = mysql;
-            mysql.Open();
-            int dr = comm.ExecuteNonQuery();
-            if (dr != 0)
+          
+                CheckregisterForm(acc);
+            CheckIfUserExist(acc);
+            if (ViewBag.usernameIsTaken == null && ViewBag.emptyForm == null)
             {
-                HttpCookie cridentials = new HttpCookie("UserCookie");
-                cridentials.Expires = DateTime.Now.AddHours(5);
-                Response.Cookies.Add(cridentials);
-                Response.Cookies["UserCookie"].Value = acc.Name;
-                mysql.Close();
-                Response.Redirect("../Home/Index", false);
-                return null;
+                string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+                MySqlConnection mysql = new MySqlConnection(mainconn);
+                string query = "INSERT INTO user (username, password, city, email, full_name, phone_NR) VALUES ('" + acc.Name + "', '" + acc.Password + "', '" + acc.location + "', '" + acc.email + "', '" + acc.full_name + "', '" + acc.phone_NR + "');";
+                MySqlCommand comm = new MySqlCommand(query);
+                comm.Connection = mysql;
+                mysql.Open();
+                int dr = comm.ExecuteNonQuery();
+                if (dr != 0)
+                {
+                    HttpCookie cridentials = new HttpCookie("UserCookie");
+                    cridentials.Expires = DateTime.Now.AddHours(5);
+                    Response.Cookies.Add(cridentials);
+                    Response.Cookies["UserCookie"].Value = acc.Name;
+                    mysql.Close();
+                    Response.Redirect("../Home/Index", false);
+                    return null;
+                }
+                else
+                {
+                    mysql.Close();
+                    return View("Register");
+                }
             }
-            else
-            {
-                mysql.Close();
-                ViewBag.usernameIsTaken = "Username is taken!";
+            else {
                 return View("Register");
             }
 
-
         }
-        
+
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
@@ -122,15 +126,16 @@ namespace WebApplicationFinal.Controllers
             return null;
         }
 
-        public ActionResult checkLoginForm(Account acc) {
-            if (acc.Name == null)
+        public ActionResult checkLoginForm(Account acc)
+        {
+            if (string.IsNullOrWhiteSpace(acc.Name))
             {
                 ViewBag.emptyForm = "You forgot to fill out your username";
                 getLocation();
                 return RedirectToAction("Register");
             }
 
-            if (acc.Password == null)
+            if (string.IsNullOrWhiteSpace(acc.Password))
             {
                 ViewBag.emptyForm = "You forgot to fill out your password";
                 getLocation();
@@ -139,40 +144,45 @@ namespace WebApplicationFinal.Controllers
             return null;
         }
 
-        public ActionResult checkregisterForm(Account acc) {
-           
-            if (acc.Name == null)
+        public ActionResult CheckregisterForm(Account acc)
+        {
+
+            if (string.IsNullOrWhiteSpace(acc.Name))
             {
-                ViewBag.emptyForm= "You forgot to fill out your username";
+                ViewBag.emptyForm = "You forgot to fill out your username";
                 getLocation();
                 return RedirectToAction("Register");
             }
 
-            if (acc.Password == null) {
+            if (string.IsNullOrWhiteSpace(acc.Password))
+            {
                 ViewBag.emptyForm = "You forgot to fill out your password";
                 getLocation();
-               return RedirectToAction("Register");
+                return RedirectToAction("Register");
             }
 
-             if (acc.location == null)
+            if (string.IsNullOrWhiteSpace(acc.location))
             {
                 ViewBag.emptyForm = "You forgot to fill out your location";
                 getLocation();
                 return RedirectToAction("Register");
             }
-             if (acc.email == null)
+
+            if (string.IsNullOrWhiteSpace(acc.email))
             {
                 ViewBag.emptyForm = "You forgot to fill out your e-mail";
                 getLocation();
                 return RedirectToAction("Register");
             }
-             if (acc.full_name == null)
+
+            if (string.IsNullOrWhiteSpace(acc.full_name))
             {
                 ViewBag.emptyForm = "You forgot to fill out your full name";
                 getLocation();
                 return RedirectToAction("Register");
             }
-             if (acc.phone_NR == 0)
+
+            if (acc.phone_NR == 0)
             {
                 ViewBag.emptyForm = "You forgot to fill out your phone nr";
                 getLocation();
@@ -180,7 +190,26 @@ namespace WebApplicationFinal.Controllers
 
             }
 
-            return null ;
+            return null;
+        }
+
+        public ActionResult CheckIfUserExist(Account acc) {
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+            string query = "SELECT username FROM user where username= '"+ acc.Name + "'";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+            MySqlDataReader dr = comm.ExecuteReader();
+            if (dr.Read()) {
+               
+                ViewBag.usernameIsTaken = "Username is taken!";
+                return View("Register");
+            } else{
+
+                return null;
+            }
+
         }
     }
 }

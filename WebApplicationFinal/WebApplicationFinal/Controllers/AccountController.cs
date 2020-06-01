@@ -1,17 +1,15 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Web.Mvc;
 using WebApplicationFinal.Models;
-using System.Configuration;
-using MySql.Data.MySqlClient;
-using System.Globalization;
 
 namespace WebApplicationFinal.Controllers
 {
     public class AccountController : Controller
     {
 
-     
+
 
         public ActionResult MyAccount()
         {
@@ -41,21 +39,22 @@ namespace WebApplicationFinal.Controllers
             mysql.Close();
             getUserTag();
             ViewData["List1"] = list1;
-            
+
             return View();
 
 
         }
 
-     
 
 
 
 
-       
 
-       
-        public ActionResult ShowAccount(){
+
+
+
+        public ActionResult ShowAccount()
+        {
             List<Account> list1 = new List<Account>();
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
@@ -77,16 +76,16 @@ namespace WebApplicationFinal.Controllers
                     phone_NR = dr.GetInt32(dr.GetOrdinal("phone_NR")),
                 });
             }
-           
+
             mysql.Close();
             ViewData["list1"] = list1;
             getUserTag();
             getLocation();
             return View("ShowAccount");
-            
+
         }
 
-       
+
 
         [HttpPost]
         public ActionResult EditAccount(Account user)
@@ -94,15 +93,15 @@ namespace WebApplicationFinal.Controllers
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
             string name = Request.Cookies["UserCookie"].Value;
-            string query = "UPDATE user set city='"+user.location+"', email='"+user.email+"', full_name='"+user.full_name+"', phone_nr='"+user.phone_NR+"'  WHERE username='" + name + "';";
+            string query = "UPDATE user set city='" + user.location + "', email='" + user.email + "', full_name='" + user.full_name + "', phone_nr='" + user.phone_NR + "'  WHERE username='" + name + "';";
             MySqlCommand comm = new MySqlCommand(query);
             comm.Connection = mysql;
             mysql.Open();
             int dr = comm.ExecuteNonQuery();
-                mysql.Close();
-                MyAccount();
-           
-                return View("MyAccount");
+            mysql.Close();
+            MyAccount();
+
+            return View("MyAccount");
         }
         public ActionResult ShowTags()
         {
@@ -110,7 +109,7 @@ namespace WebApplicationFinal.Controllers
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
             string name = Request.Cookies["UserCookie"].Value;
-            string query = "SELECT tag.* FROM tag WHERE tag.tag NOT IN(SELECT user_tag.tag FROM user_tag where user_tag.username = '"+name+"');";
+            string query = "SELECT tag.* FROM tag WHERE tag.tag NOT IN(SELECT user_tag.tag FROM user_tag where user_tag.username = '" + name + "');";
             MySqlCommand comm = new MySqlCommand(query);
             comm.Connection = mysql;
             mysql.Open();

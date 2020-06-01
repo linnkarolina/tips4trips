@@ -1,10 +1,9 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Web.Mvc;
 using WebApplicationFinal.Models;
-using System.Configuration;
-using MySql.Data.MySqlClient;
-using System.Globalization;
 namespace WebApplicationFinal.Controllers
 {
     public class FeedbackController : Controller

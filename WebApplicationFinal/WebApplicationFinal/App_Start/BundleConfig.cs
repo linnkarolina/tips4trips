@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace WebApplicationFinal
 {
@@ -26,7 +25,7 @@ namespace WebApplicationFinal
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
-        
+
         }
     }
 }

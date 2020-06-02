@@ -1,6 +1,9 @@
 ﻿body {
 }
 
+.account-settings {
+ 
+}
 .myaccount-container {
     display: flex;
     flex-wrap: wrap;

@@ -4,45 +4,68 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    .trips-container{   
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: #fff;
+    color: #888888;
+
+}
+</style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="~/Styles/MyAccount.css" rel="stylesheet" />
 <h2>Account Settings</h2>
 
+<div class="account-settings">
+    <div class="row">
 
-<div class="myaccount-container">
 
-    <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
         @foreach (var details in ViewBag.list1)
         {
-            <div class="card-header">Account details</div>
-            <div class="card-body">
-                <div class=""> Username: @details.Name </div>
-                <div class="">Location:  @details.location</div>
-                <div class="">E-mail:  @details.email</div>
-                <div class="">Full Name:  @details.full_name</div>
-                <div class="">Phone number: @details.phone_NR</div>
+            <div class="col-sm-6">
+                <div class="card border-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">Account details</div>
+                    <div class="card-body">
+                        <h4 class="card-title">@details.Name</h4>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Location:  @details.location</li>
+                            <li class="list-group-item">E-mail:  @details.email</li>
+                            <li class="list-group-item">Full Name:  @details.full_name</li>
+                            <li class="list-group-item">Phone number: @details.phone_NR</li>
+                        </ul>
+                        <a class="trips" href='@Url.Action("ShowAccount", "Account")'>
+                            <button type="button" class="btn btn-secondary btn-lg">Edit profile</button>
+                        </a>
 
-                <a class="trips" href='@Url.Action("ShowAccount", "Account")'>
-                    <button type="button" class="btn btn-secondary btn-lg">Edit profile</button>
-                </a>
-
+                    </div>
+                </div>
             </div>
         }
-    </div>
 
+        <div class="col-sm-6">
+            <div class="card border-primary mb-3" style="max-width: 20rem;">
 
+                <div class="card-header">Your tags</div>
+                <div class="card-body">
+                    <h4 class="card-title">Your tags</h4>
+                    <ul class="list-group list-group-flush">
+                        @foreach (var details in ViewBag.list2)
+                        {
+                            <li class="list-group-item"> @details.tagname</li>
 
-    <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-        <div class="card-header">Your tags</div>
-        <div class="card-body">
-            @foreach (var details in ViewBag.list2)
-            {
-
-                <div> @details.tagname</div>
-            }
-            <a class="trips" href='@Url.Action("ShowTags", "Account")'>
-                <button type="button" class="btn btn-secondary btn-lg">Edit tags</button>
+                        }
+                    </ul>
+                    <a class="trips" href='@Url.Action("ShowTags", "Account")'>
+                        <button type="button" class="btn btn-secondary btn-lg">Edit tags</button>
+                </div>
+            </div>
         </div>
+
+
+
+
     </div>
 
 </div>

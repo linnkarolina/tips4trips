@@ -18,61 +18,68 @@
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <h2>Messages</h2>
+@if (@ViewBag.inbox.Count == 0 && @ViewBag.outbox.Count == 0)
+{
 
-<h3>Inbox</h3>
-<br />
+    <h2>You have not written any messages yet.</h2>
+}
+else
+{
+    <h3>Inbox</h3>
+    <br />
 
-<table class="table table-hover">
-    <tr>
+
+    <table class="table table-hover">
+        <tr>
 
 
 
-        <th>Subject</th>
+            <th>Subject</th>
 
-    </tr>
-    @foreach (var detail in ViewBag.inbox)
-    {
-
-        <tr class='clickable-row' data-href='@Url.Action("Message", "Feedback/Message", new { clicked_value = @detail.message_ID  , subject= detail.subject})'>
-
-            <td> <div class="subject">@detail.subject</div>  </td>
         </tr>
+        @foreach (var detail in ViewBag.inbox)
+        {
 
-    }
+            <tr class='clickable-row' data-href='@Url.Action("Message", "Feedback/Message", new { clicked_value = @detail.message_ID, subject = detail.subject })'>
 
+                <td> <div class="subject">@detail.subject</div>  </td>
+            </tr>
 
-
-
-
-</table>
-
-
-
+        }
 
 
 
-<h3>Outbox</h3>
-<table class="table table-hover">
-    <tr>
+
+
+    </table>
 
 
 
-        <th>Subject</th>
 
-    </tr>
-    @foreach (var detail in ViewBag.outbox)
-    {
 
-        <tr class='clickable-row' data-href='@Url.Action("Message", "Feedback/Message", new { clicked_value = @detail.message_ID  , subject= detail.subject})'>
 
-        <td> <div class="subject">@detail.subject</div>  </td>
+    <h3>Outbox</h3>
+    <table class="table table-hover">
+        <tr>
+
+
+
+            <th>Subject</th>
+
         </tr>
+        @foreach (var detail in ViewBag.outbox)
+        {
 
-    }
+            <tr class='clickable-row' data-href='@Url.Action("Message", "Feedback/Message", new { clicked_value = @detail.message_ID, subject = detail.subject })'>
+
+                <td> <div class="subject">@detail.subject</div>  </td>
+            </tr>
+
+        }
 
 
 
 
 
-</table>
-
+    </table>
+}

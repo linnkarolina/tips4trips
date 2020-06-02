@@ -3,9 +3,11 @@
     ViewBag.Title = "Message";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+    <link href="~/Styles/MyAccount.css" rel="stylesheet" />
 
 @if (ViewBag.spesificInbox.Count == 0)
 {
+
 <h2>Message</h2>
 <h3>Feedback sent</h3>
 <table class="table table-hover">
@@ -48,7 +50,7 @@ else
 
             <td><div class="admin"> @detail.admin </div></td>
             <td><div class="subject">@detail.subject</div></td>
-            <td><div class="message">@detail.feedback_text</div></td>
+            <td><div class="message">@Html.Raw(@detail.feedback_text)</div></td>
         </tr>
 
     }

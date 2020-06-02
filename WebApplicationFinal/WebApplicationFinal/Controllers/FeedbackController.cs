@@ -66,6 +66,7 @@ namespace WebApplicationFinal.Controllers
                 {
                     message_ID = dr.GetInt32(dr.GetOrdinal("message_ID")),
                     subject = dr["subject"].ToString(),
+
                     feedback_text = dr["message"].ToString(),
                 });
             }

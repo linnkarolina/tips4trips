@@ -4,21 +4,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@if (ViewBag.spesificInbox.Count == 0)
+{
 <h2>Message</h2>
-<h3>Feedback sent by you</h3>
+<h3>Feedback sent</h3>
 <table class="table table-hover">
     <tr>
 
 
         <th>Subject</th>
-        <th>feedback question</th>
+        <th>Question</th>
 
     </tr>
-    @foreach (var detail in ViewBag.sent)
+    @foreach (var detail in ViewBag.spesificOutbox)
     {
 
 <tr>
-    
     <td> <div class="subject">@detail.subject</div>  </td>
     <td><div class="message">@detail.feedback_text</div></td>
 </tr>
@@ -27,17 +28,21 @@
 
 </table>
 
-<h3>Answare from admin</h3>
+}
+else
+{
+
+<h3>Response from admin</h3>
 
 
 
 <table class="table table-hover">
     <tr>
-        <th>admin</th>
-        <th>subject</th>
-        <th>feedback answare</th>
+        <th>Admin</th>
+        <th>Subject</th>
+        <th>Message</th>
     </tr>
-    @foreach (var detail in ViewBag.answared)
+    @foreach (var detail in ViewBag.spesificInbox)
     {
         <tr>
 
@@ -48,3 +53,4 @@
 
     }
 </table>
+}

@@ -5,43 +5,74 @@
     int i = 1;
 }
 
-    <head>
-        <link href="~/Styles/MyAccount.css" rel="stylesheet" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-            jQuery(document).ready(function ($) {
-                $(".clickable-row").click(function () {
-                    window.location = $(this).data("href");
-                });
+<head>
+    <link href="~/Styles/MyAccount.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
             });
-        </script>
-    </head>
+        });
+    </script>
+</head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<h2>Messages</h2>
 
-<h2>My Messages</h2>
+<h3>Inbox</h3>
 <br />
-<h3>Your sent messages</h3>
+
 <table class="table table-hover">
     <tr>
 
 
-        
+
         <th>Subject</th>
 
     </tr>
-    @foreach (var detail in ViewBag.sent)
+    @foreach (var detail in ViewBag.inbox)
     {
 
         <tr class='clickable-row' data-href='@Url.Action("Message", "Feedback/Message", new { clicked_value = @detail.message_ID  , subject= detail.subject})'>
-             
-                <td> <div class="subject">@detail.subject</div>  </td>
+
+            <td> <div class="subject">@detail.subject</div>  </td>
         </tr>
 
     }
 
 
 
-    
+
 
 </table>
- 
+
+
+
+
+
+
+<h3>Outbox</h3>
+<table class="table table-hover">
+    <tr>
+
+
+
+        <th>Subject</th>
+
+    </tr>
+    @foreach (var detail in ViewBag.outbox)
+    {
+
+        <tr class='clickable-row' data-href='@Url.Action("Message", "Feedback/Message", new { clicked_value = @detail.message_ID  , subject= detail.subject})'>
+
+        <td> <div class="subject">@detail.subject</div>  </td>
+        </tr>
+
+    }
+
+
+
+
+
+</table>
+

@@ -4,33 +4,24 @@
 .myaccount-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-direction: row;
-   
 }
 
-.account-element {
-    margin: 5px;
-    padding: 10px;
-    min-width: 200px;
-    width: 40%;
-    background-color: #f2f2f2;
-    color: black;
-    align-self: auto;
-}
 
-.tags {
-    margin: 5px;
+.buttontags {
+    display: flex;
     padding: 10px;
-    min-width: 200px;
-    width: 40%;
-    background-color: #f2f2f2;
-    color: black;
-    align-self: auto;
+    position: absolute;
+    left: 0;
+    bottom: 0;
 }
-button {
-    position: static;
-    float: center;
+.buttonprofile {
+    display: flex;
+    padding: 10px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
 }
 
 h2 {

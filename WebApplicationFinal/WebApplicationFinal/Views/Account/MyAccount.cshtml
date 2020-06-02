@@ -11,7 +11,7 @@
 
 <div class="myaccount-container">
 
-    <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+    <div class="card border-primary mb-3" style="width: 20rem; height: 17rem;">
         @foreach (var details in ViewBag.list1)
         {
             <div class="card-header">Account details</div>
@@ -23,7 +23,7 @@
                 <div class="">Phone number: @details.phone_NR</div>
 
                 <a class="trips" href='@Url.Action("ShowAccount", "Account")'>
-                    <button type="button" class="btn btn-secondary btn-lg">Edit profile</button>
+                    <div class="buttonprofile"><button type="button" id="buttons" class="btn btn-secondary btn-lg">Edit profile</button></div>
                 </a>
 
             </div>
@@ -32,7 +32,7 @@
 
 
 
-    <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+    <div class="card border-primary mb-3" style="width: 20rem; height: 17rem;">
         <div class="card-header">Your tags</div>
         <div class="card-body">
             @foreach (var details in ViewBag.list2)
@@ -40,8 +40,8 @@
 
                 <div> @details.tagname</div>
             }
-            <a class="trips" href='@Url.Action("ShowTags", "Account")'>
-                <button type="button" class="btn btn-secondary btn-lg">Edit tags</button>
+            <a class="trips" href='@Url.Action("ShowTags", "Account")'> 
+               <div class="buttontags"> <button type="button" class="btn btn-secondary btn-lg">Edit tags</button></div>
         </div>
     </div>
 

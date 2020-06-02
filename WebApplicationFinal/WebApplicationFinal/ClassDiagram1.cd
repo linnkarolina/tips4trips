@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="WebApplicationFinal.Controllers.AccountController">
+    <Position X="4.75" Y="1.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AgIAAAAACAAAAAAAAQACCAAAAAAAABAAAAAAAAABAAA=</HashCode>
+      <FileName>Controllers\AccountController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApplicationFinal.Controllers.ExploreController" Collapsed="true">
+    <Position X="13.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAIACAgUAAQAAAAABAAAAAAAQAAAAAAAAEAAAAhAAA=</HashCode>
+      <FileName>Controllers\ExploreController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApplicationFinal.Controllers.FeedbackController" Collapsed="true">
+    <Position X="12.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAABAAAAAAAAgAEAIQAAAAA=</HashCode>
+      <FileName>Controllers\FeedbackController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApplicationFinal.Controllers.HomeController" Collapsed="true">
+    <Position X="12.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAQAAAAABAAAAAAAAAAAAAAAAkAAAgAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApplicationFinal.Controllers.LoginAndRegisterController" Collapsed="true">
+    <Position X="12.5" Y="4.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAABAAAAgAAAAAAAAABAwQAAAAQAAAAAAA=</HashCode>
+      <FileName>Controllers\LoginAndRegisterController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApplicationFinal.Controllers.MapController">
+    <Position X="9.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\MapController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

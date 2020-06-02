@@ -1,9 +1,8 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Web.Mvc;
 using WebApplicationFinal.Models;
-using System.Configuration;
-using MySql.Data.MySqlClient;
 
 namespace WebApplicationFinal.Controllers
 {
@@ -51,7 +50,7 @@ namespace WebApplicationFinal.Controllers
             return View();
         }
 
-        public void  GetImage(int trip_id)
+        public void GetImage(int trip_id)
         {
             List<ExploreClass> listImage = new List<ExploreClass>();
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
@@ -71,7 +70,7 @@ namespace WebApplicationFinal.Controllers
             }
             mysql.Close();
             ViewData["listImage"] = listImage;
-            
+
         }
-   }
- }
+    }
+}

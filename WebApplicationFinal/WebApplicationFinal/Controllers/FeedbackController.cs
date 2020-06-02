@@ -1,10 +1,9 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Web.Mvc;
 using WebApplicationFinal.Models;
-using System.Configuration;
-using MySql.Data.MySqlClient;
-using System.Globalization;
 namespace WebApplicationFinal.Controllers
 {
     public class FeedbackController : Controller
@@ -45,7 +44,39 @@ namespace WebApplicationFinal.Controllers
 
         public ActionResult MyMessages()
         {
-            List<Account> sent = new List<Account>();
+            inbox();
+            outbox();
+            return View("MyMessages");
+        }
+
+        private void inbox()
+        {
+            List<Account> inbox = new List<Account>();
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+            string name = Request.Cookies["UserCookie"].Value;
+            string query = "SELECT * FROM user_inbox where user_username='" + name + "'";
+            MySqlCommand comm = new MySqlCommand(query);
+            comm.Connection = mysql;
+            mysql.Open();
+            MySqlDataReader dr = comm.ExecuteReader();
+            while (dr.Read())
+            {
+                inbox.Add(new Account
+                {
+                    message_ID = dr.GetInt32(dr.GetOrdinal("message_ID")),
+                    subject = dr["subject"].ToString(),
+                    feedback_text = dr["message"].ToString(),
+                });
+            }
+            mysql.Close();
+
+            ViewData["inbox"] = inbox;
+        }
+
+        private void outbox()
+        {
+            List<Account> outbox = new List<Account>();
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
             string name = Request.Cookies["UserCookie"].Value;
@@ -56,7 +87,7 @@ namespace WebApplicationFinal.Controllers
             MySqlDataReader dr = comm.ExecuteReader();
             while (dr.Read())
             {
-                sent.Add(new Account
+                outbox.Add(new Account
                 {
                     message_ID = dr.GetInt32(dr.GetOrdinal("message_ID")),
                     subject = dr["subject"].ToString(),
@@ -65,13 +96,20 @@ namespace WebApplicationFinal.Controllers
             }
             mysql.Close();
 
-            ViewData["sent"] = sent;
-            return View("MyMessages");
+            ViewData["outbox"] = outbox;
         }
 
         public ActionResult Message(Account acc)
         {
-            List<Account> sent = new List<Account>();
+            OutboxMessage(acc);
+            InboxMessage(acc);
+           
+            return View("Message");
+        }
+
+        private void OutboxMessage(Account acc)
+        {
+            List<Account> spesificOutbox = new List<Account>();
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
             string name = Request.Cookies["UserCookie"].Value;
@@ -82,9 +120,10 @@ namespace WebApplicationFinal.Controllers
             MySqlDataReader dr = comm.ExecuteReader();
             while (dr.Read())
             {
-                sent.Add(new Account
+                spesificOutbox.Add(new Account
                 {
                     message_ID = dr.GetInt32(dr.GetOrdinal("message_ID")),
+                    
                     subject = dr["subject"].ToString(),
                     feedback_text = dr["message"].ToString(),
 
@@ -95,37 +134,37 @@ namespace WebApplicationFinal.Controllers
             }
             mysql.Close();
 
-            ViewData["sent"] = sent;
-            answaredMessage(acc.subject);
-            return View("Message");
+            ViewData["spesificOutbox"] = spesificOutbox;
         }
 
-        public void answaredMessage(String Subject)
+        private void InboxMessage(Account acc)
         {
-            List<Account> answared = new List<Account>();
+            List<Account> spesificInbox = new List<Account>();
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
             string name = Request.Cookies["UserCookie"].Value;
-            string query = "SELECT * FROM user_inbox where user_username='" + name + "' and subject='" + Subject + "'; ";
+            string query = "SELECT * FROM user_inbox where user_username='" + name + "' and message_ID='" + acc.clicked_value + "'";
             MySqlCommand comm = new MySqlCommand(query);
             comm.Connection = mysql;
             mysql.Open();
             MySqlDataReader dr = comm.ExecuteReader();
             while (dr.Read())
             {
-                answared.Add(new Account
+                spesificInbox.Add(new Account
                 {
                     message_ID = dr.GetInt32(dr.GetOrdinal("message_ID")),
                     admin = dr["admin_username"].ToString(),
-                    user = dr["user_username"].ToString(),
                     subject = dr["subject"].ToString(),
                     feedback_text = dr["message"].ToString(),
+
+
+
                 });
+
             }
             mysql.Close();
 
-            ViewData["answared"] = answared;
-
+            ViewData["spesificInbox"] = spesificInbox;
         }
 
     }

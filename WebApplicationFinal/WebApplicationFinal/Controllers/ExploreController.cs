@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using MySql.Data.MySqlClient;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Web.Mvc;
 using WebApplicationFinal.Models;
-using System.Configuration;
-using MySql.Data.MySqlClient;
-using System;
 
 namespace WebApplicationFinal.Controllers
 {
     public class ExploreController : Controller
     {
-        
+
         public ActionResult Index()
         {
             List<ExploreClass> images = new List<ExploreClass>();
@@ -58,7 +57,7 @@ namespace WebApplicationFinal.Controllers
             MySqlConnection mysql = new MySqlConnection(mainconn);
             int i = 0;
             string query = "SELECT * FROM trip left join trip_tag on trip.trip_id = trip_tag.Trip_id LEFT JOIN tag on tag.tag= trip_tag.tag where ";
-            
+
             string barSearch = search.bar;
             if (!string.IsNullOrEmpty(barSearch))
             {
@@ -273,7 +272,7 @@ namespace WebApplicationFinal.Controllers
                     image = (byte[])dr["Image"],
 
                 }
-                ) ;
+                );
                 GetIcon(dr["type_of_trip"].ToString());
                 GetDiff(dr["difficulty"].ToString());
             }
@@ -316,7 +315,8 @@ namespace WebApplicationFinal.Controllers
             return null;
         }
 
-        public ActionResult isRegistered(string tripid) {
+        public ActionResult isRegistered(string tripid)
+        {
             List<ExploreClass> userReviews = new List<ExploreClass>();
 
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
@@ -337,7 +337,7 @@ namespace WebApplicationFinal.Controllers
 
                 }
                 );
-                
+
             }
             mysql.Close();
             ViewData["userReviews"] = userReviews;
@@ -347,7 +347,7 @@ namespace WebApplicationFinal.Controllers
         public ActionResult GetDiff(string diff)
         {
             string str = diff.ToLower();
-            if (str.Contains("easy")  == true)
+            if (str.Contains("easy") == true)
             {
                 ViewBag.diffIcon = "<div class='dot green  dot--full'></div>";
             }
@@ -361,10 +361,12 @@ namespace WebApplicationFinal.Controllers
             }
             return null;
         }
- 
-        public ActionResult GetIcon(string type_of_trip) {
+
+        public ActionResult GetIcon(string type_of_trip)
+        {
             string str = type_of_trip.ToLower();
-            if (str.Contains("cyc") || str.Contains("bik") == true) {
+            if (str.Contains("cyc") || str.Contains("bik") == true)
+            {
                 ViewBag.icon = "<i class='fas fa-bicycle' style='font-size:24px'></i>";
             }
 
@@ -419,25 +421,25 @@ namespace WebApplicationFinal.Controllers
 
         public void getTag()
         {
-        List<Account> listTag = new List<Account>();
-        string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
-        MySqlConnection mysql = new MySqlConnection(mainconn);
-        string query1 = "SELECT * FROM trip_tag INNER JOIN trip ON trip_tag.trip_id = trip.trip_id;";
-        MySqlCommand comm1 = new MySqlCommand(query1);
-        comm1.Connection = mysql;
-        mysql.Open();
-        MySqlDataReader mr = comm1.ExecuteReader();
-        while (mr.Read())
+            List<Account> listTag = new List<Account>();
+            string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
+            MySqlConnection mysql = new MySqlConnection(mainconn);
+            string query1 = "SELECT * FROM trip_tag INNER JOIN trip ON trip_tag.trip_id = trip.trip_id;";
+            MySqlCommand comm1 = new MySqlCommand(query1);
+            comm1.Connection = mysql;
+            mysql.Open();
+            MySqlDataReader mr = comm1.ExecuteReader();
+            while (mr.Read())
+            {
+                listTag.Add(new Account
                 {
-                    listTag.Add(new Account
-                    {
-                        tagname = mr["tag"].ToString(),
-                        idtag = mr.GetInt32(mr.GetOrdinal("trip_ID")),
-                    });
-                }
+                    tagname = mr["tag"].ToString(),
+                    idtag = mr.GetInt32(mr.GetOrdinal("trip_ID")),
+                });
+            }
             mysql.Close();
             ViewData["listTag"] = listTag;
-            }
+        }
 
         public void getImage()
         {
@@ -465,14 +467,14 @@ namespace WebApplicationFinal.Controllers
 
         }
 
-      
+
 
         public ActionResult getRating(string trip_id)
         {
             List<Account> listReview = new List<Account>();
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlConnection mysql = new MySqlConnection(mainconn);
-            string query1 = "SELECT * FROM review where trip_id='"+trip_id+"';";
+            string query1 = "SELECT * FROM review where trip_id='" + trip_id + "';";
             MySqlCommand comm1 = new MySqlCommand(query1);
             comm1.Connection = mysql;
             mysql.Open();

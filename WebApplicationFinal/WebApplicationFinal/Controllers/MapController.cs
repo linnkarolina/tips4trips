@@ -11,6 +11,12 @@ namespace WebApplicationFinal.Controllers
         // GET: Map
         public ActionResult Index()
         {
+            getMapDetails();
+            return View();
+        }
+
+        private void getMapDetails()
+        {
             string markers = "[";
             string conString = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
             MySqlCommand cmd = new MySqlCommand("Select * from map_coordinates left join trip on trip.trip_id=map_coordinates.trip_ID");
@@ -47,7 +53,6 @@ namespace WebApplicationFinal.Controllers
 
             markers += "];";
             ViewBag.Markers = markers;
-            return View();
         }
 
         public void GetImage(int trip_id)

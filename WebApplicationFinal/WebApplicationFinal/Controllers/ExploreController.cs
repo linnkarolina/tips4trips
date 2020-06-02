@@ -11,6 +11,12 @@ namespace WebApplicationFinal.Controllers
 
         public ActionResult Index()
         {
+            ShowAllTrips();
+            return View("Index");
+        }
+
+        private void ShowAllTrips()
+        {
             List<ExploreClass> images = new List<ExploreClass>();
 
             string mainconn = ConfigurationManager.ConnectionStrings["app2000"].ConnectionString;
@@ -41,7 +47,6 @@ namespace WebApplicationFinal.Controllers
             ViewBag.ExploreClass = images;
             getImage();
             ViewData["List1"] = images;
-            return View("Index");
         }
 
         [HttpPost]
